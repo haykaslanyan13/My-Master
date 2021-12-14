@@ -7,6 +7,7 @@ function App() {
     <div style={{display: 'flex'}} className="App">
       <SignUp />
       <SignIn />
+      {console.log("asdasd")}
     </div>
   );
 }
