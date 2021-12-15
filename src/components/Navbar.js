@@ -2,7 +2,8 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 function Navbar() {
   return (
     <div className="navbar">
@@ -13,7 +14,7 @@ function Navbar() {
         </div>
         <Link to="/allservices">All Services</Link>
         <div className="search-box">
-          <button className="btn-search"><i class="fas fa-search"></i></button>
+          <button className="btn-search"><FontAwesomeIcon icon={faSearch} /> </button>
           <input type="text" className="input-search" placeholder="search..." />
         </div>
       </div>
