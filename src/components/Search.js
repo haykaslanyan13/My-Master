@@ -24,15 +24,8 @@ function Search() {
   const searchText = (e) => {
     setFilter(e.target.value);
   };
+  let dataSearch = allServicesData.cardData.filter( item => item.title.toLowerCase().includes(filter) )
 
-  let dataSearch = allServicesData.cardData.filter((item) => {
-    return Object.keys(item).some((key) =>
-      item[key]
-        .toString()
-        .toLowerCase()
-        .includes(filter.toString().toLowerCase())
-    );
-  });
   return (
     <div>
       <div
