@@ -7,21 +7,14 @@ import Login from "./components/Login";
 import Signup from "./components/SignUp";
 import Main from './components/Main';
 
-
-
-
-
 function App() {
+  const user = false
   return (
     <>
-      <Routes>
-
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/signup" element={<Signup />} />
-
-      </Routes>
 
       <Routes>
+       {!user &&  <Route exact path="/login" element={<Login />} /> } 
+        {!user && <Route exact path="/signup" element={<Signup />} />}
         <Route path="*" element={<Main />} />
       </Routes>
 
