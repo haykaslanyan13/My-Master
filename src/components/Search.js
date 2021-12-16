@@ -59,13 +59,15 @@ function Search() {
           onChange={searchText}
         /> */}
       </div>
+      <Grid container>
+
       {dataSearch.map((item) => {
         return (
-          <React.Fragment key={item.id}>
+          <Grid item xs= {12} md ={6} key={item.id}>
           <Paper
             sx={{
-              p: 2,
-              margin: "70px",
+               p: 2,
+               margin: "70px",
               maxWidth: 500,
               flexGrow: 1,
               backgroundColor: "#b2bcc0",
@@ -96,9 +98,10 @@ function Search() {
               </Grid>
             </Grid>
           </Paper>
-          </React.Fragment>
+          </Grid>
         );
       })}
+      </Grid>
     </div>
   );
 }
