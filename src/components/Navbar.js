@@ -1,16 +1,22 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import "../styles/Navbar.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import React from "react"
+import { Button } from "react-bootstrap"
+import { Link, useNavigate } from "react-router-dom"
+import "../styles/Navbar.css"
 function Navbar() {
+  const navigate = useNavigate()
   return (
     <div className="navbar">
       <div className="leftSide">
         <div className="logo">
-          <span style={{ color: "#007ce7", fontSize: "30px" }}>M.</span>
-          <span style={{ color: "#007f8b", fontSize: "30px" }}>MASTER</span>
+          <div
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/home")}
+          >
+            <span style={{ color: "#007ce7", fontSize: "30px" }}>M.</span>
+            <span style={{ color: "#007f8b", fontSize: "30px" }}>MASTER</span>
+          </div>
         </div>
         <Link to="/allservices">All Services</Link>
         {/* <div className="search-box">
@@ -20,10 +26,10 @@ function Navbar() {
       </div>
       <div className="rightSide">
         <Link to="/signup">Sign up</Link>/<Link to="/login">Sign in</Link>
-        <Button variant="outline-info">Become</Button>{' '}
+        <Button variant="outline-info">Become</Button>{" "}
       </div>
     </div>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
