@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid"
 
 const allServicesData = {
   cardData: [
@@ -69,6 +69,6 @@ const allServicesData = {
       desc: "about service",
     },
   ],
-};
+}
 
-export default allServicesData;
+export default allServicesData

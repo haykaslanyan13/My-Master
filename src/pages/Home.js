@@ -1,19 +1,11 @@
-import React from 'react'
-import Navbar from '../components/Navbar'
-import SignIn from '../components/Login'
-import SignUp from '../components/SignUp'
-import AllServices from './AllServices'
+import React from "react"
 
 function Home() {
-    return (
-        <div>
-          This is home component
-           {/* <SignUp /> */}
-           {/* <SignIn /> */}
-           {/* <div>dfff</div> */}
-
-        </div>
-    )
+  return (
+    <div >
+      This is home component
+    </div>
+  )
 }
 
 export default Home
