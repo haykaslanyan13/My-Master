@@ -5,6 +5,7 @@ import AllServices from "../pages/AllServices"
 import Home from "../pages/Home"
 import LogIn from "./Login"
 import SignUp from "./SignUp"
+import Footer from "./Footer"
 
 function Main() {
   const user = false
@@ -18,6 +19,7 @@ function Main() {
         {!user && <Route exact path="/login" element={<LogIn />} />}
         {!user && <Route exact path="/signup" element={<SignUp />} />}
       </Routes>
+      <Footer />
     </div>
   )
 }
