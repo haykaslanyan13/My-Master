@@ -20,3 +20,5 @@ async function getUsers(db) {
  const userList = userSnapshot.docs.map(doc => doc.data());
  return userList;
 }
+
+export default app

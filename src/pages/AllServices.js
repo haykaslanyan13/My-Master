@@ -5,7 +5,7 @@ import "../styles/AllServices.css"
 function AllServices() {
   return (
     <>
-      <Search />
+        <Search />
     </>
   )
 }

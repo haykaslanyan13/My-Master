@@ -12,6 +12,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { setUser } from "../Redux/UserSlice"
+import { useDispatch } from "react-redux"
+
 
 function Copyright(props) {
   return (
@@ -29,16 +33,29 @@ function Copyright(props) {
 const theme = createTheme()
 
 export default function LogIn() {
+  const dispatch = useDispatch()
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+    const email = data.get("email")
+    const password = data.get("password")
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
     })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+    if(auth.currentUser) {
+      dispatch(setUser(email))
+    }
   }
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

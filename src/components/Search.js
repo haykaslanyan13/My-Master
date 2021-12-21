@@ -3,6 +3,12 @@ import React, { useState } from "react"
 import Grid from "@mui/material/Grid"
 import allServicesData from "../data/AllServicesData"
 import "../styles/Search.css"
+import { useNavigate } from "react-router"
+import { useDispatch } from "react-redux"
+import { setMasterFilter, setMasterRating } from "../Redux/UserSlice"
+import allMastersData from "../data/AllMastersData"
+import { Link, Route, Routes } from "react-router-dom"
+import Masters from "./Masters"
 
 const Img = styled("img")({
   margin: "auto",
@@ -13,6 +19,9 @@ const Img = styled("img")({
 
 function Search() {
   const [filter, setFilter] = useState("")
+  const navigate = useNavigate()
+
+  const dispatch = useDispatch()
 
   const searchText = (e) => {
     setFilter(e.target.value)
@@ -70,11 +79,9 @@ function Search() {
                   <Grid item xs={12} sm container>
                     <Grid item xs container direction="column" spacing={2}>
                       <Grid item xs>
-                        <Typography gutterBottom variant="subtitle1" component="div">
-                          <h1 style={{ color: "white" }}>{item.title}</h1>
-                        </Typography>
-                        <Typography variant="body2" gutterBottom>
-                          <h4>{item.desc}</h4>
+                        <Link style={{ color: "white", fontSize: 32, fontWeight: "bolder", cursor: "pointer", textDecoration: "none"}} to={`/masters/${item.title}`}>{item.title}</Link>
+                        <Typography style={{ fontSize: 16, fontWeight: "bolder", marginTop: 25}} variant="body2" gutterBottom>
+                          {item.desc}
                         </Typography>
                       </Grid>
                     </Grid>
@@ -86,6 +93,7 @@ function Search() {
         })}
       </Grid>
     </div>
+
   )
 }
 
