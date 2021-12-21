@@ -12,9 +12,15 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
 import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { getAuth, createUserWithEmailAndPassword, } from "firebase/auth";
-import app from "../Firebase/FirebaseUser"
-
+import { useNavigate } from "react-router-dom"
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+} from "firebase/auth"
+import { useDispatch } from "react-redux"
+import { setUser } from "../Redux/UserSlice"
+import { app } from "../Firebase/FirebaseUser"
 
 function Copyright(props) {
   return (
@@ -32,24 +38,26 @@ function Copyright(props) {
 const theme = createTheme()
 
 export default function SignUp() {
+  let error = false
+  const navigate = useNavigate()
+  const auth = getAuth(app)
+  const signUp = async (email, password) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password)
+    } catch {}
+  }
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    const email = data.get("email")
-    const password = data.get("password")
-    // eslint-disable-next-line no-console
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-      })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
+    const [email, password] = [data.get("email"), data.get("password")]
+    signUp(email, password)
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate("/home")
+      } else {
+        error = true
+      }
+    })
   }
 
   return (
