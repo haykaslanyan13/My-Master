@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+
 const firebaseConfig = {
   apiKey: "AIzaSyAyFXx2GfvBZZdh58eOWxE6AzNjOGPuHn4",
   authDomain: "test-53482.firebaseapp.com",

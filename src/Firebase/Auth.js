@@ -1,14 +1,19 @@
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
-import { useDispatch } from "react-redux";
-import { app } from "./FirebaseUser";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth"
+import { useDispatch } from "react-redux"
+import { app } from "./FirebaseUser"
 
 const auth = getAuth()
 
-
 //  export const signUp =  async (email,password) => {
 //    try{
-//      await createUserWithEmailAndPassword(auth, email, password) 
-//    }catch{}  
+//      await createUserWithEmailAndPassword(auth, email, password)
+//    }catch{}
 // }
 
 // export const LogOut = async () => {
@@ -23,9 +28,6 @@ const auth = getAuth()
 //   }
 //   catch{}
 // }
-
-
-
 
 // onAuthStateChanged(auth, (user) => {
 //   if (user) {

@@ -3,6 +3,7 @@ import React, { useState } from "react"
 import Grid from "@mui/material/Grid"
 import allServicesData from "../data/AllServicesData"
 import "../styles/Search.css"
+// import { announcement } from "./images/announcement.png";
 
 const Img = styled("img")({
   margin: "auto",
@@ -47,7 +48,7 @@ function Search() {
           onChange={searchText}
         /> */}
       </div>
-      <Grid container spacing={2}>
+      <Grid container>
         {dataSearch.map((item) => {
           return (
             <Grid item xs={12} md={6} key={item.id}>
@@ -70,11 +71,23 @@ function Search() {
                   <Grid item xs={12} sm container>
                     <Grid item xs container direction="column" spacing={2}>
                       <Grid item xs>
-                        <Typography style={{color: "white", fontSize: 32, fontWeight: 'bolder'}} gutterBottom variant="subtitle1" component="div">
-                        {item.title}
-                    
+                        <Typography
+                          style={{
+                            color: "white",
+                            fontSize: 32,
+                            fontWeight: "bolder",
+                          }}
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div"
+                        >
+                          {item.title}
                         </Typography>
-                        <Typography style={{ fontSize: 16, fontWeight: 'bolder'}} variant="body2" gutterBottom>
+                        <Typography
+                          style={{ fontSize: 16, fontWeight: "bolder" }}
+                          variant="body2"
+                          gutterBottom
+                        >
                           {item.desc}
                         </Typography>
                       </Grid>
