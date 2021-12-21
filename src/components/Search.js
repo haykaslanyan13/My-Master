@@ -47,7 +47,7 @@ function Search() {
           onChange={searchText}
         /> */}
       </div>
-      <Grid container>
+      <Grid container spacing={2}>
         {dataSearch.map((item) => {
           return (
             <Grid item xs={12} md={6} key={item.id}>
@@ -70,11 +70,12 @@ function Search() {
                   <Grid item xs={12} sm container>
                     <Grid item xs container direction="column" spacing={2}>
                       <Grid item xs>
-                        <Typography gutterBottom variant="subtitle1" component="div">
-                          <h1 style={{ color: "white" }}>{item.title}</h1>
+                        <Typography style={{color: "white", fontSize: 32, fontWeight: 'bolder'}} gutterBottom variant="subtitle1" component="div">
+                        {item.title}
+                    
                         </Typography>
-                        <Typography variant="body2" gutterBottom>
-                          <h4>{item.desc}</h4>
+                        <Typography style={{ fontSize: 16, fontWeight: 'bolder'}} variant="body2" gutterBottom>
+                          {item.desc}
                         </Typography>
                       </Grid>
                     </Grid>
