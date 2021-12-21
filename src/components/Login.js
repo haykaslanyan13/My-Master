@@ -16,6 +16,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { Alert } from "@mui/material"
+import { app } from "../Firebase/FirebaseUser"
 
 function Copyright(props) {
   return (
@@ -36,24 +37,23 @@ export default function LogIn() {
   const [error, setError] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const auth = getAuth()
-  const signIn = async (email,password) => {
-    try{
+  const auth = getAuth(app)
+  const signIn = async (email, password) => {
+    try {
       await signInWithEmailAndPassword(auth, email, password)
-    }
-    catch{}
-    if(auth.currentUser){
-      navigate('/home')
-    }else{
+    } catch {}
+    if (auth.currentUser) {
+      navigate("/home")
+    } else {
       setError(true)
     }
   }
-  
+
   const handleSubmit = (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    const [email,password] = [data.get("email"), data.get("password")]
-    signIn(email,password)
+    const [email, password] = [data.get("email"), data.get("password")]
+    signIn(email, password)
   }
 
   return (
@@ -75,7 +75,9 @@ export default function LogIn() {
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          {error && <Alert severity="error">Incorrect username or password!</Alert>}
+            {error && (
+              <Alert severity="error">Incorrect username or password!</Alert>
+            )}
             <TextField
               margin="normal"
               required

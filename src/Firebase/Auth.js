@@ -8,7 +8,7 @@ import {
 import { useDispatch } from "react-redux"
 import { app } from "./FirebaseUser"
 
-const auth = getAuth()
+const auth = getAuth(app)
 
 //  export const signUp =  async (email,password) => {
 //    try{

@@ -3,6 +3,7 @@ import React from "react"
 import { Button } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
+import { app } from "../Firebase/FirebaseUser"
 import { setUser } from "../Redux/UserSlice"
 import "../styles/Navbar.css"
 
@@ -10,12 +11,12 @@ function Navbar() {
   const navigate = useNavigate()
   const user = useSelector((state) => state.user.user)
   const dispatch = useDispatch()
-  const auth = getAuth()
+  const auth = getAuth(app)
   const LogOut = async () => {
     try {
       await signOut(auth)
     } catch {}
-    // dispatch(setUser(null))
+    dispatch(setUser(null))
   }
   return (
     <div className="navbar">

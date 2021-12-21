@@ -9,15 +9,15 @@ import { setUser } from "./Redux/UserSlice"
 function App() {
   const auth = getAuth()
   const dispatch = useDispatch()
-  useEffect( ()=> {
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if(user){
+      if (user) {
         dispatch(setUser(user.email))
-      }else{
+      } else {
         dispatch(setUser(null))
       }
-    });
-  },[])
+    })
+  }, [])
   return (
     <>
       <Routes>
