@@ -55,7 +55,7 @@ export default function LogIn() {
     const [email, password] = [data.get("email"), data.get("password")]
     signIn(email, password)
   }
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

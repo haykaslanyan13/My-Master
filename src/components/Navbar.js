@@ -28,8 +28,8 @@ function Navbar() {
             }}
             onClick={() => navigate("/home")}
           >
-            <span style={{ color: "#007ce7", fontSize: "30px" }}>M.</span>
-            <span style={{ color: "#007f8b", fontSize: "30px" }}>MASTER</span>
+            <span style={{ color: "#007ce7", fontSize: "30px" }}>My </span>
+            <span style={{ color: "#007f8b", fontSize: "30px" }}>Master</span>
           </div>
         </div>
         <Link to="/allservices">All Services</Link>
