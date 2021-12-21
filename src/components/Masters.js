@@ -24,6 +24,7 @@ function Masters() {
     let filteredMasters = allMastersData.cardData.filter((item) => item.profession === itemTitle)
     const dispatch = useDispatch()
     //ratingy set anel
+    console.log('aaa')
 
     return (
       <div>
