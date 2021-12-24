@@ -1,13 +1,13 @@
-import React from "react"
-import Search from "../components/Search"
-import "../styles/AllServices.css"
+import React from "react";
+import Services from "../components/Services";
+import "../styles/AllServices.css";
 
 function AllServices() {
   return (
     <>
-        <Search />
+      <Services />
     </>
-  )
+  );
 }
 
-export default AllServices
+export default AllServices;
