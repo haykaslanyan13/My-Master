@@ -27,7 +27,7 @@ getUsers(db);
 
 function Home() {
   return (
-    <div style={{ overflowX: "hidden" }}>
+    <div style={{ overflowX: "hidden", paddingTop: "100px"}}>
       <img
         style={{ float: "right" }}
         width={700}

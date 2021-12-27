@@ -29,19 +29,22 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
+
+let serviceListData
+
 function Services() {
   const [filter, setFilter] = useState("");
   const serviceList = useSelector((state) => state.user.serviceList);
   const dispatch = useDispatch();
 
-  async function getUsers(db) {
+  async function getServices(db) {
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
     dispatch(uptadeServiceList(serviceSnapshot.docs.map((doc) => doc.data())));
     console.log(serviceList);
   }
   useEffect(() => {
-    getUsers(db);
+    getServices(db);
   }, []);
   const searchText = (e) => {
     setFilter(e.target.value);
@@ -49,9 +52,9 @@ function Services() {
   let dataSearch = serviceList.filter((item) =>
     item.name.toLowerCase().includes(filter)
   );
-
+  serviceListData = serviceList
   return (
-    <div>
+    <div style={{paddingTop: "120px"}}>
       <div
         className="search-container"
         style={{
@@ -65,6 +68,7 @@ function Services() {
           label="Search"
           variant="standard"
           className="search-input"
+          style={{marginLeft: 5, paddingBottom: 10}}
           value={filter}
           onChange={searchText}
         />

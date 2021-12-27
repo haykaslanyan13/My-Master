@@ -8,6 +8,7 @@ import SignUp from "./SignUp";
 import Masters from "./Masters";
 import Footer from "./Footer";
 import Image from "./Image";
+import MasterProfilePage from "./MasterProfilePage"
 
 function Main() {
   return (
@@ -20,6 +21,7 @@ function Main() {
         <Route path="*" element={<Navigate to="home" />} />
         <Route exact path="/login" element={<LogIn />} />
         <Route exact path="/signup" element={<SignUp />} />
+        <Route path="myprofile" element={<MasterProfilePage />} />
       </Routes>
       <Footer />
     </div>
