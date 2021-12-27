@@ -18,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Home() {
   return (
-    <div>
+    <div style={{paddingTop: "100px"}}>
       <img
         style={{ float: "right" }}
         width={700}

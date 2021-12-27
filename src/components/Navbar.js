@@ -19,7 +19,7 @@ function Navbar() {
     dispatch(setUser(null))
   }
   return (
-    <div className="navbar">
+    <div className="navbar" style={{position: "fixed", top: 0, zIndex: 10}} >
       <div className="leftSide">
         <div className="logo">
           <div
@@ -39,6 +39,7 @@ function Navbar() {
         </div> */}
       </div>
       <div className="rightSide">
+          <Link  to="/myprofile">My Profile</Link>
         {!user && (
           <>
             <Link to="/signup">Sign up</Link>
@@ -50,9 +51,6 @@ function Navbar() {
             Log Out
           </Button>
         )}
-        <Button onClick={() => console.log(user)} variant="outline-info">
-          Become
-        </Button>{" "}
       </div>
     </div>
   )

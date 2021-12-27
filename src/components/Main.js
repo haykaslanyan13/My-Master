@@ -7,6 +7,8 @@ import LogIn from "./Login"
 import SignUp from "./SignUp"
 import Masters from "./Masters"
 import Footer from "./Footer"
+import MasterProfilePage from "./MasterProfilePage"
+
 
 function Main() {
   const user = false
@@ -18,6 +20,7 @@ function Main() {
         <Route path="home" element={<Home />} />
         <Route path="/masters/:itemTitle" element={<Masters />} />
         <Route path="*" element={<Navigate to="home" />} />
+        <Route path="myprofile" element={<MasterProfilePage />} />
         {!user && <Route exact path="/login" element={<LogIn />} />}
         {!user && <Route exact path="/signup" element={<SignUp />} />}
       </Routes>
