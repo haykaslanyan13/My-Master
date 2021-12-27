@@ -3,6 +3,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+import Admin from "./Admin/Admin";
 import "./App.css";
 import Main from "./components/Main";
 import { setUser } from "./Redux/UserSlice";
@@ -26,6 +27,9 @@ function App() {
         <LinearProgress />
       ) : (
         <Routes>
+          <Route path="admin" element={<Admin />}>
+            <Route path=":MastersOrServices" element={<Admin />} />
+          </Route>
           <Route path="*" element={<Main />} />
         </Routes>
       )}
