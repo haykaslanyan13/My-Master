@@ -10,8 +10,12 @@ import Grid from "@mui/material/Grid";
 import allServicesData from "../data/AllServicesData";
 import "../styles/Search.css";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
-import { setMasterFilter, setMasterRating } from "../Redux/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setMasterFilter,
+  setMasterRating,
+  uptadeServiceList,
+} from "../Redux/UserSlice";
 import allMastersData from "../data/AllMastersData";
 import { Link, Route, Routes } from "react-router-dom";
 import Masters from "./Masters";
@@ -27,15 +31,13 @@ const Img = styled("img")({
 
 function Services() {
   const [filter, setFilter] = useState("");
-  const [serviceList, setServiceList] = useState([]);
-  const navigate = useNavigate();
-
+  const serviceList = useSelector((state) => state.user.serviceList);
   const dispatch = useDispatch();
 
   async function getUsers(db) {
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
-    setServiceList(serviceSnapshot.docs.map((doc) => doc.data()));
+    dispatch(uptadeServiceList(serviceSnapshot.docs.map((doc) => doc.data())));
     console.log(serviceList);
   }
   useEffect(() => {

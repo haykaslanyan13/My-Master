@@ -6,6 +6,7 @@ const initialState = {
   id: null,
   masterFilter: "",
   masterRating: [],
+  serviceList: [],
 };
 
 const UserSlice = createSlice({
@@ -22,8 +23,12 @@ const UserSlice = createSlice({
     setMasterRating(state, action) {
       state.masterRating = action.payload;
     },
+    uptadeServiceList(state, action) {
+      state.serviceList = action.payload;
+    },
   },
 });
 
 export default UserSlice.reducer;
-export const { setMasterFilter, setUser, setMasterRating } = UserSlice.actions;
+export const { setMasterFilter, setUser, setMasterRating, uptadeServiceList } =
+  UserSlice.actions;

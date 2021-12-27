@@ -1,23 +1,23 @@
-import { getAuth, signOut } from "firebase/auth"
-import React from "react"
-import { Button } from "react-bootstrap"
-import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
-import { app } from "../Firebase/FirebaseUser"
-import { setUser } from "../Redux/UserSlice"
-import "../styles/Navbar.css"
+import { getAuth, signOut } from "firebase/auth";
+import React from "react";
+import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { app } from "../Firebase/FirebaseUser";
+import { setUser } from "../Redux/UserSlice";
+import "../styles/Navbar.css";
 
 function Navbar() {
-  const navigate = useNavigate()
-  const user = useSelector((state) => state.user.user)
-  const dispatch = useDispatch()
-  const auth = getAuth(app)
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const auth = getAuth();
   const LogOut = async () => {
     try {
-      await signOut(auth)
+      await signOut(auth);
     } catch {}
-    dispatch(setUser(null))
-  }
+    dispatch(setUser(null));
+  };
   return (
     <div className="navbar">
       <div className="leftSide">
@@ -26,8 +26,7 @@ function Navbar() {
             style={{
               cursor: "pointer",
             }}
-            onClick={() => navigate("/home")}
-          >
+            onClick={() => navigate("/home")}>
             <span style={{ color: "#007ce7", fontSize: "30px" }}>My </span>
             <span style={{ color: "#007f8b", fontSize: "30px" }}>Master</span>
           </div>
@@ -55,7 +54,7 @@ function Navbar() {
         </Button>{" "}
       </div>
     </div>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
