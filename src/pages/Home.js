@@ -1,24 +1,33 @@
 // import { createTheme, fontStyle, minWidth, ThemeProvider } from "@mui/system"
-import React from "react"
-import { Grid, Paper } from "@mui/material"
-import HomeIcon from "@mui/icons-material/Home"
-import ConstructionIcon from "@mui/icons-material/Construction"
-import YardIcon from "@mui/icons-material/Yard"
-import PetsIcon from "@mui/icons-material/Pets"
-import DeleteIcon from "@mui/icons-material/Delete"
-import DoneIcon from "@mui/icons-material/Done"
-import { styled } from "@mui/material/styles"
+import React from "react";
+import { Grid, Paper } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import ConstructionIcon from "@mui/icons-material/Construction";
+import YardIcon from "@mui/icons-material/Yard";
+import PetsIcon from "@mui/icons-material/Pets";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DoneIcon from "@mui/icons-material/Done";
+import { styled } from "@mui/material/styles";
+import { db } from "../Firebase/FirebaseUser";
+import { collection, getDocs } from "firebase/firestore/lite";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "center",
   color: theme.palette.text.secondary,
-}))
+}));
+async function getUsers(db) {
+  const usersCol = collection(db, "users");
+  const userSnapshot = await getDocs(usersCol);
+  const userList = userSnapshot.docs.map((doc) => doc.data());
+  console.log(userList);
+}
+getUsers(db);
 
 function Home() {
   return (
-    <div>
+    <div style={{ overflowX: "hidden", paddingTop: "100px"}}>
       <img
         style={{ float: "right" }}
         width={700}
@@ -29,8 +38,7 @@ function Home() {
           //   marginTop:100,
           marginLeft: 100,
           fontStyle: "italic",
-        }}
-      >
+        }}>
         Let the Master take the spot!
       </h1>
       <h3 style={{ marginLeft: 100 }}>
@@ -78,15 +86,15 @@ function Home() {
         <h1 style={{ marginTop: 60, marginLeft: 100, fontStyle: "italic" }}>
           EVERYDAY LIFE MADE EASIER
         </h1>
-        <DoneIcon style={{ color: "green", marginLeft: 100 }} /> Choose your Master
-        by reviews, skills and price.
+        <DoneIcon style={{ color: "green", marginLeft: 100 }} /> Choose your
+        Master by reviews, skills and price.
         <p>
-          <DoneIcon style={{ color: "green", marginLeft: 100 }} /> The world of work
-          made simple.
+          <DoneIcon style={{ color: "green", marginLeft: 100 }} /> The world of
+          work made simple.
         </p>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
