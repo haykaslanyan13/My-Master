@@ -9,6 +9,7 @@ import Masters from "./Masters";
 import Footer from "./Footer";
 import Image from "./Image";
 import MasterProfilePage from "./MasterProfilePage"
+import OrderPage from "./orderPage"
 
 function Main() {
   return (
@@ -22,6 +23,7 @@ function Main() {
         <Route exact path="/login" element={<LogIn />} />
         <Route exact path="/signup" element={<SignUp />} />
         <Route path="myprofile" element={<MasterProfilePage />} />
+        <Route path="/orderPage" element={<OrderPage/>}/>
       </Routes>
       <Footer />
     </div>

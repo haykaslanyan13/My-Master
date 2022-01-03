@@ -31,9 +31,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function orderButtonClick(){
-  console.log("ordered");
-}
 
 function AlertDialogSlidePhone({item}) {
   const [open, setOpen] = React.useState(false);
@@ -229,7 +226,7 @@ export default function Masters() {
                             <AlertDialogSlidePhone item={item}/>
                             <AlertDialogSlideEmail item={item}/>
                           </Box>
-                          <Button onClick={() => navigate("/home")} style={{size: 10 , borderRadius: 10, width: 150, height: 50}} variant="contained">ORDER</Button>
+                          <Button onClick={() => navigate("/orderPage")} style={{size: 10 , borderRadius: 10, width: 150, height: 50}} variant="contained">ORDER</Button>
                        </Box>
                       </Grid>
                     </Grid>
