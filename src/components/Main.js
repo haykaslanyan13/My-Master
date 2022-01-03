@@ -8,12 +8,14 @@ import SignUp from "./SignUp";
 import Masters from "./Masters";
 import Footer from "./Footer";
 import Image from "./Image";
-import MasterProfilePage from "./MasterProfilePage"
+import MasterProfilePage from "./MasterProfilePage";
+import ContactUs from "../pages/ContactUs";
+import Privacy from "../pages/Privacy";
 
 function Main() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         <Route path="allservices" element={<AllServices />} />
         <Route path="home" element={<Home />} />
@@ -22,7 +24,10 @@ function Main() {
         <Route exact path="/login" element={<LogIn />} />
         <Route exact path="/signup" element={<SignUp />} />
         <Route path="myprofile" element={<MasterProfilePage />} />
+        <Route path="/contactus" element={<ContactUs />} />
+        <Route path="/privacy" element={<Privacy />} />
       </Routes>
+
       <Footer />
     </div>
   );

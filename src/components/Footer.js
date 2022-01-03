@@ -2,17 +2,9 @@ import React from "react";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import "../styles/Footer.css";
-import {
-  Box,
-  Container,
-  Divider,
-  Grid,
-  Link,
-  Typography,
-} from "@material-ui/core";
-
-
-
+import { Box, Container, Divider, Grid, Typography } from "@material-ui/core";
+import ContactUs from "../pages/ContactUs";
+import { Route, Routes, Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -22,36 +14,36 @@ function Footer() {
           <Grid container spacing={5}>
             <Grid item xs={12} sm={4}>
               <Typography style={{ color: "#3b3d3d" }}>Help</Typography>
-              <Box  pt={3}>
-                <Link href="/" style={{ color: "white" }}>
+              <Box pt={3}>
+                <Link to="contactus" style={{ color: "white" }}>
                   Contact us
                 </Link>
               </Box>
-              <Box  pt={3}>
-                <Link href="/" color="inherit">
+              <Box pt={3}>
+                <Link to="/support" color="inherit">
                   Support
                 </Link>
               </Box>
               <Box pt={3}>
-                <Link href="/" color="inherit">
+                <Link to="/privacy" color="inherit">
                   Privacy
                 </Link>
               </Box>
             </Grid>
             <Grid item xs={12} sm={4}>
               <Typography style={{ color: "#3b3d3d" }}>Help</Typography>
-              <Box  pt={3}>
-                <Link href="/" color="inherit">
+              <Box pt={3}>
+                <Link to="/" color="inherit">
                   Contact us
                 </Link>
               </Box>
               <Box pt={3}>
-                <Link href="/" color="inherit">
+                <Link to="/" color="inherit">
                   Support
                 </Link>
               </Box>
               <Box pt={3}>
-                <Link href="/" color="inherit">
+                <Link to="/" color="inherit">
                   Privacy
                 </Link>
               </Box>
