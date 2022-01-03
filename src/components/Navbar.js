@@ -47,15 +47,11 @@ function Navbar() {
         </div> */}
       </div>
       <div className="rightSide">
-<<<<<<< HEAD
-        <Link to="/myprofile">My Profile</Link>
-=======
         {user && (
           <>
             <Link to={user.userType}>My Profile</Link>
           </>
         )}
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
         {!user && (
           <>
             <Link to="/signup">Sign up</Link>

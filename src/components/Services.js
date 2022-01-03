@@ -29,11 +29,6 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-<<<<<<< HEAD
-=======
-let serviceListData;
-
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
 function Services() {
   const [filter, setFilter] = useState("");
   const serviceList = useSelector((state) => state.user.serviceList);
@@ -42,7 +37,6 @@ function Services() {
   async function getServices(db) {
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
-<<<<<<< HEAD
     const serviceList = serviceSnapshot.docs.map((doc) => {
       return {
         ...doc.data(),
@@ -50,9 +44,6 @@ function Services() {
       };
     });
     dispatch(uptadeServiceList(serviceList));
-=======
-    dispatch(uptadeServiceList(serviceSnapshot.docs.map((doc) => doc.data())));
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
   }
   useEffect(() => {
     getServices(db);
@@ -63,10 +54,6 @@ function Services() {
   let dataSearch = serviceList.filter((item) =>
     item.name.toLowerCase().includes(filter)
   );
-<<<<<<< HEAD
-=======
-  serviceListData = serviceList;
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
   return (
     <div style={{ paddingTop: "120px" }}>
       <div

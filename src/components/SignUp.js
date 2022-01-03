@@ -18,22 +18,14 @@ import {
   getAuth,
   onAuthStateChanged,
 } from "firebase/auth";
-<<<<<<< HEAD
-import { useDispatch } from "react-redux";
-import { setUser } from "../Redux/UserSlice";
-import { app } from "../Firebase/FirebaseUser";
-=======
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../Redux/UserSlice";
 import { app, db } from "../Firebase/FirebaseUser";
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import validation from "./validation";
 import "../styles/SignUp.css";
 import { makeStyles } from "@mui/styles";
 import { ClassNames } from "@emotion/react";
-<<<<<<< HEAD
-=======
 import { useState, useEffect } from "react";
 import {
   addDoc,
@@ -45,7 +37,6 @@ import {
   deleteDoc,
 } from "firebase/firestore/lite";
 import { v4 as uuidv4 } from "uuid";
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
 
 const useStyles = makeStyles({
   root: {
@@ -56,36 +47,6 @@ const useStyles = makeStyles({
 const theme = createTheme();
 
 export default function SignUp() {
-<<<<<<< HEAD
-  const [user, setUser] = React.useState("");
-  const [errors, setErrors] = React.useState({});
-  const [values, setValues] = React.useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    email: "",
-    password: "",
-    password2: "",
-  });
-
-  const classes = useStyles();
-
-  let error = false;
-  const navigate = useNavigate();
-  const auth = getAuth(app);
-  const signUp = async (email, password) => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch {}
-  };
-
-  const handleChange = (event) => {
-    setUser(event.target.value);
-    setValues({
-      ...values,
-      [event.target.name]: [event.target.value],
-    });
-=======
   // const [userData, setUser] = useState("");
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -130,16 +91,11 @@ export default function SignUp() {
     } catch {
       await deleteDoc(doc(db, "users", id));
     }
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-<<<<<<< HEAD
-    const [email, password] = [data.get("email"), data.get("password")];
-    signUp(email, password);
-=======
     const [
       email,
       password,
@@ -173,7 +129,6 @@ export default function SignUp() {
       service
     );
 
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
     onAuthStateChanged(auth, (user) => {
       if (user) {
         navigate("/home");
@@ -182,10 +137,6 @@ export default function SignUp() {
       }
     });
 
-<<<<<<< HEAD
-    setErrors(validation(values));
-    console.log(user);
-=======
     setErrors(
       validation({
         email,
@@ -197,7 +148,6 @@ export default function SignUp() {
         password2,
       })
     );
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
   };
 
   return (
@@ -215,10 +165,7 @@ export default function SignUp() {
             flexDirection: "column",
             alignItems: "center",
           }}>
-<<<<<<< HEAD
-=======
           <Grid item xs={12} sx={{ minWidth: "100%" }}></Grid>
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -280,13 +227,6 @@ export default function SignUp() {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-<<<<<<< HEAD
-                    value={user}
-                    label="User"
-                    onChange={handleChange}>
-                    <MenuItem value={10}>Master</MenuItem>
-                    <MenuItem value={20}>User</MenuItem>
-=======
                     name="userType"
                     label="User Type"
                     onChange={(event) =>
@@ -294,7 +234,6 @@ export default function SignUp() {
                     }>
                     <MenuItem value={"master"}>Master</MenuItem>
                     <MenuItem value={"client"}>Client</MenuItem>
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
                   </Select>
                 </FormControl>
               </Grid>

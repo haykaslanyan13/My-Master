@@ -15,15 +15,6 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-<<<<<<< HEAD
-=======
-async function getUsers(db) {
-  const usersCol = collection(db, "users");
-  const userSnapshot = await getDocs(usersCol);
-  const userList = userSnapshot.docs.map((doc) => doc.data());
-}
-getUsers(db);
->>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
 
 function Home() {
   return (
