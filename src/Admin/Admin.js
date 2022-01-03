@@ -29,7 +29,7 @@ function Admin() {
           </span>
         </h1>
       </div>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", backgroundColor: "white" }}>
         <div
           className="servicesOrMasters"
           style={{

@@ -16,10 +16,10 @@ function Navbar() {
     try {
       await signOut(auth);
     } catch {}
-    dispatch(setUser(null));
+    // dispatch(setUser(null));
   };
   return (
-    <div className="navbar" style={{position: "fixed", top: 0, zIndex: 10}} >
+    <div className="navbar" style={{ position: "fixed", top: 0, zIndex: 10 }}>
       <div className="leftSide">
         <div className="logo">
           <div
@@ -38,7 +38,7 @@ function Navbar() {
         </div> */}
       </div>
       <div className="rightSide">
-          <Link  to="/myprofile">My Profile</Link>
+        <Link to="/myprofile">My Profile</Link>
         {!user && (
           <>
             <Link to="/signup">Sign up</Link>

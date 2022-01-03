@@ -8,8 +8,6 @@ import PetsIcon from "@mui/icons-material/Pets";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
 import { styled } from "@mui/material/styles";
-import { db } from "../Firebase/FirebaseUser";
-import { collection, getDocs } from "firebase/firestore/lite";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -17,17 +15,10 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-async function getUsers(db) {
-  const usersCol = collection(db, "users");
-  const userSnapshot = await getDocs(usersCol);
-  const userList = userSnapshot.docs.map((doc) => doc.data());
-  console.log(userList);
-}
-getUsers(db);
 
 function Home() {
   return (
-    <div style={{ overflowX: "hidden", paddingTop: "100px"}}>
+    <div style={{ overflowX: "hidden", paddingTop: "100px" }}>
       <img
         style={{ float: "right" }}
         width={700}
