@@ -1,5 +1,5 @@
 import { getAuth, signOut } from "firebase/auth";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,9 +15,18 @@ function Navbar() {
   const LogOut = async () => {
     try {
       await signOut(auth);
+      navigate("/home");
     } catch {}
     // dispatch(setUser(null));
   };
+  const [cureentUserType, setCurrentUserType] = useState("");
+  // {
+  //   if (user.userType === "master") {
+  //     setCurrentUserType("myprofilemaster");
+  //   } else {
+  //     setCurrentUserType("myprofileuser");
+  //   }
+  // }
   return (
     <div className="navbar" style={{ position: "fixed", top: 0, zIndex: 10 }}>
       <div className="leftSide">
@@ -38,7 +47,15 @@ function Navbar() {
         </div> */}
       </div>
       <div className="rightSide">
+<<<<<<< HEAD
         <Link to="/myprofile">My Profile</Link>
+=======
+        {user && (
+          <>
+            <Link to={user.userType}>My Profile</Link>
+          </>
+        )}
+>>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
         {!user && (
           <>
             <Link to="/signup">Sign up</Link>

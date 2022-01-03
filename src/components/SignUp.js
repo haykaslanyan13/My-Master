@@ -18,14 +18,34 @@ import {
   getAuth,
   onAuthStateChanged,
 } from "firebase/auth";
+<<<<<<< HEAD
 import { useDispatch } from "react-redux";
 import { setUser } from "../Redux/UserSlice";
 import { app } from "../Firebase/FirebaseUser";
+=======
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../Redux/UserSlice";
+import { app, db } from "../Firebase/FirebaseUser";
+>>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import validation from "./validation";
 import "../styles/SignUp.css";
 import { makeStyles } from "@mui/styles";
 import { ClassNames } from "@emotion/react";
+<<<<<<< HEAD
+=======
+import { useState, useEffect } from "react";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  updateDoc,
+  doc,
+  setDoc,
+  deleteDoc,
+} from "firebase/firestore/lite";
+import { v4 as uuidv4 } from "uuid";
+>>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
 
 const useStyles = makeStyles({
   root: {
@@ -36,6 +56,7 @@ const useStyles = makeStyles({
 const theme = createTheme();
 
 export default function SignUp() {
+<<<<<<< HEAD
   const [user, setUser] = React.useState("");
   const [errors, setErrors] = React.useState({});
   const [values, setValues] = React.useState({
@@ -64,13 +85,95 @@ export default function SignUp() {
       ...values,
       [event.target.name]: [event.target.value],
     });
+=======
+  // const [userData, setUser] = useState("");
+  const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
+  const userData = useSelector((state) => state.user.user);
+  const classes = useStyles();
+  const [serviceList, setServiceList] = useState([]);
+  const [currentUserType, setCurrentUserType] = useState("");
+  async function getData(db) {
+    const servicesCol = collection(db, "services");
+    const serviceSnapshot = await getDocs(servicesCol);
+    setServiceList(serviceSnapshot.docs.map((doc) => doc.data()));
+  }
+  useEffect(() => {
+    getData(db);
+  }, []);
+
+  let error = false;
+  const navigate = useNavigate();
+  const auth = getAuth(app);
+  const id = uuidv4();
+  const signUp = async (
+    email,
+    password,
+    firstName,
+    lastName,
+    phoneNumber,
+    userType,
+    service
+  ) => {
+    try {
+      await setDoc(doc(db, "users", id), {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        userType,
+        service,
+        rating: [],
+        img: "",
+      });
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch {
+      await deleteDoc(doc(db, "users", id));
+    }
+>>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+<<<<<<< HEAD
     const [email, password] = [data.get("email"), data.get("password")];
     signUp(email, password);
+=======
+    const [
+      email,
+      password,
+      firstName,
+      lastName,
+      phoneNumber,
+      userType,
+      password2,
+      service,
+    ] = [
+      data.get("email"),
+      data.get("password"),
+      data.get("firstName"),
+      data.get("lastName"),
+      data.get("phoneNumber"),
+      data.get("userType"),
+      data.get("password2"),
+      data.get("service"),
+    ];
+
+    // dispatch(setUser({
+    //   email, password, firstName, lastName, phoneNumber, userType
+    // }))
+    signUp(
+      email,
+      password,
+      firstName,
+      lastName,
+      phoneNumber,
+      userType,
+      service
+    );
+
+>>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
     onAuthStateChanged(auth, (user) => {
       if (user) {
         navigate("/home");
@@ -79,13 +182,31 @@ export default function SignUp() {
       }
     });
 
+<<<<<<< HEAD
     setErrors(validation(values));
     console.log(user);
+=======
+    setErrors(
+      validation({
+        email,
+        password,
+        firstName,
+        lastName,
+        phoneNumber,
+        userType,
+        password2,
+      })
+    );
+>>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" className={classes.root}>
+      <Container
+        component="main"
+        maxWidth="xs"
+        className={classes.root}
+        style={{ paddingTop: "100px" }}>
         <CssBaseline />
         <Box
           sx={{
@@ -94,11 +215,15 @@ export default function SignUp() {
             flexDirection: "column",
             alignItems: "center",
           }}>
+<<<<<<< HEAD
+=======
+          <Grid item xs={12} sx={{ minWidth: "100%" }}></Grid>
+>>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign Up
           </Typography>
           <Box
             component="form"
@@ -115,8 +240,6 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  value={values.firstName}
-                  onChange={handleChange}
                 />
                 {errors.firstName && (
                   <p style={{ color: "red" }}>{errors.firstName}</p>
@@ -130,8 +253,6 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
-                  value={values.lastName}
-                  onChange={handleChange}
                 />
                 {errors.lastName && (
                   <p style={{ color: "red" }}>{errors.lastName}</p>
@@ -146,8 +267,6 @@ export default function SignUp() {
                   type="phoneNumber"
                   id="phoneNumber"
                   autoComplete="new-phoneNumber"
-                  value={values.phoneNumber}
-                  onChange={handleChange}
                 />
                 {errors.phoneNumber && (
                   <p style={{ color: "red" }}>{errors.phoneNumber}</p>
@@ -155,18 +274,51 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12} sx={{ minWidth: "100%" }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Select</InputLabel>
+                  <InputLabel id="demo-simple-select-label">
+                    User Type
+                  </InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
+<<<<<<< HEAD
                     value={user}
                     label="User"
                     onChange={handleChange}>
                     <MenuItem value={10}>Master</MenuItem>
                     <MenuItem value={20}>User</MenuItem>
+=======
+                    name="userType"
+                    label="User Type"
+                    onChange={(event) =>
+                      setCurrentUserType(event.target.value)
+                    }>
+                    <MenuItem value={"master"}>Master</MenuItem>
+                    <MenuItem value={"client"}>Client</MenuItem>
+>>>>>>> faeff5b7ae9504a0705ab182a3ab120353c92d9a
                   </Select>
                 </FormControl>
               </Grid>
+              {currentUserType === "master" ? (
+                <Grid item xs={12} sx={{ minWidth: "100%" }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Service
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="service"
+                      // value={service}
+                      label="Service">
+                      {serviceList.map((i) => (
+                        <MenuItem key={i.name} value={i.name}>
+                          {i.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Grid>
+              ) : null}
               <Grid item xs={12}>
                 <TextField
                   required
@@ -175,8 +327,6 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  value={values.email}
-                  onChange={handleChange}
                 />
                 {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
               </Grid>
@@ -189,8 +339,6 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  value={values.password}
-                  onChange={handleChange}
                 />
                 {errors.password && (
                   <p style={{ color: "red" }}>{errors.password}</p>
@@ -202,11 +350,9 @@ export default function SignUp() {
                   fullWidth
                   name="password2"
                   label="Confirm Password"
-                  type="password2"
+                  type="password"
                   id="password2"
                   autoComplete="new-password"
-                  value={values.password2}
-                  onChange={handleChange}
                 />
                 {errors.password2 && (
                   <p style={{ color: "red" }}>{errors.password2}</p>

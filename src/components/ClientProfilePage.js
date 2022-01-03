@@ -22,14 +22,13 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
 
-function MasterProfilePage() {
+function ClientProfilePage() {
   const auth = getAuth();
   const currentUserData = useSelector((state) => state.user.user);
-
-  const [phoneNumber, setPhoneNumber] = useState(currentUserData?.phoneNumber);
-  const [service, setService] = useState(currentUserData?.service);
-  const [email, setEmail] = useState(currentUserData?.email);
-  const [img, setImg] = useState(currentUserData?.img);
+  const [phoneNumber, setPhoneNumber] = useState(currentUserData.phoneNumber);
+  const [service, setService] = useState(currentUserData.service);
+  const [email, setEmail] = useState(currentUserData.email);
+  const [img, setImg] = useState(currentUserData.img);
   const [imgData, setImgData] = useState("");
   const [serviceList, setServiceList] = useState([]);
   const [userList, setUserList] = useState([]);
@@ -49,12 +48,12 @@ function MasterProfilePage() {
     getData(db);
   }, []);
 
-  const handleChange = async (event) => {
-    setService(event.target.value);
-    await updateDoc(doc(db, "users", currentUserData.id), {
-      service: event.target.value,
-    });
-  };
+  // const handleChange = async (event) => {
+  //   setService(event.target.value);
+  //   await updateDoc(doc(db, "users", currentUserData.id), {
+  //     service: event.target.value,
+  //   });
+  // };
 
   const phoneInput = async (e) => {
     setPhoneNumber(e.target.value);
@@ -151,9 +150,9 @@ function MasterProfilePage() {
         variant="h3"
         component="h2"
         style={{ margin: 70, marginTop: 100 }}>
-        {currentUserData?.firstName} {currentUserData?.lastName}
+        {currentUserData.firstName} {currentUserData.lastName}
         <Box sx={{ marginTop: 5, minWidth: 120 }}>
-          <FormControl fullWidth>
+          {/* <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Service</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -167,7 +166,7 @@ function MasterProfilePage() {
                 </MenuItem>
               ))}
             </Select>
-          </FormControl>
+          </FormControl> */}
         </Box>
         <div style={{ display: "flex", marginTop: 50 }}>
           <PhoneIphoneIcon
@@ -206,4 +205,4 @@ function MasterProfilePage() {
   );
 }
 
-export default MasterProfilePage;
+export default ClientProfilePage;
