@@ -1,6 +1,6 @@
 // import { createTheme, fontStyle, minWidth, ThemeProvider } from "@mui/system"
 import React from "react";
-import { Grid, Paper } from "@mui/material";
+import { Button, Grid, Paper } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import YardIcon from "@mui/icons-material/Yard";
@@ -10,6 +10,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import { styled } from "@mui/material/styles";
 import { db } from "../Firebase/FirebaseUser";
 import { collection, getDocs } from "firebase/firestore/lite";
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -26,6 +27,8 @@ async function getUsers(db) {
 getUsers(db);
 
 function Home() {
+  const navigate= useNavigate();
+
   return (
     <div style={{ overflowX: "hidden", paddingTop: "100px"}}>
       <img
@@ -51,31 +54,31 @@ function Home() {
       </h3>
 
       <Grid container spacing={2}>
-        <Grid style={{ width: 90, marginLeft: 400, marginTop: 100 }}>
+        <Button onClick={()=> navigate("/masters/Home%20cleaning")} style={{ width: 100, marginLeft: 400, marginTop: 100 }}>
           <Item>
             <HomeIcon sx={{ color: "black" }} />
           </Item>
-        </Grid>
-        <Grid style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
+        </Button>
+        <Button  onClick={()=> navigate("/masters/Plumber")} style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
           <Item>
             <ConstructionIcon sx={{ color: "black" }} />
           </Item>
-        </Grid>
-        <Grid style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
+        </Button>
+        <Button  onClick={()=> navigate("/masters/Gardening")} style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
           <Item>
             <YardIcon sx={{ color: "black" }} />
           </Item>
-        </Grid>
-        <Grid style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
+        </Button>
+        <Button  onClick={()=> navigate("/masters/Pet%20Care")} style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
           <Item>
             <PetsIcon sx={{ color: "black" }} />
           </Item>
-        </Grid>
-        <Grid style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
+        </Button>
+        <Button  onClick={()=> navigate("/masters/Garbage%20Collection")} style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
           <Item>
             <DeleteIcon sx={{ color: "black" }} />
           </Item>
-        </Grid>
+        </Button>
       </Grid>
       <div style={{ backgroundColor: "white", height: 280 }}>
         <img

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import { Button, TextField, Typography } from '@mui/material';
-import Masters from './Masters';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import EmailIcon from '@mui/icons-material/Email';
 import Box from '@mui/material/Box';
@@ -11,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { collection, getDocs } from "firebase/firestore/lite";
 import { db } from "../Firebase/FirebaseUser";
+import Masters from './Masters';
 
 
 function MasterProfilePage() {
@@ -45,6 +45,7 @@ function MasterProfilePage() {
     const emailInput = (e) => {
     setEmail(e.target.value);
     };
+
 return (
 
     <div style={{display: 'flex', paddingTop: "100px"}}>

@@ -11,7 +11,7 @@ import { setMasterFilter, setMasterRating } from '../Redux/UserSlice'
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import Button from '@mui/material/Button';
-import { useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { getStorage, ref, getDownloadURL} from "firebase/storage";
 import { app } from '../Firebase/FirebaseUser'
 import { collection, getDocs } from "firebase/firestore/lite";
@@ -31,16 +31,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+function orderButtonClick(){
+  console.log("ordered");
+}
+
 function AlertDialogSlidePhone({item}) {
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
@@ -52,7 +56,7 @@ function AlertDialogSlidePhone({item}) {
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
-      >
+        >
         <DialogTitle>{`Do you want to call ${item.firstName}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
@@ -72,11 +76,11 @@ function AlertDialogSlideEmail({item}) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
@@ -88,7 +92,7 @@ function AlertDialogSlideEmail({item}) {
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
-      >
+        >
         <DialogTitle>{`Do you want to send message to ${item.firstName}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
@@ -103,11 +107,12 @@ function AlertDialogSlideEmail({item}) {
   );
 }
 
-function Masters() {
-
-    let {itemTitle} = useParams()
-    const storage = getStorage();
-    const [url, setUrl] = useState('')
+export default function Masters() {
+  
+  let {itemTitle} = useParams()
+  const storage = getStorage();
+  const [url, setUrl] = useState('')
+  const navigate= useNavigate();
     const [userList, setUserList] = useState([]);
     getDownloadURL(ref(storage, 'Images/Home-Services-Pic1.jpg'))
       .then((url1) => {
@@ -224,7 +229,7 @@ function Masters() {
                             <AlertDialogSlidePhone item={item}/>
                             <AlertDialogSlideEmail item={item}/>
                           </Box>
-                          <Button style={{size: 10 , borderRadius: 10, width: 150, height: 50}} variant="contained">ORDER</Button>
+                          <Button onClick={() => navigate("/home")} style={{size: 10 , borderRadius: 10, width: 150, height: 50}} variant="contained">ORDER</Button>
                        </Box>
                       </Grid>
                     </Grid>
@@ -240,4 +245,4 @@ function Masters() {
 
 }
 
-export default Masters
+// export default Masters;
