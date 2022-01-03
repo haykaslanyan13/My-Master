@@ -1,26 +1,30 @@
-import React, { useState } from "react"
-import Avatar from "@mui/material/Avatar"
-import Button from "@mui/material/Button"
-import CssBaseline from "@mui/material/CssBaseline"
-import TextField from "@mui/material/TextField"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Checkbox from "@mui/material/Checkbox"
-import Link from "@mui/material/Link"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined"
-import Typography from "@mui/material/Typography"
-import Container from "@mui/material/Container"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
-import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import { Alert } from "@mui/material"
-import { app } from "../Firebase/FirebaseUser"
+import React, { useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
+import { app } from "../Firebase/FirebaseUser";
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}>
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
@@ -28,37 +32,36 @@ function Copyright(props) {
       {new Date().getFullYear()}
       {"."}
     </Typography>
-  )
+  );
 }
 
-const theme = createTheme()
+const theme = createTheme();
 
 export default function LogIn() {
-  const [error, setError] = useState(false)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const auth = getAuth(app)
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const auth = getAuth(app);
   const signIn = async (email, password) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password)
+      await signInWithEmailAndPassword(auth, email, password);
     } catch {}
     if (auth.currentUser) {
-      navigate("/home")
+      navigate("/home");
     } else {
-      setError(true)
+      setError(true);
     }
-  }
+  };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const [email, password] = [data.get("email"), data.get("password")]
-    signIn(email, password)
-  }
-  
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const [email, password] = [data.get("email"), data.get("password")];
+    signIn(email, password);
+  };
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" style={{ paddingTop: "100px" }}>
         <CssBaseline />
         <Box
           sx={{
@@ -66,15 +69,18 @@ export default function LogIn() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}
-        >
+          }}>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}>
             {error && (
               <Alert severity="error">Incorrect username or password!</Alert>
             )}
@@ -106,8 +112,7 @@ export default function LogIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+              sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
             <Grid container>
@@ -127,5 +132,5 @@ export default function LogIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
-  )
+  );
 }

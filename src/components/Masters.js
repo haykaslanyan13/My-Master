@@ -16,23 +16,21 @@ import { getStorage, ref, getDownloadURL} from "firebase/storage";
 import { app } from '../Firebase/FirebaseUser'
 import { collection, getDocs } from "firebase/firestore/lite";
 import { db } from "../Firebase/FirebaseUser";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import { faBoxOpen } from '@fortawesome/free-solid-svg-icons'
-import { dividerClasses } from '@mui/material'
-import { display } from '@mui/system';
-
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
+import { dividerClasses } from "@mui/material";
+import { display } from "@mui/system";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-
-function AlertDialogSlidePhone({item}) {
+function AlertDialogSlidePhone({ item }) {
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -45,7 +43,7 @@ function AlertDialogSlidePhone({item}) {
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
-        <PhoneIcon fontSize="large"/>
+        <PhoneIcon fontSize="large" />
       </IconButton>
       <Dialog
         open={open}
@@ -57,7 +55,8 @@ function AlertDialogSlidePhone({item}) {
         <DialogTitle>{`Do you want to call ${item.firstName}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            {item.firstName} {item.lastname}'s phone number is <a href={`tel:${item.phoneNumber}`}>{item.phoneNumber}</a>
+            {item.firstName} {item.lastName}'s phone number is{" "}
+            <a href={`tel:${item.phoneNumber}`}>{item.phoneNumber}</a>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -68,7 +67,7 @@ function AlertDialogSlidePhone({item}) {
   );
 }
 
-function AlertDialogSlideEmail({item}) {
+function AlertDialogSlideEmail({ item }) {
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -81,7 +80,7 @@ function AlertDialogSlideEmail({item}) {
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
-        <EmailIcon fontSize="large"/>
+        <EmailIcon fontSize="large" />
       </IconButton>
       <Dialog
         open={open}
@@ -93,7 +92,8 @@ function AlertDialogSlideEmail({item}) {
         <DialogTitle>{`Do you want to send message to ${item.firstName}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            {item.firstName} {item.lastname}'s email adress is <a href={`mailto:${item.email}`}>{item.email}</a>
+            {item.firstName} {item.lastName}'s email adress is{" "}
+            <a href={`mailto:${item.email}`}>{item.email}</a>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -104,81 +104,81 @@ function AlertDialogSlideEmail({item}) {
   );
 }
 
-export default function Masters() {
-  
-  let {itemTitle} = useParams()
+function Masters() {
+  let { itemTitle } = useParams();
   const storage = getStorage();
-  const [url, setUrl] = useState('')
-  const navigate= useNavigate();
-    const [userList, setUserList] = useState([]);
-    getDownloadURL(ref(storage, 'Images/Home-Services-Pic1.jpg'))
-      .then((url1) => {
-        setUrl(url1)
-      })
-      .catch((error) => {
-        // Handle any errors
-      });
-    const [value, setValue] = useState(3);
-    const dispatch = useDispatch()
+  const [url, setUrl] = useState("");
+  const [userList, setUserList] = useState([]);
+  getDownloadURL(ref(storage, "Images/Home-Services-Pic1.jpg"))
+    .then((url1) => {
+      setUrl(url1);
+    })
+    .catch((error) => {
+      // Handle any errors
+    });
+  const [value, setValue] = useState(3);
+  const dispatch = useDispatch();
 
-    async function getUsers(db) {
-      const usersCol = collection(db, "users");
-      const userSnapshot = await getDocs(usersCol);
-      setUserList(userSnapshot.docs.map((doc) => doc.data()));
-    }
-   
-    useEffect(() => {
-      getUsers(db);
-    }, []);
-    //ratingy set anel
-    const masterList = userList.filter(i => i.type === "master")
-  
-    let filteredMasters = masterList.filter((item) => item.service === itemTitle)
+  async function getUsers(db) {
+    const usersCol = collection(db, "users");
+    const userSnapshot = await getDocs(usersCol);
+    setUserList(userSnapshot.docs.map((doc) => doc.data()));
+  }
+  useEffect(() => {
+    getUsers(db);
+  }, []);
+  //ratingy set anel
+  const masterList = userList.filter((i) => i.userType === "master");
 
-    const mastersDiscription = "Our masters will help you solve your all problems in the house and in the office. They will do their best to make your life more comfortable."
+  let filteredMasters = masterList.filter((item) => item.service === itemTitle);
 
-    
-    return (
-      <div style={{paddingTop: "100px"}}>
-        <div className="search-container"
+  const mastersDiscription =
+    "Our masters will help you solve your all problems in the house and in the office. They will do their best to make your life more comfortable.";
+
+  return (
+    <div style={{ paddingTop: "100px" }}>
+      <div
+        className="search-container"
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-        }}
-        >
-        
-        </div>
-        <h1 style={{
+        }}></div>
+      <h1
+        style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-        }}>Masters of {itemTitle}</h1>
-        <div>
-        <img
-        style={{ 
-          marginLeft: "auto",
-          marginRight: "auto",
-          display: "block",
-          paddingTop: "20px"
-        }}
-        width={650}
-        src={url}
-      />
-      <Typography style={{
-          textAlign: "center",
-          marginTop: 40,
-          fontSize: 22,
-          fontStyle: "italic"
         }}>
+        Masters of {itemTitle}
+      </h1>
+      <div>
+        <img
+          style={{
+            marginLeft: "auto",
+            marginRight: "auto",
+            display: "block",
+            paddingTop: "20px",
+          }}
+          width={650}
+          src={url}
+        />
+        <Typography
+          style={{
+            textAlign: "center",
+            marginTop: 40,
+            fontSize: 22,
+            fontStyle: "italic",
+          }}>
           {mastersDiscription}
         </Typography>
-        </div>
-        
-        <Grid container>
-        {filteredMasters.map((item) => {   
-          const itemRating = item.rating
-          const average = itemRating => itemRating.reduce((a,b) => a + b, 0) / itemRating.length
+      </div>
+
+      <Grid container>
+        {filteredMasters.map((item) => {
+          const itemRating = item.rating;
+          const average = (itemRating) =>
+            itemRating.reduce((a, b) => a + b, 0) / itemRating.length;
           return (
             <Grid item xs={12} md={6} key={item.id}>
               <Paper
@@ -188,23 +188,33 @@ export default function Masters() {
                   maxWidth: 500,
                   flexGrow: 1,
                   backgroundColor: "#b2bcc0",
-                }}
-              >
+                }}>
                 <Grid container spacing={2}>
-                  <Grid item style={{display: "flex", alignItems: "center"}}>
-                    <Avatar alt="Remy Sharp" sx={{ width: 64, height: 64 }} src={item.img} />
+                  <Grid item style={{ display: "flex", alignItems: "center" }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      sx={{ width: 64, height: 64 }}
+                      src={item.img}
+                    />
                   </Grid>
                   <Grid item xs={12} sm container>
                     <Grid item xs container direction="column" spacing={2}>
                       <Grid item xs>
-                        <Typography style={{ color: "white", fontSize: 32, fontWeight: "bolder"}} gutterBottom variant="subtitle1" component="div">
-                          {item.firstName} {" "} {item.lastname}
+                        <Typography
+                          style={{
+                            color: "white",
+                            fontSize: 32,
+                            fontWeight: "bolder",
+                          }}
+                          gutterBottom
+                          variant="subtitle1"
+                          component="div">
+                          {item.firstName} {item.lastName}
                         </Typography>
                         <Box
                           sx={{
-                            '& > legend': { mt: 2 },
-                          }}
-                        >
+                            "& > legend": { mt: 2 },
+                          }}>
                           <Typography component="legend"></Typography>
                           <Rating
                             name="simple-controlled"
@@ -212,34 +222,54 @@ export default function Masters() {
                             size="large"
                             onChange={(event, newValue) => {
                               setValue(newValue);
-                              itemRating.push(newValue)
-                              console.log(itemRating)
-                              console.log(average(itemRating))
+                              itemRating.push(newValue);
                             }}
                           />
                         </Box>
-                        <Typography style={{ marginTop: 10, fontSize: 16, fontWeight: "bolder"}} variant="body2" gutterBottom>
+                        <Typography
+                          style={{
+                            marginTop: 10,
+                            fontSize: 16,
+                            fontWeight: "bolder",
+                          }}
+                          variant="body2"
+                          gutterBottom>
                           {item.service}
                         </Typography>
-                       <Box component="div" sx={{ display: 'flex', justifyContent: "space-between" }}>
-                          <Box component="div" sx={{width: "40%", display: 'flex'}}>
-                            <AlertDialogSlidePhone item={item}/>
-                            <AlertDialogSlideEmail item={item}/>
+                        <Box
+                          component="div"
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}>
+                          <Box
+                            component="div"
+                            sx={{ width: "40%", display: "flex" }}>
+                            <AlertDialogSlidePhone item={item} />
+                            <AlertDialogSlideEmail item={item} />
                           </Box>
-                          <Button onClick={() => navigate("/orderPage")} style={{size: 10 , borderRadius: 10, width: 150, height: 50}} variant="contained">ORDER</Button>
-                       </Box>
+                          <Button
+                            style={{
+                              size: 10,
+                              borderRadius: 10,
+                              width: 150,
+                              height: 50,
+                            }}
+                            variant="contained">
+                            ORDER
+                          </Button>
+                        </Box>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
               </Paper>
             </Grid>
-          )
+          );
         })}
       </Grid>
-      </div>
-    )
-
+    </div>
+  );
 }
 
-// export default Masters;
+export default Masters;

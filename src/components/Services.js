@@ -23,8 +23,7 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-
-let serviceListData
+let serviceListData;
 
 function Services() {
   const [filter, setFilter] = useState("");
@@ -35,7 +34,6 @@ function Services() {
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
     dispatch(uptadeServiceList(serviceSnapshot.docs.map((doc) => doc.data())));
-    console.log(serviceList);
   }
   useEffect(() => {
     getServices(db);
@@ -46,9 +44,9 @@ function Services() {
   let dataSearch = serviceList.filter((item) =>
     item.name.toLowerCase().includes(filter)
   );
-  serviceListData = serviceList
+  serviceListData = serviceList;
   return (
-    <div style={{paddingTop: "120px"}}>
+    <div style={{ paddingTop: "120px" }}>
       <div
         className="search-container"
         style={{
@@ -62,7 +60,7 @@ function Services() {
           label="Search"
           variant="standard"
           className="search-input"
-          style={{marginLeft: 5, paddingBottom: 10}}
+          style={{ marginLeft: 5, paddingBottom: 10 }}
           value={filter}
           onChange={searchText}
         />
