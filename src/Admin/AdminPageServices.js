@@ -276,7 +276,6 @@ function UpdateService({ document }) {
 }
 
 function DeleteService({ document }) {
-  console.log(document.id);
   const serviceList = useSelector((state) => state.user.serviceList);
   const dispatch = useDispatch();
 
