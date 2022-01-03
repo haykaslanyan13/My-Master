@@ -93,7 +93,7 @@ function Services() {
                 <Grid container spacing={2}>
                   <Grid item>
                     <ButtonBase sx={{ width: 128, height: 128 }}>
-                      <Img alt="complex" src={item.img} />
+                      <Img alt="complex" src={item.image} />
                     </ButtonBase>
                   </Grid>
                   <Grid item xs={12} sm container>
