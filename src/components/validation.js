@@ -2,11 +2,11 @@ const validation = (values) => {
 
     let errors = {};
 
-    if(!values.firstName.trim()){
+    if(!values.firstName){
         errors.firstName = "First Name is required";
     }
 
-    if(!values.lastName.trim()){
+    if(!values.lastName){
         errors.lastName = "Last Name is required";
     }
 

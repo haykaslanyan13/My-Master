@@ -11,6 +11,7 @@ import Image from "./Image";
 import MasterProfilePage from "./MasterProfilePage";
 import ContactUs from "../pages/ContactUs";
 import Privacy from "../pages/Privacy";
+import UserProfilePage from "./ClientProfilePage";
 
 function Main() {
   return (
@@ -26,6 +27,8 @@ function Main() {
         <Route path="myprofile" element={<MasterProfilePage />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="master" element={<MasterProfilePage />} />
+        <Route path="client" element={<UserProfilePage />} />
       </Routes>
 
       <Footer />
