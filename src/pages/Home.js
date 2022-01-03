@@ -21,7 +21,6 @@ async function getUsers(db) {
   const usersCol = collection(db, "users");
   const userSnapshot = await getDocs(usersCol);
   const userList = userSnapshot.docs.map((doc) => doc.data());
-  console.log(userList);
 }
 getUsers(db);
 
