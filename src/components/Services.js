@@ -48,7 +48,7 @@ function Services() {
     setFilter(e.target.value);
   };
   let dataSearch = serviceList.filter((item) =>
-    item.name.toLowerCase().includes(filter)
+    item.name?.toLowerCase().includes(filter)
   );
   serviceListData = serviceList;
   return (
@@ -91,7 +91,7 @@ function Services() {
                   borderRadius: "30px",
                 }}>
                 <Grid container spacing={2}>
-                  <Grid item>
+                  <Grid item style={{ display: "flex", alignItems: "center" }}>
                     <ButtonBase sx={{ width: 128, height: 128 }}>
                       <Img alt="complex" src={item.image} />
                     </ButtonBase>

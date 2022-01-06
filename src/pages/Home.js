@@ -1,5 +1,5 @@
 // import { createTheme, fontStyle, minWidth, ThemeProvider } from "@mui/system"
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Paper } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ConstructionIcon from "@mui/icons-material/Construction";
@@ -25,8 +25,11 @@ async function getUsers(db) {
 getUsers(db);
 
 function Home() {
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
   return (
-    <div style={{ overflowX: "hidden", paddingTop: "100px"}}>
+    <div style={{ overflowX: "hidden", paddingTop: "100px" }}>
       <img
         style={{ float: "right" }}
         width={700}

@@ -25,10 +25,10 @@ import PersonIcon from "@mui/icons-material/Person";
 function ClientProfilePage() {
   const auth = getAuth();
   const currentUserData = useSelector((state) => state.user.user);
-  const [phoneNumber, setPhoneNumber] = useState(currentUserData.phoneNumber);
-  const [service, setService] = useState(currentUserData.service);
-  const [email, setEmail] = useState(currentUserData.email);
-  const [img, setImg] = useState(currentUserData.img);
+  const [phoneNumber, setPhoneNumber] = useState(currentUserData?.phoneNumber);
+  const [service, setService] = useState(currentUserData?.service);
+  const [email, setEmail] = useState(currentUserData?.email);
+  const [img, setImg] = useState(currentUserData?.img);
   const [imgData, setImgData] = useState("");
   const [serviceList, setServiceList] = useState([]);
   const [userList, setUserList] = useState([]);

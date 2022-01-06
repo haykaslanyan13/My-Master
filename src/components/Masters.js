@@ -15,7 +15,7 @@ import Avatar from "@mui/material/Avatar";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
-import { setMasterFilter, setMasterRating } from "../Redux/UserSlice";
+import { setMasterFilter, setMasterRating, setUser } from "../Redux/UserSlice";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import Button from "@mui/material/Button";
@@ -33,6 +33,7 @@ import Slide from "@mui/material/Slide";
 import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 import { dividerClasses } from "@mui/material";
 import { display } from "@mui/system";
+import { doc, updateDoc } from "firebase/firestore/lite";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -43,7 +44,6 @@ function AlertDialogSlidePhone({ item }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -125,10 +125,16 @@ function Masters() {
   const [value, setValue] = useState(3);
   const dispatch = useDispatch();
 
+  const currentUserData = useSelector((state) => state.user.user);
+  // const itemRating = currentUserData.rating;
+
   async function getUsers(db) {
     const usersCol = collection(db, "users");
     const userSnapshot = await getDocs(usersCol);
-    setUserList(userSnapshot.docs.map((doc) => doc.data()));
+    const userList = userSnapshot.docs.map((doc) => {
+      return { ...doc.data(), id: doc.id };
+    });
+    setUserList(userList);
   }
   useEffect(() => {
     getUsers(db);
@@ -137,10 +143,8 @@ function Masters() {
   const masterList = userList.filter((i) => i.userType === "master");
 
   let filteredMasters = masterList.filter((item) => item.service === itemTitle);
-
   const mastersDiscription =
     "Our masters will help you solve your all problems in the house and in the office. They will do their best to make your life more comfortable.";
-
   return (
     <div style={{ paddingTop: "100px" }}>
       <div
@@ -182,9 +186,26 @@ function Masters() {
 
       <Grid container>
         {filteredMasters.map((item) => {
+          console.log(item); // item.id-n chka
           const itemRating = item.rating;
-          const average = (itemRating) =>
-            itemRating.reduce((a, b) => a + b, 0) / itemRating.length;
+          const idArr = itemRating.reduce(function (
+            previousValue,
+            currentValue
+          ) {
+            previousValue.push(currentValue.id);
+            return previousValue;
+          },
+          []);
+          const valueArr = itemRating.reduce(function (
+            previousValue,
+            currentValue
+          ) {
+            previousValue.push(currentValue.value);
+            return previousValue;
+          },
+          []);
+          const average = (valueArr) =>
+            valueArr.reduce((a, b) => a + b, 0) / valueArr.length;
           return (
             <Grid item xs={12} md={6} key={item.id}>
               <Paper
@@ -224,11 +245,18 @@ function Masters() {
                           <Typography component="legend"></Typography>
                           <Rating
                             name="simple-controlled"
-                            value={average(itemRating)}
+                            value={average(valueArr)}
                             size="large"
                             onChange={(event, newValue) => {
-                              setValue(newValue);
-                              itemRating.push(newValue);
+                              // console.log(item.id);
+                              if (!idArr.includes(currentUserData.id)) {
+                                updateDoc(doc(db, "users", item.id), {
+                                  rating: [
+                                    ...itemRating,
+                                    { id: currentUserData.id, value: newValue },
+                                  ],
+                                });
+                              }
                             }}
                           />
                         </Box>
