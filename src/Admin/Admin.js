@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import AdminHomePage from "./AdminHomePage";
-import AdminPageMasters from "./AdminPageMasters";
 import AdminPageServices from "./AdminPageServices";
+import AdminPageUsers from "./AdminPageUsers";
 
 function Admin() {
-  const { MastersOrServices } = useParams();
   const navigate = useNavigate();
   return (
     <div>
@@ -74,15 +73,17 @@ function Admin() {
               }}>
               <Link
                 style={{ textDecoration: "none", color: "#007ce7" }}
-                to="masters">
-                Masters
+                to="users">
+                Users
               </Link>
             </h2>
           </div>
         </div>
-        {MastersOrServices === "services" ? <AdminPageServices /> : null}
-        {MastersOrServices === "masters" ? <AdminPageMasters /> : null}
-        {!MastersOrServices && <AdminHomePage />}
+        <Routes>
+          <Route path="services" element={<AdminPageServices />} />
+          <Route path="users" element={<AdminPageUsers />} />
+          <Route path="*" element={<AdminHomePage />} />
+        </Routes>
       </div>
     </div>
   );

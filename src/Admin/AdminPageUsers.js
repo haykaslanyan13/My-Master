@@ -213,7 +213,7 @@ function ClientTable() {
   );
 }
 
-function AdminPageMasters() {
+function AdminPageUsers() {
   const [userType, setUserType] = React.useState("All");
   const userTypeChange = (event) => {
     setUserType(event.target.value);
@@ -256,4 +256,4 @@ function AdminPageMasters() {
   );
 }
 
-export default AdminPageMasters;
+export default AdminPageUsers;

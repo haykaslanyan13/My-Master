@@ -8,6 +8,7 @@ import PetsIcon from "@mui/icons-material/Pets";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
 import { styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -17,6 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div style={{ overflowX: "hidden", paddingTop: "100px" }}>
       <img
@@ -57,7 +59,13 @@ function Home() {
             <YardIcon sx={{ color: "black" }} />
           </Item>
         </Grid>
-        <Grid style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
+        <Grid
+          style={{
+            width: 90,
+            marginLeft: 50,
+            marginTop: 100,
+            cursor: "pointer",
+          }}>
           <Item>
             <PetsIcon sx={{ color: "black" }} />
           </Item>
