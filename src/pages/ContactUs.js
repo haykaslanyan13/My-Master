@@ -15,7 +15,7 @@ const theme = createTheme({
 })
 
 const Result = () => {
-  return <p>your message has been</p>;
+  return <p>your message has been sent</p>;
 };
 
 function ContactUs() {
@@ -66,7 +66,7 @@ function ContactUs() {
   };
 
   return (
-    <div className="Container"  >
+    <div className="Container" style={{marginTop:100}}  >
       <Typography gutterBottom variant="h5" align="center">
         Whether you have a question, our team is ready to answer all your questions
       </Typography>
