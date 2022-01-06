@@ -29,8 +29,6 @@ const Img = styled("img")({
   maxHeight: "100%",
 });
 
-let serviceListData;
-
 function Services() {
   const [filter, setFilter] = useState("");
   const serviceList = useSelector((state) => state.user.serviceList);
@@ -39,7 +37,13 @@ function Services() {
   async function getServices(db) {
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
-    dispatch(uptadeServiceList(serviceSnapshot.docs.map((doc) => doc.data())));
+    const serviceList = serviceSnapshot.docs.map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+      };
+    });
+    dispatch(uptadeServiceList(serviceList));
   }
   useEffect(() => {
     getServices(db);
@@ -50,7 +54,6 @@ function Services() {
   let dataSearch = serviceList.filter((item) =>
     item.name.toLowerCase().includes(filter)
   );
-  serviceListData = serviceList;
   return (
     <div style={{ paddingTop: "120px" }}>
       <div

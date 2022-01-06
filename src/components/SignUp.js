@@ -35,6 +35,9 @@ import {
   doc,
   setDoc,
   deleteDoc,
+  query,
+  where,
+  getDoc,
 } from "firebase/firestore/lite";
 import { v4 as uuidv4 } from "uuid";
 
@@ -83,7 +86,7 @@ export default function SignUp() {
         email,
         phoneNumber,
         userType,
-        service,
+        service: service ? service : null,
         rating: [],
         img: "",
       });
@@ -93,7 +96,7 @@ export default function SignUp() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const [
@@ -115,6 +118,21 @@ export default function SignUp() {
       data.get("password2"),
       data.get("service"),
     ];
+    let servicee;
+    if (service) {
+      const servicesRef = collection(db, "services");
+      const q = query(servicesRef, where("name", "==", service));
+      const serviceSnapshot = await getDocs(q);
+      servicee = serviceSnapshot?.docs[0]?.ref;
+      console.log(servicee);
+    }
+
+    // const washingtonRef = doc(db, "cities", "DC");
+
+    // Set the "capital" field of the city 'DC'
+    // await updateDoc(washingtonRef, {
+    //   capital: true,
+    // });
 
     // dispatch(setUser({
     //   email, password, firstName, lastName, phoneNumber, userType
@@ -126,7 +144,7 @@ export default function SignUp() {
       lastName,
       phoneNumber,
       userType,
-      service
+      servicee
     );
 
     onAuthStateChanged(auth, (user) => {

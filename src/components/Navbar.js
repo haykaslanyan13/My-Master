@@ -17,7 +17,7 @@ function Navbar() {
       await signOut(auth);
       navigate("/home");
     } catch {}
-    dispatch(setUser(null));
+    // dispatch(setUser(null));
   };
   const [cureentUserType, setCurrentUserType] = useState("");
   // {
