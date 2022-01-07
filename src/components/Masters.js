@@ -29,6 +29,7 @@ import {
   where,
   setDoc,
   doc,
+  updateDoc,
 } from "firebase/firestore/lite";
 import { db } from "../Firebase/FirebaseUser";
 import Dialog from "@mui/material/Dialog";
@@ -40,7 +41,6 @@ import Slide from "@mui/material/Slide";
 import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 import { dividerClasses } from "@mui/material";
 import { display } from "@mui/system";
-import { doc, updateDoc } from "firebase/firestore/lite";
 import PropTypes from "prop-types";
 import CloseIcon from "@mui/icons-material/Close";
 import DateTimePicker from "@mui/lab/DateTimePicker";
@@ -281,6 +281,7 @@ function Order({ master, serviceName }) {
 
 function Masters() {
   let { itemTitle } = useParams();
+  console.log(itemTitle);
   const storage = getStorage();
   const [url, setUrl] = useState("");
   const [userList, setUserList] = useState([]);
@@ -298,6 +299,7 @@ function Masters() {
   // const itemRating = currentUserData.rating;
 
   async function getUsers(db) {
+    debugger;
     const servicesRef = collection(db, "services");
     const q = query(servicesRef, where("name", "==", itemTitle));
     const serviceSnapshot = await getDocs(q);

@@ -39,30 +39,66 @@ function Home() {
       </h1>
       <h3 style={{ marginLeft: 100 }}>
         You don't have to do the housework you used to do!
-        <p>
+        <div
+          style={{
+            marginTop: "1em",
+            marginBottom: "1em",
+            marginLeft: 0,
+            marginRight: 0,
+          }}>
           {" "}
           Our services will help you with any work you don't feel like
-          <p>doing at the moment.</p>
-        </p>
+          <div
+            style={{
+              marginTop: "1em",
+              marginBottom: "1em",
+              marginLeft: 0,
+              marginRight: 0,
+            }}>
+            doing at the moment.
+          </div>
+        </div>
       </h3>
 
       <Grid container spacing={2}>
-        <Grid style={{ width: 90, marginLeft: 400, marginTop: 100 }}>
+        <Grid
+          onClick={() => navigate("/masters/Home Cleaning")}
+          style={{
+            width: 90,
+            marginLeft: 400,
+            marginTop: 100,
+            cursor: "pointer",
+          }}>
           <Item>
             <HomeIcon sx={{ color: "black" }} />
           </Item>
         </Grid>
-        <Grid style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
+        <Grid
+          onClick={() => navigate("/masters/Plumber")}
+          style={{
+            width: 90,
+            marginLeft: 50,
+            marginTop: 100,
+            cursor: "pointer",
+          }}>
           <Item>
             <ConstructionIcon sx={{ color: "black" }} />
           </Item>
         </Grid>
-        <Grid style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
+        <Grid
+          onClick={() => navigate("/masters/Gardening")}
+          style={{
+            width: 90,
+            marginLeft: 50,
+            marginTop: 100,
+            cursor: "pointer",
+          }}>
           <Item>
             <YardIcon sx={{ color: "black" }} />
           </Item>
         </Grid>
         <Grid
+          onClick={() => navigate("/masters/Pet Care")}
           style={{
             width: 90,
             marginLeft: 50,
@@ -73,7 +109,14 @@ function Home() {
             <PetsIcon sx={{ color: "black" }} />
           </Item>
         </Grid>
-        <Grid style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
+        <Grid
+          onClick={() => navigate("/masters/Garbage Collection")}
+          style={{
+            width: 90,
+            marginLeft: 50,
+            marginTop: 100,
+            cursor: "pointer",
+          }}>
           <Item>
             <DeleteIcon sx={{ color: "black" }} />
           </Item>
