@@ -1,5 +1,5 @@
 // import { createTheme, fontStyle, minWidth, ThemeProvider } from "@mui/system"
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Paper } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ConstructionIcon from "@mui/icons-material/Construction";
@@ -18,6 +18,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Home() {
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
   const navigate = useNavigate();
   return (
     <div style={{ overflowX: "hidden", paddingTop: "100px" }}>
