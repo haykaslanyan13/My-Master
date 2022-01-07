@@ -42,9 +42,7 @@ function App() {
         <LinearProgress />
       ) : (
         <Routes>
-          <Route path="admin" element={<Admin />}>
-            <Route path=":MastersOrServices" element={<Admin />} />
-          </Route>
+          <Route path="admin/*" element={<Admin />} />
           <Route path="*" element={<Main />} />
         </Routes>
       )}

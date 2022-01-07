@@ -17,7 +17,7 @@ import UserProfilePage from "./ClientProfilePage";
 function Main() {
   return (
     <div>
-   <Navbar /> 
+      <Navbar />
       <Routes>
         <Route path="allservices" element={<AllServices />} />
         <Route path="home" element={<Home />} />

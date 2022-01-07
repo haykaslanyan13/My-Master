@@ -1,6 +1,6 @@
 // import { createTheme, fontStyle, minWidth, ThemeProvider } from "@mui/system"
-import React from "react";
-import { Button, Grid, Paper } from "@mui/material";
+import React, { useEffect } from "react";
+import {Button, Grid, Paper } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import YardIcon from "@mui/icons-material/Yard";
@@ -18,18 +18,14 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-async function getUsers(db) {
-  const usersCol = collection(db, "users");
-  const userSnapshot = await getDocs(usersCol);
-  const userList = userSnapshot.docs.map((doc) => doc.data());
-}
-getUsers(db);
 
 function Home() {
-  const navigate= useNavigate();
-
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
+  const navigate = useNavigate();
   return (
-    <div style={{ overflowX: "hidden", paddingTop: "100px"}}>
+    <div style={{ overflowX: "hidden", paddingTop: "100px" }}>
       <img
         style={{ float: "right" }}
         width={700}
