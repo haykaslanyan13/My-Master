@@ -29,19 +29,7 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // getData(db);
-
-       dispatch(setUser({
-           email: "aaa@gmail.com",
-        firstName: "Aaa",
-         id: "QILG2ZLNPeLhrCnmJR9A",
-         img: "",
-         lastName: "Bbb",
-       phoneNumber: "099887766",
-         rating: [],
-         service: "",
-         userType: "master"
-     }));
+         getData(db);
 
       } else {
         dispatch(setUser(null));
