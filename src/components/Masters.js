@@ -15,14 +15,21 @@ import Avatar from "@mui/material/Avatar";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
-import { setMasterFilter, setMasterRating } from "../Redux/UserSlice";
+import { setMasterFilter, setMasterRating, setUser } from "../Redux/UserSlice";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import Button from "@mui/material/Button";
-import { useParams } from "react-router-dom";
+import { Link, Route, Routes, useParams } from "react-router-dom";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { app } from "../Firebase/FirebaseUser";
-import { collection, getDocs } from "firebase/firestore/lite";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  setDoc,
+  doc,
+} from "firebase/firestore/lite";
 import { db } from "../Firebase/FirebaseUser";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -33,6 +40,13 @@ import Slide from "@mui/material/Slide";
 import { faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 import { dividerClasses } from "@mui/material";
 import { display } from "@mui/system";
+import { doc, updateDoc } from "firebase/firestore/lite";
+import PropTypes from "prop-types";
+import CloseIcon from "@mui/icons-material/Close";
+import DateTimePicker from "@mui/lab/DateTimePicker";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import { v4 as uuidv4 } from "uuid";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -43,7 +57,6 @@ function AlertDialogSlidePhone({ item }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -110,6 +123,162 @@ function AlertDialogSlideEmail({ item }) {
   );
 }
 
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
+
+const BootstrapDialogTitle = (props) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+function Order({ master, serviceName }) {
+  const id = uuidv4();
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState(new Date());
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const [adress, date] = [data.get("adress"), data.get("date")];
+    console.log(adress, value);
+    getRef(adress, value);
+    handleClose();
+  };
+
+  const getRef = async (adress, value) => {
+    const usersRef = collection(db, "users");
+    const servicesRef = collection(db, "services");
+    const qqq = query(servicesRef, where("name", "==", serviceName));
+    const qq = query(usersRef, where("email", "==", master.email));
+    const q = query(usersRef, where("email", "==", user.email));
+    const serviceSnapshot = await getDocs(qqq);
+    const masterSnapshot = await getDocs(qq);
+    const userSnapshot = await getDocs(q);
+    const serviceRef = serviceSnapshot.docs[0].ref;
+    const masterRef = masterSnapshot.docs[0].ref;
+    const userRef = userSnapshot.docs[0].ref;
+    try {
+      await setDoc(doc(db, "orders", id), {
+        adress,
+        date: value,
+        client: userRef,
+        service: serviceRef,
+        master: masterRef,
+      });
+    } catch {}
+  };
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button
+        style={{
+          size: 10,
+          borderRadius: 10,
+          width: 150,
+          height: 50,
+        }}
+        onClick={handleClickOpen}
+        variant="contained">
+        ORDER
+      </Button>
+      <BootstrapDialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}>
+        <BootstrapDialogTitle
+          id="customized-dialog-title"
+          onClose={handleClose}>
+          ORDER
+        </BootstrapDialogTitle>
+        <DialogContent dividers>
+          <Box
+            onSubmit={handleSubmit}
+            component="form"
+            sx={{
+              width: 500,
+              maxWidth: "100%",
+            }}>
+            <TextField
+              fullWidth
+              label="Address"
+              id="fullWidth"
+              name="adress"
+              margin="normal"
+              style={{ marginBottom: 20 }}
+            />
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                label="Order Date & Time"
+                value={value}
+                onChange={handleChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+            <DialogActions>
+              <Button
+                onClick={handleClose}
+                style={{
+                  cursor: "pointer",
+                  align: "left",
+                  justifyContent: "start",
+                  position: "relative",
+                }}
+                margin="normal"
+                edge="start"
+                autoFocus>
+                Cancel
+              </Button>
+              <Button
+                variant="contained"
+                style={{ cursor: "pointer" }}
+                type="submit"
+                autoFocus>
+                Confirm
+              </Button>
+            </DialogActions>
+          </Box>
+        </DialogContent>
+      </BootstrapDialog>
+    </div>
+  );
+}
+
 function Masters() {
   let { itemTitle } = useParams();
   const storage = getStorage();
@@ -125,10 +294,24 @@ function Masters() {
   const [value, setValue] = useState(3);
   const dispatch = useDispatch();
 
+  const currentUserData = useSelector((state) => state.user.user);
+  // const itemRating = currentUserData.rating;
+
   async function getUsers(db) {
+    const servicesRef = collection(db, "services");
+    const q = query(servicesRef, where("name", "==", itemTitle));
+    const serviceSnapshot = await getDocs(q);
+    const ref = serviceSnapshot.docs[0].ref;
     const usersCol = collection(db, "users");
     const userSnapshot = await getDocs(usersCol);
-    setUserList(userSnapshot.docs.map((doc) => doc.data()));
+    const userList = userSnapshot.docs.map((doc) => doc.data());
+    const u = userList.filter(
+      (user) => JSON.stringify(user.service) === JSON.stringify(ref)
+    );
+    console.log(u);
+    setUserList(userList);
+
+    // console.log(servicee);
   }
   useEffect(() => {
     getUsers(db);
@@ -137,10 +320,8 @@ function Masters() {
   const masterList = userList.filter((i) => i.userType === "master");
 
   let filteredMasters = masterList.filter((item) => item.service === itemTitle);
-
   const mastersDiscription =
     "Our masters will help you solve your all problems in the house and in the office. They will do their best to make your life more comfortable.";
-
   return (
     <div style={{ paddingTop: "100px" }}>
       <div
@@ -182,9 +363,26 @@ function Masters() {
 
       <Grid container>
         {filteredMasters.map((item) => {
+          console.log(item);
           const itemRating = item.rating;
-          const average = (itemRating) =>
-            itemRating.reduce((a, b) => a + b, 0) / itemRating.length;
+          const idArr = itemRating.reduce(function (
+            previousValue,
+            currentValue
+          ) {
+            previousValue.push(currentValue.id);
+            return previousValue;
+          },
+          []);
+          const valueArr = itemRating.reduce(function (
+            previousValue,
+            currentValue
+          ) {
+            previousValue.push(currentValue.value);
+            return previousValue;
+          },
+          []);
+          const average = (valueArr) =>
+            valueArr.reduce((a, b) => a + b, 0) / valueArr.length;
           return (
             <Grid item xs={12} md={6} key={item.id}>
               <Paper
@@ -225,11 +423,18 @@ function Masters() {
                           <Rating
                           disabled={false}
                             name="simple-controlled"
-                            value={average(itemRating)}
+                            value={average(valueArr)}
                             size="large"
                             onChange={(event, newValue) => {
-                              setValue(newValue);
-                              itemRating.push(newValue);
+                              // console.log(item.id);
+                              if (!idArr.includes(currentUserData.id)) {
+                                updateDoc(doc(db, "users", item.id), {
+                                  rating: [
+                                    ...itemRating,
+                                    { id: currentUserData.id, value: newValue },
+                                  ],
+                                });
+                              }
                             }}
                           />
                         </Box>
@@ -241,7 +446,7 @@ function Masters() {
                           }}
                           variant="body2"
                           gutterBottom>
-                          {item.service}
+                          {itemTitle}
                         </Typography>
                         <Box
                           component="div"
@@ -255,16 +460,7 @@ function Masters() {
                             <AlertDialogSlidePhone item={item} />
                             <AlertDialogSlideEmail item={item} />
                           </Box>
-                          <Button
-                            style={{
-                              size: 10,
-                              borderRadius: 10,
-                              width: 150,
-                              height: 50,
-                            }}
-                            variant="contained">
-                            ORDER
-                          </Button>
+                          <Order master={item} serviceName={itemTitle} />
                         </Box>
                       </Grid>
                     </Grid>

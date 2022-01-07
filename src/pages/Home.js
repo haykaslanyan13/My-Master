@@ -1,5 +1,5 @@
 // import { createTheme, fontStyle, minWidth, ThemeProvider } from "@mui/system"
-import React from "react";
+import React, { useEffect } from "react";
 import { Grid, Paper } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ConstructionIcon from "@mui/icons-material/Construction";
@@ -8,8 +8,7 @@ import PetsIcon from "@mui/icons-material/Pets";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
 import { styled } from "@mui/material/styles";
-import { db } from "../Firebase/FirebaseUser";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -17,16 +16,14 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-async function getUsers(db) {
-  const usersCol = collection(db, "users");
-  const userSnapshot = await getDocs(usersCol);
-  const userList = userSnapshot.docs.map((doc) => doc.data());
-}
-getUsers(db);
 
 function Home() {
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
+  const navigate = useNavigate();
   return (
-    <div style={{ overflowX: "hidden", paddingTop: "100px"}}>
+    <div style={{ overflowX: "hidden", paddingTop: "100px" }}>
       <img
         style={{ float: "right" }}
         width={700}
@@ -65,7 +62,13 @@ function Home() {
             <YardIcon sx={{ color: "black" }} />
           </Item>
         </Grid>
-        <Grid style={{ width: 90, marginLeft: 50, marginTop: 100 }}>
+        <Grid
+          style={{
+            width: 90,
+            marginLeft: 50,
+            marginTop: 100,
+            cursor: "pointer",
+          }}>
           <Item>
             <PetsIcon sx={{ color: "black" }} />
           </Item>
