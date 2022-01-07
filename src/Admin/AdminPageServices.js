@@ -72,7 +72,6 @@ function AddService() {
   const [open, setOpen] = React.useState(false);
 
   const handleSubmit = async (event) => {
-    debugger;
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const [serviceName, description] = [
@@ -87,7 +86,13 @@ function AddService() {
     } catch {}
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
-    dispatch(uptadeServiceList(serviceSnapshot.docs));
+    const serviceList = serviceSnapshot.docs.map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+      };
+    });
+    dispatch(uptadeServiceList(serviceList));
     setOpen(false);
   };
 
@@ -163,12 +168,13 @@ function AddService() {
   );
 }
 
-function UpdateService({ document }) {
+function UpdateService({ service }) {
   const dispatch = useDispatch();
+  const serviceList = useSelector((state) => state.user.serviceList);
   const [open, setOpen] = React.useState(false);
-  const [defaultName, setDefaultName] = useState(document.data().name);
+  const [defaultName, setDefaultName] = useState(service.name);
   const [defaultDescription, setDefaultDescription] = useState(
-    document.data().description
+    service.description
   );
 
   const nameChange = (e) => {
@@ -180,22 +186,28 @@ function UpdateService({ document }) {
   };
 
   const handleSubmit = async (event) => {
-    debugger;
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const [serviceName, description] = [
       data.get("serviceName"),
       data.get("description"),
     ];
+    console.log(service.id);
     try {
-      await updateDoc(doc(db, "services", document.id), {
-        description: description ? description : document.data().description,
-        name: serviceName ? serviceName : document.data().name,
+      await updateDoc(doc(db, "services", service.id), {
+        description: description ? description : service.description,
+        name: serviceName ? serviceName : service.name,
       });
     } catch {}
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
-    dispatch(uptadeServiceList(serviceSnapshot.docs));
+    const serviceList = serviceSnapshot.docs.map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+      };
+    });
+    dispatch(uptadeServiceList(serviceList));
     setOpen(false);
   };
 
@@ -246,6 +258,9 @@ function UpdateService({ document }) {
               name="description"
               margin="normal"
             />
+            <div>
+              <img src="" style={{ width: 100, height: 100 }} />
+            </div>
             <DialogActions>
               <Button
                 onClick={handleClose}
@@ -275,8 +290,7 @@ function UpdateService({ document }) {
   );
 }
 
-function DeleteService({ document }) {
-  const serviceList = useSelector((state) => state.user.serviceList);
+function DeleteService({ service }) {
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
@@ -284,7 +298,13 @@ function DeleteService({ document }) {
   async function getUsers(db) {
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
-    dispatch(uptadeServiceList(serviceSnapshot.docs));
+    const serviceList = serviceSnapshot.docs.map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+      };
+    });
+    dispatch(uptadeServiceList(serviceList));
   }
   const deleteService = async (docId) => {
     await deleteDoc(doc(db, "services", docId));
@@ -332,9 +352,7 @@ function DeleteService({ document }) {
           <DialogContent dividers>
             <Typography>
               Are you sure you want to delete{" "}
-              <span style={{ fontWeight: "bolder" }}>
-                {document.data().name}:
-              </span>
+              <span style={{ fontWeight: "bolder" }}>{service.name}:</span>
             </Typography>
           </DialogContent>
           <DialogActions style={{ position: "relative" }}>
@@ -352,7 +370,7 @@ function DeleteService({ document }) {
               Cancel
             </Button>
             <Button
-              onClick={() => deleteService(document.id)}
+              onClick={() => deleteService(service.id)}
               color="error"
               style={{ cursor: "pointer" }}
               margin="normal"
@@ -369,12 +387,17 @@ function DeleteService({ document }) {
 function AdminPageServices() {
   const serviceList = useSelector((state) => state.user.serviceList);
   const dispatch = useDispatch();
-  let serviceSnapshot;
 
   async function getUsers(db) {
     const servicesCol = collection(db, "services");
-    serviceSnapshot = await getDocs(servicesCol);
-    dispatch(uptadeServiceList(serviceSnapshot.docs));
+    const serviceSnapshot = await getDocs(servicesCol);
+    const serviceList = serviceSnapshot.docs.map((doc) => {
+      return {
+        ...doc.data(),
+        id: doc.id,
+      };
+    });
+    dispatch(uptadeServiceList(serviceList));
   }
 
   useEffect(() => {
@@ -409,8 +432,7 @@ function AdminPageServices() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {serviceList.map((doc) => {
-            let service = doc.data();
+          {serviceList.map((service) => {
             return (
               <TableRow
                 key={service?.name}
@@ -423,15 +445,15 @@ function AdminPageServices() {
                     maxRows={3}
                     aria-label="maximum height"
                     placeholder="Maximum 4 rows"
-                    value={service.description}
+                    value={service?.description}
                     style={{ width: 300 }}
                   />
                 </TableCell>
                 <TableCell align="right">
-                  <UpdateService document={doc} />
+                  <UpdateService service={service} />
                 </TableCell>
                 <TableCell align="right">
-                  <DeleteService document={doc} />
+                  <DeleteService service={service} />
                 </TableCell>
               </TableRow>
             );
