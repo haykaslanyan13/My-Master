@@ -223,6 +223,7 @@ function Masters() {
                           }}>
                           <Typography component="legend"></Typography>
                           <Rating
+                          disabled={false}
                             name="simple-controlled"
                             value={average(itemRating)}
                             size="large"

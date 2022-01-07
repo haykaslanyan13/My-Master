@@ -9,7 +9,7 @@ import "../styles/ContactUs.css";
 const theme = createTheme({
   palette: {
     secondary: {
-      main: "#bc1efc"
+      main: "#ffffff"
     }
   }
 })
