@@ -35,10 +35,9 @@ function MasterProfilePage() {
   const dispatch = useDispatch();
   const auth = getAuth();
   const currentUserData = useSelector((state) => state.user.user);
+  console.log(currentUserData);
   let data;
-  getDoc(currentUserData?.service).then((d) => {
-    setService(d.data().name);
-  });
+
   console.log(data);
   const [service, setService] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(currentUserData?.phoneNumber);
@@ -52,6 +51,13 @@ function MasterProfilePage() {
   const metadata = {
     contentType: "image/jpeg",
   };
+  console.log(currentUserData);
+  if (currentUserData) {
+    getDoc(currentUserData?.service).then((d) => {
+      setService(d.data().name);
+    });
+  }
+
   async function getData(db) {
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
@@ -211,7 +217,7 @@ function MasterProfilePage() {
               variant="standard"
               className="email-input"
               value={email}
-              onChange={emailInput}
+              // onChange={emailInput}
               style={{ marginLeft: 5, width: 300 }}
             />
           </div>
