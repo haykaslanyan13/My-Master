@@ -54,6 +54,7 @@ function MyMasterOrders() {
       fullWidth
       style={{
         overflowX: "hidden",
+        margin: 20,
       }}
       component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
