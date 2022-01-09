@@ -136,7 +136,7 @@ function ClientProfilePage() {
           variant="h3"
           component="h2"
           style={{ margin: 70, marginTop: 100 }}>
-          {currentUserData.firstName} {currentUserData.lastName}
+          {currentUserData?.firstName} {currentUserData?.lastName}
           <Box sx={{ marginTop: 5, minWidth: 120 }}></Box>
           <div style={{ display: "flex", marginTop: 50 }}>
             <PhoneIphoneIcon
@@ -160,10 +160,10 @@ function ClientProfilePage() {
               variant="standard"
               className="email-input"
               value={email}
-              onChange={emailInput}
+              // onChange={emailInput}
               style={{ marginLeft: 5, width: 300 }}
             />
-          </div>
+          </div> 
           <Button
             style={{ width: 350, marginTop: 70 }}
             variant="contained"

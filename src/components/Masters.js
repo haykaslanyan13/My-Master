@@ -281,6 +281,7 @@ function Order({ master, serviceName }) {
 
 function Masters() {
   let { itemTitle } = useParams();
+  console.log(itemTitle);
   const storage = getStorage();
   const [url, setUrl] = useState("");
   const [userList, setUserList] = useState([]);
@@ -298,6 +299,7 @@ function Masters() {
   // const itemRating = currentUserData.rating;
 
   async function getUsers(db) {
+    debugger;
     const servicesRef = collection(db, "services");
     const q = query(servicesRef, where("name", "==", itemTitle));
     const serviceSnapshot = await getDocs(q);

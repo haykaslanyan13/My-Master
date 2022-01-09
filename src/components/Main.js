@@ -14,6 +14,9 @@ import Privacy from "../pages/Privacy";
 import UserProfilePage from "./ClientProfilePage";
 
 function Main() {
+  function scrollTop() {
+    window.scrollTo(0, 0);
+  }
   return (
     <div>
       <Navbar />
