@@ -192,7 +192,6 @@ function UpdateService({ service }) {
       data.get("serviceName"),
       data.get("description"),
     ];
-    console.log(service.id);
     try {
       await updateDoc(doc(db, "services", service.id), {
         description: description ? description : service.description,
@@ -215,6 +214,8 @@ function UpdateService({ service }) {
     setOpen(true);
   };
   const handleClose = () => {
+    setDefaultName(service.name);
+    setDefaultDescription(service.description);
     setOpen(false);
   };
 
