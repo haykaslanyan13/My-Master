@@ -33,8 +33,8 @@ function Footer() {
             <Grid item xs={12} sm={4}>
               <Typography style={{ color: "#3b3d3d" }}>Help</Typography>
               <Box pt={3}>
-                <Link to="/" color="inherit">
-                  Contact us
+                <Link to="/aboutUs" color="inherit">
+                  About us
                 </Link>
               </Box>
               <Box pt={3}>
