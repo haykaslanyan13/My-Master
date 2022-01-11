@@ -7,6 +7,8 @@ import LogIn from "./Login";
 import SignUp from "./SignUp";
 import Masters from "./Masters";
 import Footer from "./Footer";
+import Image from "./Image";
+import OrderPage from "./orderPage"
 import MasterProfilePage from "./MasterProfilePage";
 import ContactUs from "../pages/ContactUs";
 import Privacy from "../pages/Privacy";
@@ -14,6 +16,9 @@ import UserProfilePage from "./ClientProfilePage";
 import AboutUs from "./AboutUs";
 
 function Main() {
+  function scrollTop() {
+    window.scrollTo(0, 0);
+  }
   return (
     <div>
       <Navbar />

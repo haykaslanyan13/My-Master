@@ -184,9 +184,13 @@ function MasterProfilePage() {
               label="phone"
               variant="standard"
               className="phone-input"
+              type="number"
               value={phoneNumber}
               onChange={phoneInput}
-              style={{ marginLeft: 5, width: 300 }}
+              style={{
+                marginLeft: 5,
+                width: 300,
+              }}
             />
           </div>
           <div style={{ display: "flex", marginTop: 30 }}>

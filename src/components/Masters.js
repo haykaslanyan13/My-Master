@@ -51,7 +51,7 @@ function AlertDialogSlidePhone({ item }) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
@@ -62,8 +62,9 @@ function AlertDialogSlidePhone({ item }) {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description">
-        <DialogTitle>{`Do you want to call to ${item.firstName}?`}</DialogTitle>
+        aria-describedby="alert-dialog-slide-description"
+        >
+        <DialogTitle>{`Do you want to call ${item.firstName}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             {item.firstName} {item.lastName}'s phone number is{" "}
@@ -83,11 +84,11 @@ function AlertDialogSlideEmail({ item }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
@@ -98,7 +99,8 @@ function AlertDialogSlideEmail({ item }) {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description">
+        aria-describedby="alert-dialog-slide-description"
+        >
         <DialogTitle>{`Do you want to send message to ${item.firstName}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
@@ -330,7 +332,6 @@ function Masters() {
       setUserList([]);
     };
   }, [getUsers]);
-
   const mastersDiscription =
     "Our masters will help you solve your all problems in the house and in the office. They will do their best to make your life more comfortable.";
   return (
@@ -385,6 +386,9 @@ function Masters() {
                   maxWidth: 500,
                   flexGrow: 1,
                   backgroundColor: "#b2bcc0",
+                  height: 250,
+                  display: "flex",
+                  alignItems: "center",
                 }}>
                 <Grid container spacing={2}>
                   <Grid item style={{ display: "flex", alignItems: "center" }}>
@@ -414,11 +418,15 @@ function Masters() {
                           }}>
                           <Typography component="legend"></Typography>
                           <Rating
+                          disabled={false}
                             name="simple-controlled"
                             value={average(ratings[i]?.value)}
                             size="large"
                             onChange={(event, newValue) => {
-                              if (!ratings[i].id.includes(currentUserData.id)) {
+                              if (
+                                !ratings[i].id.includes(currentUserData.id) &&
+                                currentUserData.userType === "client"
+                              ) {
                                 const mockRatings = [...ratings];
                                 mockRatings[i].id.push(currentUserData.id);
                                 mockRatings[i].value.push(newValue);

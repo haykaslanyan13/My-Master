@@ -51,7 +51,8 @@ function MyMasterOrders() {
   return (
     <TableContainer
       style={{
-        overflowX: "hidden",
+        // overflowX: "hidden",
+        margin: 20,
       }}
       component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -73,22 +74,25 @@ function MyMasterOrders() {
           <TableRow>
             <TableCell
               align="left"
-              style={{ fontWeight: "bolder", fontSize: 18 }}>
+              style={{ fontWeight: "bolder", fontSize: 18, maxWidth: 55 }}>
               ClientName
             </TableCell>
             <TableCell
               align="left"
-              style={{ fontWeight: "bolder", fontSize: 18 }}>
+              style={{ fontWeight: "bolder", fontSize: 18, maxWidth: 70 }}>
               PhoneNumber
             </TableCell>
             <TableCell
               align="left"
-              style={{ fontWeight: "bolder", fontSize: 18 }}>
+              style={{ fontWeight: "bolder", fontSize: 18, maxWidth: 50 }}>
               Address
             </TableCell>
             <TableCell
               align="left"
-              style={{ fontWeight: "bolder", fontSize: 18 }}>
+              style={{
+                fontWeight: "bolder",
+                fontSize: 18,
+              }}>
               OrderDate
             </TableCell>
           </TableRow>
