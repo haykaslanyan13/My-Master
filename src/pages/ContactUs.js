@@ -23,9 +23,6 @@ const theme = createTheme({
   },
 });
 
-// const Result = () => {
-//   return <p style={{color: "#007f8b", fontFamily: "sans-serif"}}>Your message has been sent successfully</p>;
-// };
 
 function ContactUs() {
   const [values, setValues] = useState({

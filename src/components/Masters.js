@@ -51,7 +51,7 @@ function AlertDialogSlidePhone({ item }) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
@@ -62,8 +62,9 @@ function AlertDialogSlidePhone({ item }) {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description">
-        <DialogTitle>{`Do you want to call to ${item.firstName}?`}</DialogTitle>
+        aria-describedby="alert-dialog-slide-description"
+        >
+        <DialogTitle>{`Do you want to call ${item.firstName}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             {item.firstName} {item.lastName}'s phone number is{" "}
@@ -83,11 +84,11 @@ function AlertDialogSlideEmail({ item }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
@@ -98,7 +99,8 @@ function AlertDialogSlideEmail({ item }) {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description">
+        aria-describedby="alert-dialog-slide-description"
+        >
         <DialogTitle>{`Do you want to send message to ${item.firstName}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">

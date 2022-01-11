@@ -12,7 +12,7 @@ import { setUser } from "./Redux/UserSlice";
 
 function App() {
   const auth = getAuth();
-  const dispatch = useDispatch();
+  const dispatch =  useDispatch();
 
   async function getData(db) {
     const usersCol = collection(db, "users");
@@ -20,14 +20,16 @@ function App() {
     const currentUserData = userSnapshot.docs.find(
       (doc) => doc.data().email === auth.currentUser.email
     );
-    dispatch(setUser({ ...currentUserData.data(), id: currentUserData.id }));
+    // console.log(currentUserData)
+   try{ dispatch(setUser({ ...currentUserData.data(), id: currentUserData.id }))}catch(e){console.error(e)}
   }
 
   const isAuthenticating = useSelector((state) => state.user.isAuthenticating);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        getData(db);
+         getData(db);
+
       } else {
         dispatch(setUser(null));
       }
