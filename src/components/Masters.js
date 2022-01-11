@@ -412,6 +412,7 @@ function Masters() {
                           }}>
                           <Typography component="legend"></Typography>
                           <Rating
+                          disabled={false}
                             name="simple-controlled"
                             value={average(ratings[i]?.value)}
                             size="large"

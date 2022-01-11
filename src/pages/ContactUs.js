@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Card,
   CardContent,
@@ -11,6 +12,8 @@ import "../styles/ContactUs.css";
 import emailjs from "@emailjs/browser";
 import { createTheme } from "@mui/material/styles";
 import "../styles/ContactUs.css";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const theme = createTheme({
   palette: {
@@ -20,9 +23,6 @@ const theme = createTheme({
   },
 });
 
-const Result = () => {
-  return <p>your message has been sent</p>;
-};
 
 function ContactUs() {
   const [values, setValues] = useState({
@@ -31,6 +31,8 @@ function ContactUs() {
     phone: "",
     message: "",
   });
+
+  const [error, setError] = useState(false)
 
   const { name, email, phone, message } = values;
 
@@ -49,7 +51,7 @@ function ContactUs() {
     e.preventDefault();
 
     if (!name || !email || !phone || !message) {
-      console.error("Please provide value in each input field");
+      setError(true)
     } else {
       emailjs
         .sendForm(
@@ -67,12 +69,14 @@ function ContactUs() {
           }
         );
       e.target.reset();
-      showResult(true);
+      toast.success("Form Submitted Successfully");
+      // showResult(true);
     }
   };
   return (
     <div className="Container" style={{ marginTop: 100 }}>
-      <Typography gutterBottom variant="h5" align="center">
+      <ToastContainer position="top-center"/>
+      <Typography gutterBottom variant="h5" align="center" style={{ color: "#3b3d3d" }}>
         Whether you have a question, our team is ready to answer all your
         questions
       </Typography>
@@ -84,7 +88,7 @@ function ContactUs() {
           background: "rgba(255,255,255,0.8)",
         }}>
         <CardContent>
-          <Typography gutterBottom variant="h5" color={"#007ce7"}>
+          <Typography gutterBottom variant="h5" color={"#007f8b"}>
             Contact Us
           </Typography>
           <form
@@ -99,13 +103,16 @@ function ContactUs() {
             }}>
             <Grid container spacing={1}>
               <Grid item xs={12} spacing={6}>
+              {error && (
+              <Alert severity="error">Please provide value in each input field</Alert>
+            )}
                 <TextField
                   id="name"
                   name="name"
                   label="Your Name"
                   variant="standard"
                   fullWidth
-                  // color="#B8BCDE"
+                  style={{color: "#007f8b"}}
                   value={name}
                   onChange={handleChange}
                 />
@@ -150,10 +157,10 @@ function ContactUs() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                color="secondary">
+                style={{backgroundColor: "#007f8b"}}>
                 Send Message
               </Button>
-              <div>{result ? <Result /> : null}</div>
+              {/* <div>{result ? <Result /> : null}</div> */}
             </Grid>
           </form>
         </CardContent>
