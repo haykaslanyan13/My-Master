@@ -116,7 +116,7 @@ function ClientProfilePage() {
         <Typography
           variant="h3"
           component="h2"
-          style={{ margin: 70, marginTop: 100 }}>
+          style={{ margin: 70, marginTop: 100, color:"black" }}>
           {currentUserData?.firstName} {currentUserData?.lastName}
           <Box sx={{ marginTop: 5, minWidth: 120 }}></Box>
           <div style={{ display: "flex", marginTop: 50 }}>
