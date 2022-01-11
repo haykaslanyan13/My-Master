@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ButtonUnstyled, {
   buttonUnstyledClasses,
 } from "@mui/base/ButtonUnstyled";
-import { styled, typography } from "@mui/system";
+import { styled } from "@mui/system";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 
