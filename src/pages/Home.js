@@ -25,13 +25,14 @@ function Home() {
   // }, []);
   const navigate = useNavigate();
   return (
-    <div style={{ overflowX: "hidden", paddingTop: "100px" }}>
+    <div style={{ overflowX: "hidden", paddingTop: "100px", width:"100%" }}>
       <img
-        style={{ float: "right" }}
-        width={700}
-        src="https://slateorb.com/wp-content/uploads/2014/09/customer-service-1.jpg"
+        style={{ opacity:0.4 }}
+        width={"100%"}
+        src="https://image.shutterstock.com/image-vector/thank-you-essential-workers-concept-260nw-1713290596.jpg"
       />
-      <h1
+      <div style={{position:"absolute", top: 100, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
+    <div style={{paddingTop:100}}> <h1
         style={{
           //   marginTop:100,
           marginLeft: 100,
@@ -61,8 +62,8 @@ function Home() {
           </div>
         </div>
       </h3>
-
-      <Grid container spacing={2}>
+</div> 
+      <Grid container spacing={2} style={{ position:"absolute",paddingRight:310 ,top: 350,  bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
         <Grid
           onClick={() => navigate("/masters/Home Cleaning")}
           style={{
@@ -125,6 +126,7 @@ function Home() {
   
       </Grid>
        </Grid>
+       </div>
       <div style={{ backgroundColor: "white", height: 280 }}>
         <img
           style={{ float: "right", backgroundColor: "white" }}

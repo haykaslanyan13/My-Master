@@ -48,8 +48,8 @@ function ClientOrderHistory() {
   }, []);
 
   return (
+   
     <TableContainer
-      fullWidth
       style={{
         overflowX: "hidden",
       }}
@@ -98,10 +98,10 @@ function ClientOrderHistory() {
                 key={uuidv4()}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                 <TableCell component="th" scope="row">
-                  {master[i].data().firstName} {master[i].data().lastName}
+                  {master[i].data()?.firstName} {master[i].data()?.lastName}
                 </TableCell>
                 <TableCell align="left">
-                  {master[i].data().phoneNumber}
+                  {master[i].data()?.phoneNumber}
                 </TableCell>
                 <TableCell align="left">{date}</TableCell>
               </TableRow>
