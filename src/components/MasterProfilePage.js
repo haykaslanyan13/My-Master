@@ -27,6 +27,7 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
 import MyMasterOrders from "./MyMasterOrders";
+import FullScreenDialog from "./MyMasterOrders";
 
 function MasterProfilePage() {
   const dispatch = useDispatch();
@@ -98,117 +99,111 @@ function MasterProfilePage() {
 
   return (
     <div style={{ display: "flex", paddingTop: "100px" }}>
-      <div style={{ display: "flex" }}>
-        <div style={{ display: "block" }}>
-          {img ? (
-            <Avatar
-              alt="Remy Sharp"
-              src={img}
-              sx={{ width: 250, height: 250 }}
-              style={{
-                margin: 70,
-                marginBottom: 30,
+      <div style={{ display: "block" }}>
+        {img ? (
+          <Avatar
+            alt="Remy Sharp"
+            src={img}
+            sx={{ width: 250, height: 250 }}
+            style={{
+              margin: 70,
+              marginBottom: 30,
+            }}
+          />
+        ) : (
+          <Avatar
+            alt="icon avatar"
+            sx={{ width: 250, height: 250 }}
+            style={{
+              margin: 70,
+              marginBottom: 30,
+            }}>
+            <PersonIcon style={{ height: "100px", width: "100px" }} />
+          </Avatar>
+        )}
+
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={2}
+          style={{ marginLeft: "140px" }}>
+          <label htmlFor="contained-button-file">
+            <Button variant="contained" component="span" onClick={uploadImage}>
+              Upload
+            </Button>
+          </label>
+          <label htmlFor="icon-button-file">
+            <Input
+              accept="image/*"
+              id="icon-button-file"
+              type="file"
+              onChange={async (e) => {
+                setImgData(e.target.files[0]);
               }}
             />
-          ) : (
-            <Avatar
-              alt="icon avatar"
-              sx={{ width: 250, height: 250 }}
-              style={{
-                margin: 70,
-                marginBottom: 30,
-              }}>
-              <PersonIcon style={{ height: "100px", width: "100px" }} />
-            </Avatar>
-          )}
-
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={2}
-            style={{ marginLeft: "140px" }}>
-            <label htmlFor="contained-button-file">
-              <Button
-                variant="contained"
-                component="span"
-                onClick={uploadImage}>
-                Upload
-              </Button>
-            </label>
-            <label htmlFor="icon-button-file">
-              <Input
-                accept="image/*"
-                id="icon-button-file"
-                type="file"
-                onChange={async (e) => {
-                  setImgData(e.target.files[0]);
-                }}
-              />
-              <IconButton
-                color="primary"
-                aria-label="upload picture"
-                component="span">
-                <PhotoCamera />
-              </IconButton>
-            </label>
-          </Stack>
-        </div>
-        <Typography
-          variant="h3"
-          component="h2"
-          style={{ margin: 70, marginTop: 100 }}>
-          {currentUserData?.firstName} {currentUserData?.lastName}
-          <Box sx={{ marginTop: 5, minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Service</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={service}
-                label="Service"
-                onChange={handleChange}>
-                {serviceList.map((i) => (
-                  <MenuItem key={i.name} value={i.name}>
-                    {i.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-          <div style={{ display: "flex", marginTop: 50 }}>
-            <PhoneIphoneIcon
-              style={{ paddingTop: 15 }}
-              fontSize="large"></PhoneIphoneIcon>
-            <TextField
-              id="phone-number"
-              label="phone"
-              variant="standard"
-              className="phone-input"
-              value={phoneNumber}
-              onChange={phoneInput}
-              style={{ marginLeft: 5, width: 300 }}
-            />
-          </div>
-          <div style={{ display: "flex", marginTop: 30 }}>
-            <EmailIcon style={{ paddingTop: 15 }} fontSize="large"></EmailIcon>
-            <TextField
-              id="email-adress"
-              label="email"
-              variant="standard"
-              className="email-input"
-              value={email}
-              style={{ marginLeft: 5, width: 300 }}
-            />
-          </div>
-          <Button
-            style={{ width: 350, marginTop: 70 }}
-            variant="contained"
-            href="#contained-buttons">
-            My Orders
-          </Button>
-        </Typography>
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span">
+              <PhotoCamera />
+            </IconButton>
+          </label>
+        </Stack>
       </div>
-      <MyMasterOrders />
+      <Typography
+        variant="h3"
+        component="h2"
+        style={{ margin: 70, marginTop: 100, color: "black" }}>
+        {currentUserData?.firstName} {currentUserData?.lastName}
+        <Box sx={{ marginTop: 5, minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Service</InputLabel>
+            <Select
+              style={{ width: 345 }}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={service}
+              label="Service"
+              onChange={handleChange}>
+              {serviceList.map((i) => (
+                <MenuItem key={i.name} value={i.name}>
+                  {i.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+        <div style={{ display: "flex", marginTop: 50 }}>
+          <PhoneIphoneIcon
+            style={{ paddingTop: 15 }}
+            fontSize="large"></PhoneIphoneIcon>
+          <TextField
+            id="phone-number"
+            label="phone"
+            variant="standard"
+            className="phone-input"
+            type="number"
+            value={phoneNumber}
+            onChange={phoneInput}
+            style={{
+              marginLeft: 5,
+              width: 300,
+            }}
+          />
+        </div>
+        <div style={{ display: "flex", marginTop: 30 }}>
+          <EmailIcon style={{ paddingTop: 15 }} fontSize="large"></EmailIcon>
+          <TextField
+            id="email-adress"
+            label="email"
+            variant="standard"
+            className="email-input"
+            value={email}
+            style={{ marginLeft: 5, width: 300 }}
+          />
+        </div>
+        <MyMasterOrders />
+      </Typography>
     </div>
   );
 }

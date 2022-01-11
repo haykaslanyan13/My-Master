@@ -35,6 +35,7 @@ import {
   where,
 } from "firebase/firestore/lite";
 import { v4 as uuidv4 } from "uuid";
+import { Input } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -213,6 +214,7 @@ export default function SignUp() {
                   type="phoneNumber"
                   id="phoneNumber"
                   autoComplete="new-phoneNumber"
+                  type="number"
                   style={{backgroundColor: "white"}}
                 />
                 {errors.phoneNumber && (

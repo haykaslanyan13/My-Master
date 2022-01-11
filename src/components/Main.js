@@ -16,6 +16,9 @@ import UserProfilePage from "./ClientProfilePage";
 import AboutUs from "./AboutUs";
 
 function Main() {
+  function scrollTop() {
+    window.scrollTo(0, 0);
+  }
   return (
     <div>
       <Navbar />
