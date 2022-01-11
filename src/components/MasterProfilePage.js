@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import { Button, TextField, Typography } from "@mui/material";
-import Masters from "./Masters";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import EmailIcon from "@mui/icons-material/Email";
 import Box from "@mui/material/Box";
@@ -19,9 +18,7 @@ import {
   where,
 } from "firebase/firestore/lite";
 import { db } from "../Firebase/FirebaseUser";
-import { getAuth } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { Input } from "@material-ui/core";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { setUser } from "../Redux/UserSlice";
 import { styled } from "@mui/material/styles";
@@ -33,25 +30,24 @@ import MyMasterOrders from "./MyMasterOrders";
 
 function MasterProfilePage() {
   const dispatch = useDispatch();
-  const auth = getAuth();
   const currentUserData = useSelector((state) => state.user.user);
-  let data;
-  getDoc(currentUserData?.service).then((d) => {
-    setService(d.data().name);
-  });
-  console.log(data);
   const [service, setService] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(currentUserData?.phoneNumber);
   const [email, setEmail] = useState(currentUserData?.email);
   const [img, setImg] = useState(currentUserData?.img);
   const [imgData, setImgData] = useState("");
   const [serviceList, setServiceList] = useState([]);
-  const [userList, setUserList] = useState([]);
   const storage = getStorage();
-  const [url, setUrl] = useState("");
   const metadata = {
     contentType: "image/jpeg",
   };
+
+  if (currentUserData) {
+    getDoc(currentUserData?.service).then((d) => {
+      setService(d.data().name);
+    });
+  }
+
   async function getData(db) {
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
@@ -79,31 +75,21 @@ function MasterProfilePage() {
     });
   };
 
-  const emailInput = async (e) => {
-    setEmail(e.target.value);
-    await updateDoc(doc(db, "users", currentUserData.id), {
-      email: e.target.value,
-    });
-  };
-
   const uploadImage = async () => {
-    const storageRef = ref(storage, `userImages/${imgData.name}`);
-    try {
-      const uploadTask = await uploadBytes(storageRef, imgData, metadata);
-    } catch {}
-    getDownloadURL(ref(storage, `userImages/${imgData.name}`))
-      .then((url) => {
-        setUrl(url);
-        setImg(url);
+    if (imgData) {
+      const storageRef = ref(storage, `userImages/${imgData.name}`);
+      try {
+        await uploadBytes(storageRef, imgData, metadata);
+        const url = await getDownloadURL(
+          ref(storage, `userImages/${imgData.name}`)
+        );
+        await updateDoc(doc(db, "users", currentUserData.id), {
+          img: url,
+        });
         dispatch(setUser({ ...currentUserData, img: url }));
-      })
-      .catch((error) => {
-        // Handle any errors
-      });
-
-    await updateDoc(doc(db, "users", currentUserData.id), {
-      img: url,
-    });
+        setImg(url);
+      } catch {}
+    }
   };
 
   const Input = styled("input")({
@@ -117,7 +103,7 @@ function MasterProfilePage() {
           {img ? (
             <Avatar
               alt="Remy Sharp"
-              src={currentUserData.img}
+              src={img}
               sx={{ width: 250, height: 250 }}
               style={{
                 margin: 70,
@@ -211,7 +197,6 @@ function MasterProfilePage() {
               variant="standard"
               className="email-input"
               value={email}
-              onChange={emailInput}
               style={{ marginLeft: 5, width: 300 }}
             />
           </div>

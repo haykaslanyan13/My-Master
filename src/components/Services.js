@@ -7,18 +7,14 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import allServicesData from "../data/AllServicesData";
+
 import "../styles/Search.css";
-import { useNavigate } from "react-router";
+
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setMasterFilter,
-  setMasterRating,
-  uptadeServiceList,
-} from "../Redux/UserSlice";
-import allMastersData from "../data/AllMastersData";
-import { Link, Route, Routes } from "react-router-dom";
-import Masters from "./Masters";
+import { uptadeServiceList } from "../Redux/UserSlice";
+
+import { Link } from "react-router-dom";
+
 import { collection, getDocs } from "firebase/firestore/lite";
 import { db } from "../Firebase/FirebaseUser";
 
@@ -73,12 +69,6 @@ function Services() {
           value={filter}
           onChange={searchText}
         />
-        {/* <input
-          type="text"
-          className="search-input"
-          value={filter}
-          onChange={searchText}
-        /> */}
       </div>
       <Grid container>
         {dataSearch.map((item) => {
