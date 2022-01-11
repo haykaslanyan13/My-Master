@@ -19,25 +19,20 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../Redux/UserSlice";
 import { app, db } from "../Firebase/FirebaseUser";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import validation from "./validation";
 import "../styles/SignUp.css";
 import { makeStyles } from "@mui/styles";
-import { ClassNames } from "@emotion/react";
 import { useState, useEffect } from "react";
 import {
-  addDoc,
   collection,
   getDocs,
-  updateDoc,
   doc,
   setDoc,
   deleteDoc,
   query,
   where,
-  getDoc,
 } from "firebase/firestore/lite";
 import { v4 as uuidv4 } from "uuid";
 
@@ -50,10 +45,8 @@ const useStyles = makeStyles({
 const theme = createTheme();
 
 export default function SignUp() {
-  // const [userData, setUser] = useState("");
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.user.user);
   const classes = useStyles();
   const [serviceList, setServiceList] = useState([]);
   const [currentUserType, setCurrentUserType] = useState("");
@@ -66,7 +59,6 @@ export default function SignUp() {
     getData(db);
   }, []);
 
-  let error = false;
   const navigate = useNavigate();
   const auth = getAuth(app);
   const id = uuidv4();
@@ -124,19 +116,7 @@ export default function SignUp() {
       const q = query(servicesRef, where("name", "==", service));
       const serviceSnapshot = await getDocs(q);
       servicee = serviceSnapshot?.docs[0]?.ref;
-      console.log(servicee);
     }
-
-    // const washingtonRef = doc(db, "cities", "DC");
-
-    // Set the "capital" field of the city 'DC'
-    // await updateDoc(washingtonRef, {
-    //   capital: true,
-    // });
-
-    // dispatch(setUser({
-    //   email, password, firstName, lastName, phoneNumber, userType
-    // }))
     signUp(
       email,
       password,
@@ -151,7 +131,6 @@ export default function SignUp() {
       if (user) {
         navigate("/home");
       } else {
-        error = true;
       }
     });
 

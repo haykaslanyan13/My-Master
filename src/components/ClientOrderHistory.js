@@ -58,7 +58,6 @@ function ClientOrderHistory() {
         <TableHead>
           <TableRow>
             <TableCell></TableCell>
-
             <TableCell
               align="center"
               style={{
@@ -82,7 +81,7 @@ function ClientOrderHistory() {
               PhoneNumber
             </TableCell>
             <TableCell
-              align="left"
+              align="justify"
               style={{ fontWeight: "bolder", fontSize: 18 }}>
               OrderDate
             </TableCell>

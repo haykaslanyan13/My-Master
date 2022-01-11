@@ -39,7 +39,6 @@ function MyMasterOrders() {
     );
     let clientsRef = [];
     orders.forEach((order) => clientsRef.push(order.client));
-    console.log(clientsRef);
     const a = clientsRef.map((client) => getDoc(client));
     const aa = await Promise.all(a);
     setClient(aa);
@@ -51,7 +50,6 @@ function MyMasterOrders() {
 
   return (
     <TableContainer
-      fullWidth
       style={{
         overflowX: "hidden",
       }}
@@ -101,22 +99,6 @@ function MyMasterOrders() {
               const a = await getDoc(order.client);
               setClient({ ...client, [a.data().email]: { ...a.data() } });
             };
-            // asd();
-            console.log(client);
-            // let connection;
-            // try {
-            //   (async () => {
-            //     connection = await getDoc(order.client);
-            //   })();
-            // } catch (err) {
-            //   console.log(err);
-            // }
-            // getDoc(order.client).then((user) => {
-            //   aaa = user;
-            // });
-            // console.log(connection);
-            // const user = userSnapshot.docs[0].data();
-            // console.log(order.client);
             const date = `${order?.date.toDate().toDateString()} ${order?.date
               .toDate()
               .getHours()}: ${order?.date.toDate().getMinutes()}`;
