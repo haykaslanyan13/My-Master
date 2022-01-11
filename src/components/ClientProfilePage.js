@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import { Button, TextField, Typography } from "@mui/material";
-import Masters from "./Masters";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import EmailIcon from "@mui/icons-material/Email";
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore/lite";
+import { doc, updateDoc } from "firebase/firestore/lite";
 import { db } from "../Firebase/FirebaseUser";
-import { getAuth } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { Input } from "@material-ui/core";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { setUser } from "../Redux/UserSlice";
 import { styled } from "@mui/material/styles";
@@ -24,18 +17,16 @@ import PersonIcon from "@mui/icons-material/Person";
 import ClientOrderHistory from "./ClientOrderHistory";
 
 function ClientProfilePage() {
+  const dispatch = useDispatch();
   const currentUserData = useSelector((state) => state.user.user);
   const [phoneNumber, setPhoneNumber] = useState(currentUserData?.phoneNumber);
-  const [service, setService] = useState(currentUserData?.service);
   const [email, setEmail] = useState(currentUserData?.email);
   const [img, setImg] = useState(currentUserData?.img);
   const [imgData, setImgData] = useState("");
   const storage = getStorage();
-  const [url, setUrl] = useState("");
   const metadata = {
     contentType: "image/jpeg",
   };
-  const dispatch = useDispatch();
 
   const phoneInput = async (e) => {
     setPhoneNumber(e.target.value);
@@ -44,31 +35,21 @@ function ClientProfilePage() {
     });
   };
 
-  const emailInput = async (e) => {
-    setEmail(e.target.value);
-    await updateDoc(doc(db, "users", currentUserData.id), {
-      email: e.target.value,
-    });
-  };
-
   const uploadImage = async () => {
-    const storageRef = ref(storage, `userImages/${imgData.name}`);
-    try {
-      const uploadTask = await uploadBytes(storageRef, imgData, metadata);
-    } catch {}
-    getDownloadURL(ref(storage, `userImages/${imgData.name}`))
-      .then((url) => {
-        setUrl(url);
-        setImg(url);
+    if (imgData) {
+      const storageRef = ref(storage, `userImages/${imgData.name}`);
+      try {
+        await uploadBytes(storageRef, imgData, metadata);
+        const url = await getDownloadURL(
+          ref(storage, `userImages/${imgData.name}`)
+        );
+        await updateDoc(doc(db, "users", currentUserData.id), {
+          img: url,
+        });
         dispatch(setUser({ ...currentUserData, img: url }));
-      })
-      .catch((error) => {
-        // Handle any errors
-      });
-
-    await updateDoc(doc(db, "users", currentUserData.id), {
-      img: url,
-    });
+        setImg(url);
+      } catch {}
+    }
   };
 
   const Input = styled("input")({
@@ -82,7 +63,7 @@ function ClientProfilePage() {
           {img ? (
             <Avatar
               alt="Remy Sharp"
-              src={currentUserData.img}
+              src={img}
               sx={{ width: 250, height: 250 }}
               style={{
                 margin: 70,
@@ -147,6 +128,7 @@ function ClientProfilePage() {
               label="phone"
               variant="standard"
               className="phone-input"
+              type="number"
               value={phoneNumber}
               onChange={phoneInput}
               style={{ marginLeft: 5, width: 300 }}
@@ -160,10 +142,9 @@ function ClientProfilePage() {
               variant="standard"
               className="email-input"
               value={email}
-              // onChange={emailInput}
               style={{ marginLeft: 5, width: 300 }}
             />
-          </div> 
+          </div>
           <Button
             style={{ width: 350, marginTop: 70 }}
             variant="contained"

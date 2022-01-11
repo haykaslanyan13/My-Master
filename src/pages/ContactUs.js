@@ -60,10 +60,10 @@ function ContactUs() {
         )
         .then(
           (result) => {
-            console.log(result.text);
+            // console.log(result.text);
           },
           (error) => {
-            console.log(error.text);
+            // console.log(error.text);
           }
         );
       e.target.reset();
@@ -116,6 +116,7 @@ function ContactUs() {
                   name="phone"
                   label="Phone Number"
                   variant="standard"
+                  type="number"
                   fullWidth
                   value={phone}
                   onChange={handleChange}
