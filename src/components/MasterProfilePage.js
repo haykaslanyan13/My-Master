@@ -212,7 +212,7 @@ function MasterProfilePage() {
           </Button>
         </Typography>
       </div>
-      <MyMasterOrders />
+      {/* <MyMasterOrders /> */}
     </div>
   );
 }

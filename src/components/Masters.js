@@ -382,7 +382,6 @@ function Masters() {
                   maxWidth: 500,
                   flexGrow: 1,
                   backgroundColor: "#b2bcc0",
-                  height: 250,
                   display: "flex",
                   alignItems: "center",
                 }}>
