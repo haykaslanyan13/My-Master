@@ -22,6 +22,7 @@ function App() {
     );
     dispatch(setUser({ ...currentUserData.data(), id: currentUserData.id }));
   }
+
   const isAuthenticating = useSelector((state) => state.user.isAuthenticating);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
