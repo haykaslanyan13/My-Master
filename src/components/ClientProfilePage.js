@@ -128,6 +128,7 @@ function ClientProfilePage() {
               label="phone"
               variant="standard"
               className="phone-input"
+              type="number"
               value={phoneNumber}
               onChange={phoneInput}
               style={{ marginLeft: 5, width: 300 }}

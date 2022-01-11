@@ -76,6 +76,9 @@ function Services() {
                   flexGrow: 1,
                   backgroundColor: "#b2bcc0",
                   borderRadius: "30px",
+                  height: 220,
+                  display: "flex",
+                  alignItems: "center",
                 }}>
                 <Grid container spacing={2}>
                   <Grid item style={{ display: "flex", alignItems: "center" }}>

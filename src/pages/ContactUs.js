@@ -123,6 +123,7 @@ function ContactUs() {
                   name="phone"
                   label="Phone Number"
                   variant="standard"
+                  type="number"
                   fullWidth
                   value={phone}
                   onChange={handleChange}
