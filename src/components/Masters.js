@@ -325,6 +325,10 @@ function Masters() {
 
   useEffect(() => {
     getUsers(db);
+    return () => {
+      setRatings([]);
+      setUserList([]);
+    };
   }, [getUsers]);
 
   const mastersDiscription =
