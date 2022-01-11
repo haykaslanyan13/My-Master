@@ -1,0 +1,22 @@
+.header {
+    background-color: lightgrey;
+    border: 5px solid #22a6b3;
+    padding: 60px;
+    margin: 20px;
+    /* width: 300px; */
+  }
+  
+  .groove {
+    color: #464855;
+    text-align: center;
+    justify-items: center;
+  }
+  
+  hr {
+    border-top: 1px solid #22a6b3;
+  }
+  
+  h2 {
+      color: #464855;
+  }
+  
