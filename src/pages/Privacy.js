@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/Privacy.css";
 
 function Privacy() {
@@ -26,13 +26,41 @@ function Privacy() {
           </div>
           <div>
             <ul>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
             </ul>
           </div>
           <div className="">
@@ -40,11 +68,31 @@ function Privacy() {
           </div>
           <div>
             <ul>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
-              <li>Earth's axis of rotation is tilted in relation to the ecliptic plane, an imaginary surface through the planet's orbit around the sun.</li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
+              <li>
+                Earth's axis of rotation is tilted in relation to the ecliptic
+                plane, an imaginary surface through the planet's orbit around
+                the sun.
+              </li>
             </ul>
           </div>
         </div>
@@ -54,4 +102,3 @@ function Privacy() {
 }
 
 export default Privacy;
-

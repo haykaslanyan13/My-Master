@@ -20,7 +20,6 @@ function ClientProfilePage() {
   const dispatch = useDispatch();
   const currentUserData = useSelector((state) => state.user.user);
   const [phoneNumber, setPhoneNumber] = useState(currentUserData?.phoneNumber);
-  const [email, setEmail] = useState(currentUserData?.email);
   const [img, setImg] = useState(currentUserData?.img);
   const [imgData, setImgData] = useState("");
   const storage = getStorage();
@@ -137,7 +136,7 @@ function ClientProfilePage() {
             label="email"
             variant="standard"
             className="email-input"
-            value={email}
+            value={currentUserData?.email}
             style={{ marginLeft: 5, width: 300 }}
           />
         </div>
