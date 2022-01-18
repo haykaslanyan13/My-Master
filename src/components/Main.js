@@ -17,7 +17,7 @@ function Main() {
   return (
     <div>
       <Navbar />
-      <Routes>
+      <Routes onChange={() => {console.log("hey")}} >
         <Route path="allservices" element={<AllServices />} />
         <Route path="home" element={<Home />} />
         <Route path="/masters/:itemTitle" element={<Masters />} />

@@ -1,0 +1,18 @@
+.hero-container{
+    background: url("https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/01aa76c8746b0194feeb9e6dca0600cf.jpg?alt=media&token=2ec650da-695d-4a35-87ab-e18cd38748b3") center center/cover no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.2); */
+    object-fit: contain;
+    position: relative;
+}
+
+.hero-container > h1 {
+    color: #007f8b;
+    font-size: 50px;
+    margin-top: 100px;
+    margin-left: 100px;
+}
