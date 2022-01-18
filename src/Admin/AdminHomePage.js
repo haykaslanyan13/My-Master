@@ -124,7 +124,7 @@ function AdminHomePage() {
   return (
     <div
       style={{
-        backgroundImage: `url("https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/Images%2FHome-Services-Pic1.jpg?alt=media&token=221acd35-82ab-42a4-bf84-025c9fff5aec")`,
+        backgroundImage: `url("https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/Webinar-Reihe-Smart-Services%20small.jpg?alt=media&token=b0952027-043c-4145-b9a9-16c2be04d9a8")`,
         width: "calc(100vw - 13vw)",
         height: "calc(100vh - 80px)",
         backgroundSize: "cover",
