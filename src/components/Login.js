@@ -15,7 +15,6 @@ import { useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 import { app } from "../Firebase/FirebaseUser";
 
-
 const theme = createTheme();
 
 export default function LogIn() {

@@ -4,7 +4,6 @@ import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import "../styles/HeroSection.css";
 
-
 const Img = styled("img")({
   margin: "auto",
   display: "block",
