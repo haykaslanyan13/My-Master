@@ -19,7 +19,6 @@ function Admin() {
           style={{
             margin: 0,
             padding: 15,
-            marginLeft: 30,
           }}>
           <span
             onClick={() => navigate("/Admin")}

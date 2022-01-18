@@ -1,15 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import "../styles/HeroSection.css";
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
 
 const Img = styled("img")({
   margin: "auto",
