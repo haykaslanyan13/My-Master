@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import "../styles/Home.css";
+import "../styles/HeroSection.css";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -14,8 +14,8 @@ const Item = styled(Paper)(({ theme }) => ({
 const Img = styled("img")({
   margin: "auto",
   display: "block",
-  width: "50px",
-  height: "50px",
+  width: "40px",
+  height: "40px",
 });
 
 function HeroSection() {
@@ -31,8 +31,7 @@ function HeroSection() {
           left: "30%",
           transform: "translate(-30%, -30%)",
           color: "#007f8b",
-        }}
-      >
+        }}>
         You don't have to do the housework you used to do!
         <div
           style={{
@@ -40,8 +39,7 @@ function HeroSection() {
             marginBottom: "1em",
             marginLeft: 0,
             marginRight: 0,
-          }}
-        >
+          }}>
           Our services will help you with any work you don't feel like
           <div
             style={{
@@ -49,8 +47,7 @@ function HeroSection() {
               marginBottom: "1em",
               marginLeft: 0,
               marginRight: 0,
-            }}
-          >
+            }}>
             doing at the moment.
           </div>
         </div>
@@ -63,14 +60,12 @@ function HeroSection() {
           bottom: 100,
           display: "flex",
           justifyContent: "center",
-        }}
-      >
+        }}>
         <Grid
           container
           justifyContent="space-evenly"
           alignItems="center"
-          sx={{ maxWidth: 992 }}
-        >
+          sx={{ maxWidth: 992 }}>
           <Paper
             onClick={() => navigate("/masters/Home Cleaning")}
             sx={{
@@ -83,8 +78,7 @@ function HeroSection() {
               backgroundColor: "lightgray",
               border: "1px solid #007f8b",
               cursor: "pointer",
-            }}
-          >
+            }}>
             <Img src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/services-images%2F588a6758d06f6719692a2d22.png?alt=media&token=5620484f-9d8d-44e0-988a-cf575f4b4968" />
           </Paper>
           <Paper
@@ -99,8 +93,7 @@ function HeroSection() {
               backgroundColor: "lightgray",
               border: "1px solid #007f8b",
               cursor: "pointer",
-            }}
-          >
+            }}>
             <Img src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/services-images%2Fpngegg%20(9).png?alt=media&token=cedd4e0e-2c8d-4225-aa49-b79316de9cc9" />
           </Paper>
           <Paper
@@ -115,8 +108,7 @@ function HeroSection() {
               backgroundColor: "lightgray",
               border: "1px solid #007f8b",
               cursor: "pointer",
-            }}
-          >
+            }}>
             <Img src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/services-images%2Fpngegg%20(8).png?alt=media&token=92859739-c3d5-467d-a83f-b6128bbce261" />
           </Paper>
           <Paper
@@ -131,8 +123,7 @@ function HeroSection() {
               backgroundColor: "lightgray",
               border: "1px solid #007f8b",
               cursor: "pointer",
-            }}
-          >
+            }}>
             <Img src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/services-images%2Fpngegg%20(12).png?alt=media&token=748567a0-88c6-441b-9717-6958893e3d1a" />
           </Paper>
 
@@ -148,8 +139,7 @@ function HeroSection() {
               backgroundColor: "lightgray",
               border: "1px solid #007f8b",
               cursor: "pointer",
-            }}
-          >
+            }}>
             <Img src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/services-images%2Fpngegg.png?alt=media&token=8985dbf0-b60a-42a7-95b0-494fe89bcc08" />
           </Paper>
         </Grid>
@@ -159,4 +149,3 @@ function HeroSection() {
 }
 
 export default HeroSection;
-

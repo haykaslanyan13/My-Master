@@ -45,7 +45,7 @@ function AboutUs() {
         <h1>What We Do</h1>
         <div style={{ display: "flex", width: 200 }}>
           <img
-            alt=""
+            alt="aboutUsPic"
             style={{ height: 100, width: 100 }}
             src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/aboutusimages%2F24-hours-pngrepo-com.png?alt=media&token=f7eba51e-079c-44b7-9856-a92034741932"
           />
