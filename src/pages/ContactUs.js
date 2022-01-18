@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "../styles/ContactUs.css";
 import emailjs from "@emailjs/browser";
 import { createTheme } from "@mui/material/styles";
@@ -34,8 +34,6 @@ function ContactUs() {
   const [error, setError] = useState(false);
 
   const { name, email, phone, message } = values;
-
-  const [result, showResult] = useState(false);
 
   const form = useRef();
 
@@ -69,7 +67,6 @@ function ContactUs() {
         );
       e.target.reset();
       toast.success("Form Submitted Successfully");
-      // showResult(true);
     }
   };
   return (
