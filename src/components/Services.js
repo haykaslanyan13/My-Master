@@ -13,6 +13,7 @@ import { uptadeServiceList } from "../Redux/UserSlice";
 import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore/lite";
 import { db } from "../Firebase/FirebaseUser";
+import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
 
 const Img = styled("img")({
   margin: "auto",
@@ -88,7 +89,13 @@ function Services() {
                       item
                       style={{ display: "flex", alignItems: "center" }}>
                       <ButtonBase sx={{ width: 128, height: 128 }}>
-                        <Img alt="complex" src={item.image} />
+                        {item.image ? (
+                          <Img alt="" src={item.image} />
+                        ) : (
+                          <ImageNotSupportedIcon
+                            style={{ width: 128, height: 128 }}
+                          />
+                        )}
                       </ButtonBase>
                     </Grid>
                     <Grid item xs={12} sm container>

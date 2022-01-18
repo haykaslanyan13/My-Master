@@ -7,12 +7,13 @@ function AboutUs() {
         display: "flex",
         marginTop: 100,
         height: "calc(100vh - 80px)",
+        justifyContent: "center",
       }}>
       <div>
         <div
           style={{
             textAlign: "left",
-            marginLeft: 220,
+            // marginLeft: 220,
             marginTop: 100,
             letterSpacing: 2,
             borderLeft: "solid",
@@ -32,7 +33,7 @@ function AboutUs() {
           <br />
           Activity
         </div>
-        <h4 style={{ marginLeft: 220, textAlign: "left", width: 700 }}>
+        <h4 style={{ textAlign: "left", width: 700 }}>
           <span style={{ color: "#007ce7", fontSize: "16px" }}>My </span>
           <span style={{ color: "#007f8b", fontSize: "16px" }}>Master </span>
           is an online service platform. For the services you will be offered
@@ -41,7 +42,7 @@ function AboutUs() {
           with us is easy.
         </h4>
       </div>
-      <div style={{ marginTop: 80, marginLeft: 110, width: 200 }}>
+      <div style={{ marginTop: 80, width: 200 }}>
         <h1>What We Do</h1>
         <div style={{ display: "flex", width: 200 }}>
           <img

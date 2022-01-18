@@ -47,6 +47,7 @@ export default function SignUp() {
   const [errors, setErrors] = useState({});
   const classes = useStyles();
   const [serviceList, setServiceList] = useState([]);
+  const [service, setService] = useState("");
   const [currentUserType, setCurrentUserType] = useState("");
   async function getData(db) {
     const servicesCol = collection(db, "services");
@@ -114,6 +115,7 @@ export default function SignUp() {
       const q = query(servicesRef, where("name", "==", service));
       const serviceSnapshot = await getDocs(q);
       servicee = serviceSnapshot?.docs[0]?.ref;
+      console.log(servicee);
     }
     signUp(
       email,
@@ -144,8 +146,6 @@ export default function SignUp() {
       })
     );
   };
-
-  const style = { backgroundColor: "white" };
 
   return (
     <ThemeProvider theme={theme}>
@@ -245,7 +245,6 @@ export default function SignUp() {
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       name="service"
-                      // value={service}
                       label="Service">
                       {serviceList.map((i) => (
                         <MenuItem key={i.name} value={i.name}>
@@ -298,10 +297,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      value="allowExtraEmails"
-                      color="primary"
-                    />
+                    <Checkbox value="allowExtraEmails" color="primary" />
                   }
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />

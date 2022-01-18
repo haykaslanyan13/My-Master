@@ -38,6 +38,7 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { v4 as uuidv4 } from "uuid";
+import { getAuth, signOut } from "firebase/auth";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -147,6 +148,8 @@ const BootstrapDialogTitle = (props) => {
 };
 
 function AlertDialog() {
+  const currentUser = useSelector((state) => state.user.user);
+  const auth = getAuth();
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   const handleClickOpen = () => {
@@ -155,6 +158,17 @@ function AlertDialog() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const logOutAndNavigateToLogin = async () => {
+    if (currentUser) {
+      try {
+        await signOut(auth);
+        navigate("/login");
+      } catch {}
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -180,8 +194,8 @@ function AlertDialog() {
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
-          <Button variant="contained" onClick={() => navigate("/login")}>
-            Log In
+          <Button variant="contained" onClick={logOutAndNavigateToLogin}>
+            {currentUser ? "Log Out & Log In" : "Log In"}
           </Button>
         </DialogActions>
       </Dialog>
