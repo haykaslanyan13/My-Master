@@ -6,13 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {
-  Button,
-  Input,
-  TextareaAutosize,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, TextareaAutosize, TextField, Typography } from "@mui/material";
 import {
   addDoc,
   collection,
@@ -36,7 +30,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { uptadeServiceList } from "../Redux/UserSlice";
 import { useCallback } from "react";
 import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({

@@ -45,7 +45,6 @@ export default function SignUp() {
   const [errors, setErrors] = useState({});
   const classes = useStyles();
   const [serviceList, setServiceList] = useState([]);
-  const [service, setService] = useState("");
   const [currentUserType, setCurrentUserType] = useState("");
   async function getData(db) {
     const servicesCol = collection(db, "services");
@@ -206,7 +205,6 @@ export default function SignUp() {
                   fullWidth
                   name="phoneNumber"
                   label="Phone Number"
-                  type="phoneNumber"
                   id="phoneNumber"
                   autoComplete="new-phoneNumber"
                   type="number"
