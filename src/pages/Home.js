@@ -1,6 +1,6 @@
 // import { createTheme, fontStyle, minWidth, ThemeProvider } from "@mui/system"
 import React, { useEffect } from "react";
-import {Button, Grid, Paper } from "@mui/material";
+import { Button, Grid, Paper } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import YardIcon from "@mui/icons-material/Yard";
@@ -25,108 +25,132 @@ function Home() {
   // }, []);
   const navigate = useNavigate();
   return (
-    <div style={{ overflowX: "hidden", paddingTop: "100px", width:"100%" }}>
-      <img
+    <div
+      style={{
+        overflowX: "hidden",
+        paddingTop: "100px",
+        width: "100%",
+
+      }}>
+      <div style={{
+        backgroundImage: 'url("https://image.shutterstock.com/image-vector/thank-you-essential-workers-concept-260nw-1713290596.jpg")',
+        height: 300,
+        backgroundSize: "cover",
+        position: "relative"
+      }}>
+        <Grid container spacing={2} style={{ position: "absolute", left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' }}>
+          <Grid
+            onClick={() => navigate("/masters/Home Cleaning")}
+            style={{
+              width: 90,
+              marginLeft: 400,
+              marginTop: 100,
+              cursor: "pointer",
+            }}>
+            <Item>
+              <HomeIcon sx={{ color: "black" }} />
+            </Item>
+          </Grid>
+          <Grid
+            onClick={() => navigate("/masters/Plumber")}
+            style={{
+              width: 90,
+              marginLeft: 50,
+              marginTop: 100,
+              cursor: "pointer",
+            }}>
+            <Item>
+              <ConstructionIcon sx={{ color: "black" }} />
+            </Item>
+          </Grid>
+          <Grid
+            onClick={() => navigate("/masters/Gardening")}
+            style={{
+              width: 90,
+              marginLeft: 50,
+              marginTop: 100,
+              cursor: "pointer",
+            }}>
+            <Item>
+              <YardIcon sx={{ color: "black" }} />
+            </Item>
+          </Grid>
+          <Grid
+            onClick={() => navigate("/masters/Pet Care")}
+            style={{
+              width: 90,
+              marginLeft: 50,
+              marginTop: 100,
+              cursor: "pointer",
+            }}>
+            <Item>
+              <PetsIcon sx={{ color: "black" }} />
+            </Item>
+          </Grid>
+          <Grid
+            onClick={() => navigate("/masters/Garbage Collection")}
+            style={{
+              width: 90,
+              marginLeft: 50,
+              marginTop: 100,
+              cursor: "pointer",
+            }}>
+            <Item>
+              <DeleteIcon sx={{ color: "black" }} />
+            </Item>
+
+          </Grid>
+        </Grid>
+        {/* <div style={{
+          position:"absolute",
+          bottom:0,
+          left:0,
+          right:0,
+          display:"flex",
+          justifyContent:"space-evenly"
+        }}>
+
+        </div> */}
+      </div>
+      {/* <img
         style={{ opacity:0.4 }}
         width={"100%"}
         src="https://image.shutterstock.com/image-vector/thank-you-essential-workers-concept-260nw-1713290596.jpg"
-      />
-      <div style={{position:"absolute", top: 100, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-    <div style={{paddingTop:100}}> <h1
-        style={{
-          //   marginTop:100,
-          marginLeft: 100,
-          fontStyle: "italic",
-        }}>
-        Let the Master take the spot!
-      </h1>
-      <h3 style={{ marginLeft: 100 }}>
-        You don't have to do the housework you used to do!
-        <div
+      /> */}
+      <div style={{ position: "absolute", top: 100, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ paddingTop: 100 }}> <h1
           style={{
-            marginTop: "1em",
-            marginBottom: "1em",
-            marginLeft: 0,
-            marginRight: 0,
+            //   marginTop:100,
+            marginLeft: 100,
+            fontStyle: "italic",
           }}>
-          {" "}
-          Our services will help you with any work you don't feel like
-          <div
-            style={{
-              marginTop: "1em",
-              marginBottom: "1em",
-              marginLeft: 0,
-              marginRight: 0,
-            }}>
-            doing at the moment.
-          </div>
+          Let the Master take the spot!
+        </h1>
+          <h3 style={{ marginLeft: 100 }}>
+            You don't have to do the housework you used to do!
+            <div
+              style={{
+                marginTop: "1em",
+                marginBottom: "1em",
+                marginLeft: 0,
+                marginRight: 0,
+              }}>
+              {" "}
+              Our services will help you with any work you don't feel like
+              <div
+                style={{
+                  marginTop: "1em",
+                  marginBottom: "1em",
+                  marginLeft: 0,
+                  marginRight: 0,
+                }}>
+                doing at the moment.
+              </div>
+            </div>
+          </h3>
         </div>
-      </h3>
-</div> 
-      <Grid container spacing={2} style={{ position:"absolute",paddingRight:310 ,top: 350,  bottom: 0, justifyContent: 'center', alignItems: 'center'}}>
-        <Grid
-          onClick={() => navigate("/masters/Home Cleaning")}
-          style={{
-            width: 90,
-            marginLeft: 400,
-            marginTop: 100,
-            cursor: "pointer",
-          }}>
-          <Item>
-            <HomeIcon sx={{ color: "black" }} />
-          </Item>
-        </Grid>
-        <Grid
-          onClick={() => navigate("/masters/Plumber")}
-          style={{
-            width: 90,
-            marginLeft: 50,
-            marginTop: 100,
-            cursor: "pointer",
-          }}>
-          <Item>
-            <ConstructionIcon sx={{ color: "black" }} />
-          </Item>
-        </Grid>
-        <Grid
-          onClick={() => navigate("/masters/Gardening")}
-          style={{
-            width: 90,
-            marginLeft: 50,
-            marginTop: 100,
-            cursor: "pointer",
-          }}>
-          <Item>
-            <YardIcon sx={{ color: "black" }} />
-          </Item>
-        </Grid>
-        <Grid
-          onClick={() => navigate("/masters/Pet Care")}
-          style={{
-            width: 90,
-            marginLeft: 50,
-            marginTop: 100,
-            cursor: "pointer",
-          }}>
-          <Item>
-            <PetsIcon sx={{ color: "black" }} />
-          </Item>
-        </Grid>
-        <Grid
-          onClick={() => navigate("/masters/Garbage Collection")}
-          style={{
-            width: 90,
-            marginLeft: 50,
-            marginTop: 100,
-            cursor: "pointer",
-          }}>
-          <Item>
-            <DeleteIcon sx={{ color: "black" }} />
-          </Item>
-  
-      </Grid>
-       </Grid>
-       </div>
+
+      </div>
       <div style={{ backgroundColor: "white", height: 280 }}>
         <img
           style={{ float: "right", backgroundColor: "white" }}
