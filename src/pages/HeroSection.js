@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import "../styles/Home.css";
+import "../styles/HeroSection.css";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
