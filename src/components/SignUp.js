@@ -115,6 +115,7 @@ export default function SignUp() {
       const q = query(servicesRef, where("name", "==", service));
       const serviceSnapshot = await getDocs(q);
       servicee = serviceSnapshot?.docs[0]?.ref;
+      console.log(servicee);
     }
     signUp(
       email,
