@@ -10,18 +10,9 @@ import {
 import React, { useRef, useState } from "react";
 import "../styles/ContactUs.css";
 import emailjs from "@emailjs/browser";
-import { createTheme } from "@mui/material/styles";
 import "../styles/ContactUs.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-const theme = createTheme({
-  palette: {
-    secondary: {
-      main: "#bc1efc",
-    },
-  },
-});
 
 function ContactUs() {
   const [values, setValues] = useState({
