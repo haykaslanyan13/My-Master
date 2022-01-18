@@ -67,7 +67,6 @@ BootstrapDialogTitle.propTypes = {
 };
 
 function AddService() {
-  const serviceList = useSelector((state) => state.user.serviceList);
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
@@ -170,7 +169,6 @@ function AddService() {
 
 function UpdateService({ service }) {
   const dispatch = useDispatch();
-  const serviceList = useSelector((state) => state.user.serviceList);
   const [open, setOpen] = React.useState(false);
   const [defaultName, setDefaultName] = useState(service.name);
   const [defaultDescription, setDefaultDescription] = useState(
@@ -311,15 +309,14 @@ function DeleteService({ service }) {
     await deleteDoc(doc(db, "services", docId));
     getUsers(db);
   };
-  const handleSubmit = async (event) => {
-    debugger;
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const [serviceName, description] = [
-      data.get("serviceName"),
-      data.get("description"),
-    ];
-  };
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   const [serviceName, description] = [
+  //     data.get("serviceName"),
+  //     data.get("description"),
+  //   ];
+  // };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -344,7 +341,7 @@ function DeleteService({ service }) {
         </BootstrapDialogTitle>
 
         <Box
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
           component="form"
           sx={{
             width: 500,

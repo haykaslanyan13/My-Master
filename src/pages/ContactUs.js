@@ -13,7 +13,7 @@ import emailjs from "@emailjs/browser";
 import { createTheme } from "@mui/material/styles";
 import "../styles/ContactUs.css";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme({
   palette: {
@@ -23,7 +23,6 @@ const theme = createTheme({
   },
 });
 
-
 function ContactUs() {
   const [values, setValues] = useState({
     name: "",
@@ -32,7 +31,7 @@ function ContactUs() {
     message: "",
   });
 
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   const { name, email, phone, message } = values;
 
@@ -51,7 +50,7 @@ function ContactUs() {
     e.preventDefault();
 
     if (!name || !email || !phone || !message) {
-      setError(true)
+      setError(true);
     } else {
       emailjs
         .sendForm(
@@ -75,8 +74,12 @@ function ContactUs() {
   };
   return (
     <div className="Container" style={{ marginTop: 100 }}>
-      <ToastContainer position="top-center"/>
-      <Typography gutterBottom variant="h5" align="center" style={{ color: "#3b3d3d" }}>
+      <ToastContainer position="top-center" />
+      <Typography
+        gutterBottom
+        variant="h5"
+        align="center"
+        style={{ color: "#3b3d3d" }}>
         Whether you have a question, our team is ready to answer all your
         questions
       </Typography>
@@ -103,16 +106,18 @@ function ContactUs() {
             }}>
             <Grid container spacing={1}>
               <Grid item xs={12} spacing={6}>
-              {error && (
-              <Alert severity="error">Please provide value in each input field</Alert>
-            )}
+                {error && (
+                  <Alert severity="error">
+                    Please provide value in each input field
+                  </Alert>
+                )}
                 <TextField
                   id="name"
                   name="name"
                   label="Your Name"
                   variant="standard"
                   fullWidth
-                  style={{color: "#007f8b"}}
+                  style={{ color: "#007f8b" }}
                   value={name}
                   onChange={handleChange}
                 />
@@ -158,7 +163,7 @@ function ContactUs() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                style={{backgroundColor: "#007f8b"}}>
+                style={{ backgroundColor: "#007f8b" }}>
                 Send Message
               </Button>
               {/* <div>{result ? <Result /> : null}</div> */}

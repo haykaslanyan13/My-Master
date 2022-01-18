@@ -167,7 +167,7 @@ export default function SignUp() {
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography  component="h1" variant="h5">
+          <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
           <Box
@@ -185,7 +185,7 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  style={{backgroundColor: "white"}}
+                  style={{ backgroundColor: "white" }}
                 />
                 {errors.firstName && (
                   <p style={{ color: "red" }}>{errors.firstName}</p>
@@ -199,7 +199,7 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
-                  style={{backgroundColor: "white"}}
+                  style={{ backgroundColor: "white" }}
                 />
                 {errors.lastName && (
                   <p style={{ color: "red" }}>{errors.lastName}</p>
@@ -215,7 +215,7 @@ export default function SignUp() {
                   id="phoneNumber"
                   autoComplete="new-phoneNumber"
                   type="number"
-                  style={{backgroundColor: "white"}}
+                  style={{ backgroundColor: "white" }}
                 />
                 {errors.phoneNumber && (
                   <p style={{ color: "red" }}>{errors.phoneNumber}</p>
@@ -231,7 +231,7 @@ export default function SignUp() {
                     id="demo-simple-select"
                     name="userType"
                     label="User Type"
-                    style={{backgroundColor: "white"}}
+                    style={{ backgroundColor: "white" }}
                     onChange={(event) =>
                       setCurrentUserType(event.target.value)
                     }>
@@ -252,7 +252,6 @@ export default function SignUp() {
                       name="service"
                       // value={service}
                       label="Service">
-                        style={{backgroundColor: "white"}}
                       {serviceList.map((i) => (
                         <MenuItem key={i.name} value={i.name}>
                           {i.name}
@@ -270,7 +269,7 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  style={{backgroundColor: "white"}}
+                  style={{ backgroundColor: "white" }}
                 />
                 {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
               </Grid>
@@ -283,7 +282,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  style={{backgroundColor: "white"}}
+                  style={{ backgroundColor: "white" }}
                 />
                 {errors.password && (
                   <p style={{ color: "red" }}>{errors.password}</p>
@@ -298,7 +297,7 @@ export default function SignUp() {
                   type="password"
                   id="password2"
                   autoComplete="new-password"
-                  style={{backgroundColor: "white"}}
+                  style={{ backgroundColor: "white" }}
                 />
                 {errors.password2 && (
                   <p style={{ color: "red" }}>{errors.password2}</p>
@@ -307,7 +306,11 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
-                    <Checkbox value="allowExtraEmails" color="primary" style={{backgroundColor: "white"}}/>
+                    <Checkbox
+                      value="allowExtraEmails"
+                      color="primary"
+                      style={{ backgroundColor: "white" }}
+                    />
                   }
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />

@@ -51,7 +51,7 @@ function AlertDialogSlidePhone({ item }) {
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
@@ -62,8 +62,7 @@ function AlertDialogSlidePhone({ item }) {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description"
-        >
+        aria-describedby="alert-dialog-slide-description">
         <DialogTitle>{`Do you want to call ${item.firstName}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
@@ -84,11 +83,11 @@ function AlertDialogSlideEmail({ item }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  
+
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
@@ -99,8 +98,7 @@ function AlertDialogSlideEmail({ item }) {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description"
-        >
+        aria-describedby="alert-dialog-slide-description">
         <DialogTitle>{`Do you want to send message to ${item.firstName}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
@@ -181,6 +179,7 @@ function Order({ master, serviceName }) {
         client: userRef,
         service: serviceRef,
         master: masterRef,
+        status: "pending",
       });
     } catch {}
   };
@@ -327,6 +326,10 @@ function Masters() {
 
   useEffect(() => {
     getUsers(db);
+    return () => {
+      setRatings([]);
+      setUserList([]);
+    };
   }, [getUsers]);
   const mastersDiscription =
     "Our masters will help you solve your all problems in the house and in the office. They will do their best to make your life more comfortable.";
@@ -413,7 +416,7 @@ function Masters() {
                           }}>
                           <Typography component="legend"></Typography>
                           <Rating
-                          disabled={false}
+                            disabled={false}
                             name="simple-controlled"
                             value={average(ratings[i]?.value)}
                             size="large"
