@@ -1,7 +1,6 @@
 import React from "react";
 
 function AboutUs() {
-  const arr = [1, 2];
   return (
     <div
       style={{
@@ -46,6 +45,7 @@ function AboutUs() {
         <h1>What We Do</h1>
         <div style={{ display: "flex", width: 200 }}>
           <img
+            alt=""
             style={{ height: 100, width: 100 }}
             src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/aboutusimages%2F24-hours-pngrepo-com.png?alt=media&token=f7eba51e-079c-44b7-9856-a92034741932"
           />
@@ -74,6 +74,7 @@ function AboutUs() {
         </div>
         <div style={{ display: "flex", width: 200 }}>
           <img
+            alt=""
             style={{ height: 100, width: 100 }}
             src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/aboutusimages%2Flooking-for-job.png?alt=media&token=2d287328-9029-47d0-9709-2693366f9097"
           />

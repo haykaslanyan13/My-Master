@@ -28,6 +28,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
 import { uptadeServiceList } from "../Redux/UserSlice";
+import { useCallback } from "react";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -258,7 +259,7 @@ function UpdateService({ service }) {
               margin="normal"
             />
             <div>
-              <img src="" style={{ width: 100, height: 100 }} />
+              <img alt="" src="" style={{ width: 100, height: 100 }} />
             </div>
             <DialogActions>
               <Button
@@ -309,14 +310,6 @@ function DeleteService({ service }) {
     await deleteDoc(doc(db, "services", docId));
     getUsers(db);
   };
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   const [serviceName, description] = [
-  //     data.get("serviceName"),
-  //     data.get("description"),
-  //   ];
-  // };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -386,21 +379,24 @@ function AdminPageServices() {
   const serviceList = useSelector((state) => state.user.serviceList);
   const dispatch = useDispatch();
 
-  async function getUsers(db) {
-    const servicesCol = collection(db, "services");
-    const serviceSnapshot = await getDocs(servicesCol);
-    const serviceList = serviceSnapshot.docs.map((doc) => {
-      return {
-        ...doc.data(),
-        id: doc.id,
-      };
-    });
-    dispatch(uptadeServiceList(serviceList));
-  }
+  const getData = useCallback(
+    async (db) => {
+      const servicesCol = collection(db, "services");
+      const serviceSnapshot = await getDocs(servicesCol);
+      const serviceList = serviceSnapshot.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          id: doc.id,
+        };
+      });
+      dispatch(uptadeServiceList(serviceList));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
-    getUsers(db);
-  }, []);
+    getData(db);
+  }, [getData]);
 
   return (
     <TableContainer

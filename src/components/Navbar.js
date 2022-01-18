@@ -1,5 +1,5 @@
+import React from "react";
 import { getAuth, signOut } from "firebase/auth";
-import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";

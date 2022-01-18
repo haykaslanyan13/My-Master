@@ -13,7 +13,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 import { app } from "../Firebase/FirebaseUser";
@@ -40,7 +39,6 @@ const theme = createTheme();
 export default function LogIn() {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const auth = getAuth(app);
   const signIn = async (email, password) => {
     try {
