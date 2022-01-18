@@ -3,7 +3,6 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import "../styles/Footer.css";
 import { Box, Container, Divider, Grid, Typography } from "@material-ui/core";
-import ContactUs from "../pages/ContactUs";
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -59,6 +58,7 @@ function Footer() {
               </Box>
               <Box>
                 <img
+                  alt="footerPic"
                   style={{ width: 100, height: 100, margin: "auto" }}
                   src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/LOGO.png?alt=media&token=925457a7-1b0c-458e-8466-abe931a43802"
                 />

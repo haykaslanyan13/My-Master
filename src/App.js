@@ -19,7 +19,6 @@ function App() {
     window.scrollTo(0,0)
   },[key])
 
-
   const getData = useCallback(
     async (db) => {
       const usersCol = collection(db, "users");

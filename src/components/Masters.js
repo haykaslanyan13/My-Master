@@ -146,6 +146,46 @@ const BootstrapDialogTitle = (props) => {
   );
 };
 
+function AlertDialog() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button
+        style={{
+          size: 10,
+          borderRadius: 10,
+          width: 150,
+          height: 50,
+        }}
+        onClick={handleClickOpen}
+        variant="contained">
+        ORDER
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description">
+        <DialogTitle id="alert-dialog-title">
+          {"You need to log in for doing orders."}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+
 function Order({ master, serviceName }) {
   const id = uuidv4();
   const user = useSelector((state) => state.user.user);
@@ -194,7 +234,7 @@ function Order({ master, serviceName }) {
     setOpen(false);
   };
 
-  return (
+  return user ? (
     <div>
       <Button
         style={{
@@ -266,6 +306,8 @@ function Order({ master, serviceName }) {
         </DialogContent>
       </BootstrapDialog>
     </div>
+  ) : (
+    <AlertDialog />
   );
 }
 

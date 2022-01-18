@@ -12,8 +12,7 @@ function NextSection() {
             marginTop: "60px",
             marginLeft: 100,
             textTransform: "uppercase",
-          }}
-        >
+          }}>
           everyday life made easier
         </h1>
         <p style={{color: "#666a6c"}}>
