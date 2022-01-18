@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import Button from "@mui/material/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import {
   collection,
@@ -148,7 +148,7 @@ const BootstrapDialogTitle = (props) => {
 
 function AlertDialog() {
   const [open, setOpen] = React.useState(false);
-
+  const navigate = useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -176,10 +176,13 @@ function AlertDialog() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">
-          {"You need to log in for doing orders."}
+          {"You need to log in as CLIENT for doing orders."}
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
+          <Button variant="contained" onClick={() => navigate("/login")}>
+            Log In
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
@@ -234,7 +237,9 @@ function Order({ master, serviceName }) {
     setOpen(false);
   };
 
-  return user ? (
+  return !user || user.userType === "master" ? ( // )
+    <AlertDialog />
+  ) : (
     <div>
       <Button
         style={{
@@ -306,8 +311,6 @@ function Order({ master, serviceName }) {
         </DialogContent>
       </BootstrapDialog>
     </div>
-  ) : (
-    <AlertDialog />
   );
 }
 
@@ -462,6 +465,7 @@ function Masters() {
                             size="large"
                             onChange={(event, newValue) => {
                               if (
+                                currentUserData &&
                                 !ratings[i].id.includes(currentUserData.id) &&
                                 currentUserData.userType === "client"
                               ) {
