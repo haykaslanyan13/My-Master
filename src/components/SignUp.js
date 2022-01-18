@@ -18,9 +18,8 @@ import {
   getAuth,
   onAuthStateChanged,
 } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
 import { app, db } from "../Firebase/FirebaseUser";
-import { Card, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import validation from "./validation";
 import "../styles/SignUp.css";
 import { makeStyles } from "@mui/styles";
@@ -35,7 +34,6 @@ import {
   where,
 } from "firebase/firestore/lite";
 import { v4 as uuidv4 } from "uuid";
-import { Input } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -47,7 +45,6 @@ const theme = createTheme();
 
 export default function SignUp() {
   const [errors, setErrors] = useState({});
-  const dispatch = useDispatch();
   const classes = useStyles();
   const [serviceList, setServiceList] = useState([]);
   const [currentUserType, setCurrentUserType] = useState("");
@@ -148,6 +145,8 @@ export default function SignUp() {
     );
   };
 
+  const style = { backgroundColor: "white" };
+
   return (
     <ThemeProvider theme={theme}>
       <Container
@@ -185,7 +184,6 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  style={{ backgroundColor: "white" }}
                 />
                 {errors.firstName && (
                   <p style={{ color: "red" }}>{errors.firstName}</p>
@@ -199,7 +197,6 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
-                  style={{ backgroundColor: "white" }}
                 />
                 {errors.lastName && (
                   <p style={{ color: "red" }}>{errors.lastName}</p>
@@ -215,7 +212,6 @@ export default function SignUp() {
                   id="phoneNumber"
                   autoComplete="new-phoneNumber"
                   type="number"
-                  style={{ backgroundColor: "white" }}
                 />
                 {errors.phoneNumber && (
                   <p style={{ color: "red" }}>{errors.phoneNumber}</p>
@@ -231,7 +227,6 @@ export default function SignUp() {
                     id="demo-simple-select"
                     name="userType"
                     label="User Type"
-                    style={{ backgroundColor: "white" }}
                     onChange={(event) =>
                       setCurrentUserType(event.target.value)
                     }>
@@ -269,7 +264,6 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  style={{ backgroundColor: "white" }}
                 />
                 {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
               </Grid>
@@ -282,7 +276,6 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  style={{ backgroundColor: "white" }}
                 />
                 {errors.password && (
                   <p style={{ color: "red" }}>{errors.password}</p>
@@ -297,7 +290,6 @@ export default function SignUp() {
                   type="password"
                   id="password2"
                   autoComplete="new-password"
-                  style={{ backgroundColor: "white" }}
                 />
                 {errors.password2 && (
                   <p style={{ color: "red" }}>{errors.password2}</p>
@@ -309,7 +301,6 @@ export default function SignUp() {
                     <Checkbox
                       value="allowExtraEmails"
                       color="primary"
-                      style={{ backgroundColor: "white" }}
                     />
                   }
                   label="I want to receive inspiration, marketing promotions and updates via email."

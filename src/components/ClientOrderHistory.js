@@ -16,7 +16,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore/lite";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { db } from "../Firebase/FirebaseUser";
 import { v4 as uuidv4 } from "uuid";
@@ -36,6 +36,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 function ClientOrderHistory() {
   const [open, setOpen] = React.useState(false);
   const [status, setStatus] = useState({});
+  const [mastersList, setMastersList] = useState([]);
+  const [ordersList, setOrdersList] = useState([]);
+  const user = useSelector((state) => state.user.user);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -55,40 +58,40 @@ function ClientOrderHistory() {
     setStatus(mockStatus);
   };
 
-  const [master, setMaster] = useState({});
-  const [ordersList, setOrdersList] = useState([]);
-  const client = useSelector((state) => state.user.user);
-  async function getUsers(db) {
-    const ordersRef = collection(db, "orders");
-    const ordersSnapshot = await getDocs(ordersRef);
-    const ordersList = ordersSnapshot.docs.map((doc) => {
-      return {
-        ...doc.data(),
-        id: doc.id,
-      };
-    });
-    const clientCol = collection(db, "users");
-    const q = query(clientCol, where("email", "==", client.email));
-    const clientSnapshot = await getDocs(q);
-    const clientRef = clientSnapshot.docs[0].ref;
+  const getData = useCallback(
+    async (db) => {
+      const usersCol = collection(db, "users");
+      const q = query(usersCol, where("email", "==", user.email));
+      const clientSnapshot = await getDocs(q);
+      const clientRef = clientSnapshot.docs[0].ref;
+      const ordersCol = collection(db, "orders");
+      const qq = query(ordersCol, where("client", "==", clientRef));
+      const ordersSnapshot = await getDocs(qq);
+      const ordersList = ordersSnapshot.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          id: doc.id,
+        };
+      });
+      let ordersStatus = {};
+      ordersList.forEach((order) => (ordersStatus[order.id] = order.status));
+      setStatus(ordersStatus);
+      const mastersRefs = ordersList.map((order) => order.master);
+      const mastersSnapshot = await Promise.all(
+        mastersRefs.map((master) => getDoc(master))
+      );
+      const mastersList = mastersSnapshot.map((master) => master.data());
+      setMastersList(mastersList);
+      setOrdersList(ordersList);
+    },
+    [user]
+  );
 
-    const orders = ordersList.filter(
-      (order) => JSON.stringify(order.client) === JSON.stringify(clientRef)
-    );
-    let mastersRef = [];
-    let ordersStatus = {};
-    orders.forEach((order) => mastersRef.push(order.master));
-    orders.forEach((order) => (ordersStatus[order.id] = order.status));
-    setStatus(ordersStatus);
-    const a = mastersRef.map((master) => getDoc(master));
-    const aa = await Promise.all(a);
-    setMaster(aa);
-
-    setOrdersList(orders);
-  }
   useEffect(() => {
-    getUsers(db);
-  }, []);
+    if (user) {
+      getData(db);
+    }
+  }, [getData, user]);
 
   return (
     <div>
@@ -156,10 +159,10 @@ function ClientOrderHistory() {
                     key={uuidv4()}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                     <TableCell component="th" scope="row">
-                      {master[i].data()?.firstName} {master[i].data()?.lastName}
+                      {mastersList[i]?.firstName} {mastersList[i]?.lastName}
                     </TableCell>
                     <TableCell align="left">
-                      {master[i].data()?.phoneNumber}
+                      {mastersList[i]?.phoneNumber}
                     </TableCell>
                     <TableCell align="left">{date}</TableCell>
                     <TableCell align="left">

@@ -10,11 +10,7 @@ function Image() {
   const uploadImage = async (e) => {
     const storageRef = ref(storage, e.target.files[0].name);
     try {
-      const uploadTask = await uploadBytes(
-        storageRef,
-        e.target.files[0],
-        metadata
-      );
+      await uploadBytes(storageRef, e.target.files[0], metadata);
     } catch {}
     getDownloadURL(ref(storage, e.target.files[0].name))
       .then((url) => {
@@ -28,7 +24,7 @@ function Image() {
   return (
     <div>
       <input onChange={(e) => uploadImage(e)} type="file"></input>
-      <img src={url} />
+      <img alt="" src={url} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
+import React from "react";
 import { getAuth, signOut } from "firebase/auth";
-import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ function Navbar() {
               cursor: "pointer",
             }}
             onClick={() => navigate("/home")}>
-            <span style={{ color: "#007ce7", fontSize: "30px" }}>My </span>
+            <span style={{ color: "#007ce7", fontSize: "30px" }}>My  </span>
             <span style={{ color: "#007f8b", fontSize: "30px" }}>Master</span>
           </div>
         </div>

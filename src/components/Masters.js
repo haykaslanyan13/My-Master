@@ -11,7 +11,7 @@ import {
 import Avatar from "@mui/material/Avatar";
 import Rating from "@mui/material/Rating";
 import Box from "@mui/material/Box";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import Button from "@mui/material/Button";
@@ -146,16 +146,55 @@ const BootstrapDialogTitle = (props) => {
   );
 };
 
+function AlertDialog() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button
+        style={{
+          size: 10,
+          borderRadius: 10,
+          width: 150,
+          height: 50,
+        }}
+        onClick={handleClickOpen}
+        variant="contained">
+        ORDER
+      </Button>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description">
+        <DialogTitle id="alert-dialog-title">
+          {"You need to log in for doing orders."}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+
 function Order({ master, serviceName }) {
   const id = uuidv4();
   const user = useSelector((state) => state.user.user);
-  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(new Date());
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const [adress, date] = [data.get("adress"), data.get("date")];
+    const adress = data.get("adress");
     getRef(adress, value);
     handleClose();
   };
@@ -171,12 +210,12 @@ function Order({ master, serviceName }) {
     const userSnapshot = await getDocs(q);
     const serviceRef = serviceSnapshot.docs[0].ref;
     const masterRef = masterSnapshot.docs[0].ref;
-    const userRef = userSnapshot.docs[0].ref;
+    const clientRef = userSnapshot.docs[0].ref;
     try {
       await setDoc(doc(db, "orders", id), {
         adress,
         date: value,
-        client: userRef,
+        client: clientRef,
         service: serviceRef,
         master: masterRef,
         status: "pending",
@@ -195,7 +234,7 @@ function Order({ master, serviceName }) {
     setOpen(false);
   };
 
-  return (
+  return user ? (
     <div>
       <Button
         style={{
@@ -267,70 +306,70 @@ function Order({ master, serviceName }) {
         </DialogContent>
       </BootstrapDialog>
     </div>
+  ) : (
+    <AlertDialog />
   );
 }
 
 function Masters() {
   let { itemTitle } = useParams();
   const storage = getStorage();
+  const currentUserData = useSelector((state) => state.user.user);
   const [url, setUrl] = useState("");
   const [userList, setUserList] = useState([]);
   const [ratings, setRatings] = useState([]);
-  getDownloadURL(ref(storage, "Images/Home-Services-Pic1.jpg"))
-    .then((url1) => {
-      setUrl(url1);
-    })
-    .catch((error) => {
-      // Handle any errors
-    });
 
-  const currentUserData = useSelector((state) => state.user.user);
-  const getUsers = useCallback(async (db) => {
-    const servicesRef = collection(db, "services");
-    const q = query(servicesRef, where("name", "==", itemTitle));
-    const serviceSnapshot = await getDocs(q);
-    const ref = serviceSnapshot.docs[0].ref;
-    const usersCol = collection(db, "users");
-    const userSnapshot = await getDocs(usersCol);
-    const userList = userSnapshot.docs.map((doc) => {
-      return {
-        ...doc.data(),
-        id: doc.id,
-      };
-    });
-    const filteredMasters = userList.filter(
-      (user) => JSON.stringify(user.service) === JSON.stringify(ref)
-    );
-    const filteredMastersRatings = filteredMasters.map((item) => {
-      const itemRating = item.rating;
-      const idArr = itemRating.reduce(function (previousValue, currentValue) {
-        previousValue.push(currentValue.id);
-        return previousValue;
-      }, []);
-      const valueArr = itemRating.reduce(function (
-        previousValue,
-        currentValue
-      ) {
-        previousValue.push(currentValue.value);
-        return previousValue;
-      },
-      []);
-      return {
-        id: idArr,
-        value: valueArr,
-      };
-    });
-    setRatings(filteredMastersRatings);
-    setUserList(filteredMasters);
-  }, []);
+  const getData = useCallback(
+    async (db) => {
+      const url = await getDownloadURL(
+        ref(storage, "Images/Home-Services-Pic1.jpg")
+      );
+      setUrl(url);
+      const servicesCol = collection(db, "services");
+      const q = query(servicesCol, where("name", "==", itemTitle));
+      const servicesSnapshot = await getDocs(q);
+      const serviceRef = servicesSnapshot.docs[0].ref;
+      const usersCol = collection(db, "users");
+      const qq = query(usersCol, where("service", "==", serviceRef));
+      const mastersSnapshot = await getDocs(qq);
+      const mastersList = mastersSnapshot.docs.map((doc) => {
+        return {
+          ...doc.data(),
+          id: doc.id,
+        };
+      });
+      const mastersRatings = mastersList.map((item) => {
+        const itemRating = item.rating;
+        const idArr = itemRating.reduce(function (previousValue, currentValue) {
+          previousValue.push(currentValue.id);
+          return previousValue;
+        }, []);
+        const valueArr = itemRating.reduce(function (
+          previousValue,
+          currentValue
+        ) {
+          previousValue.push(currentValue.value);
+          return previousValue;
+        },
+        []);
+        return {
+          id: idArr,
+          value: valueArr,
+        };
+      });
+      setRatings(mastersRatings);
+      setUserList(mastersList);
+    },
+    [storage, itemTitle]
+  );
 
   useEffect(() => {
-    getUsers(db);
+    getData(db);
     return () => {
       setRatings([]);
       setUserList([]);
     };
-  }, [getUsers]);
+  }, [getData]);
   const mastersDiscription =
     "Our masters will help you solve your all problems in the house and in the office. They will do their best to make your life more comfortable.";
   return (
@@ -352,6 +391,7 @@ function Masters() {
       </h1>
       <div>
         <img
+          alt=""
           style={{
             marginLeft: "auto",
             marginRight: "auto",
