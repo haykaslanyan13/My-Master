@@ -19,18 +19,7 @@ function App() {
     window.scrollTo(0,0)
   },[key])
 
-  async function getData(db) {
-    const usersCol = collection(db, "users");
-    const userSnapshot = await getDocs(usersCol);
-    const currentUserData = userSnapshot.docs.find(
-      (doc) => doc.data().email === auth.currentUser.email
-    );
-    try {
-      dispatch(setUser({ ...currentUserData.data(), id: currentUserData.id }));
-    } catch (e) {
-      console.error(e);
-    }
-  }
+
   const getData = useCallback(
     async (db) => {
       const usersCol = collection(db, "users");
