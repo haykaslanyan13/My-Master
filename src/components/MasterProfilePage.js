@@ -22,8 +22,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { setUser } from "../Redux/UserSlice";
 import { styled } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
 import MyMasterOrders from "./MyMasterOrders";
@@ -35,7 +33,6 @@ function MasterProfilePage() {
   const [service, setService] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(currentUserData?.phoneNumber);
   const [img, setImg] = useState(currentUserData?.img);
-  const [imgData, setImgData] = useState("");
   const [serviceList, setServiceList] = useState([]);
 
   const metadata = {
