@@ -226,9 +226,9 @@ export default function SignUp() {
                     id="demo-simple-select"
                     name="userType"
                     label="User Type"
-                    onChange={(event) => {
-                      setCurrentUserType(event.target.value);
-                    }}>
+                    onChange={(event) =>
+                      setCurrentUserType(event.target.value)
+                    }>
                     <MenuItem value={"master"}>Master</MenuItem>
                     <MenuItem value={"client"}>Client</MenuItem>
                   </Select>

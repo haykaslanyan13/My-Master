@@ -259,7 +259,7 @@ function UpdateService({ service }) {
               margin="normal"
             />
             <div>
-              <img alt="" src="" style={{ width: 100, height: 100 }} />
+              <img alt="adminServicePic" src="" style={{ width: 100, height: 100 }} />
             </div>
             <DialogActions>
               <Button
