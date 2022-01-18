@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { setUser } from "../Redux/UserSlice";
 import { styled } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
 import ClientOrderHistory from "./ClientOrderHistory";
@@ -21,7 +19,6 @@ function ClientProfilePage() {
   const currentUserData = useSelector((state) => state.user.user);
   const [phoneNumber, setPhoneNumber] = useState(currentUserData?.phoneNumber);
   const [img, setImg] = useState(currentUserData?.img);
-  const [imgData, setImgData] = useState("");
   const storage = getStorage();
   const metadata = {
     contentType: "image/jpeg",
