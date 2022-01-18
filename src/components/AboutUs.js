@@ -13,7 +13,6 @@ function AboutUs() {
         <div
           style={{
             textAlign: "left",
-            // marginLeft: 220,
             marginTop: 100,
             letterSpacing: 2,
             borderLeft: "solid",
