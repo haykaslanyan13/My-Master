@@ -23,24 +23,20 @@ function HeroSection() {
 
   return (
     <div className="hero-container">
-      <h1>Let the Master take the spot!</h1>
-      <h3
-        style={{
-          position: "absolute",
-          top: "30%",
-          left: "30%",
-          transform: "translate(-30%, -30%)",
-          color: "#007f8b",
-        }}>
-        You don't have to do the housework you used to do!
-        <div
+      <div>
+        <h1 style={{ paddingTop: 150 }}>Let the Master take the spot!</h1>
+        <h2
           style={{
-            marginTop: "1em",
-            marginBottom: "1em",
-            marginLeft: 0,
-            marginRight: 0,
+            position: "absolute",
+            top: "30%",
+            left: "30%",
+            transform: "translate(-30%, -30%)",
+            color: "#007f8b",
+            // color: "#000000",
+            paddingTop: 100,
+            alignItems: "center",
           }}>
-          Our services will help you with any work you don't feel like
+          You don't have to do the housework you used to do!
           <div
             style={{
               marginTop: "1em",
@@ -48,10 +44,20 @@ function HeroSection() {
               marginLeft: 0,
               marginRight: 0,
             }}>
-            doing at the moment.
+            Our services will help you with any work you don't feel like
+            <div
+              style={{
+                marginTop: "1em",
+                marginBottom: "1em",
+                marginLeft: 0,
+                marginRight: 0,
+              }}>
+              doing at the moment.
+            </div>
           </div>
-        </div>
-      </h3>
+        </h2>
+      </div>
+
       <div
         style={{
           position: "absolute",
