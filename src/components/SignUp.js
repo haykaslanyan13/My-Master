@@ -251,7 +251,7 @@ export default function SignUp() {
                       name="service"
                       // value={service}
                       label="Service">
-                      style={{ backgroundColor: "white" }}
+                      {/* style={{ backgroundColor: "white" }} */}
                       {serviceList.map((i) => (
                         <MenuItem key={i.name} value={i.name}>
                           {i.name}
