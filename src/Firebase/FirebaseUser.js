@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import { getFirestore } from "firebase/firestore/lite";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -13,13 +13,6 @@ const firebaseConfig = {
   measurementId: "G-Z2DV3VCE86",
 };
 
-// Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
-
-export async function getUsers(db) {
-  const usersCol = collection(db, "users");
-  const userSnapshot = await getDocs(usersCol);
-  const userList = userSnapshot.docs.map((doc) => doc.data());
-}

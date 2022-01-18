@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import { Button, TextField, Typography } from "@mui/material";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
@@ -27,36 +27,46 @@ import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
 import MyMasterOrders from "./MyMasterOrders";
-import FullScreenDialog from "./MyMasterOrders";
 
 function MasterProfilePage() {
   const dispatch = useDispatch();
+  const storage = getStorage();
   const currentUserData = useSelector((state) => state.user.user);
   const [service, setService] = useState("");
   const [phoneNumber, setPhoneNumber] = useState(currentUserData?.phoneNumber);
-  const [email, setEmail] = useState(currentUserData?.email);
   const [img, setImg] = useState(currentUserData?.img);
   const [imgData, setImgData] = useState("");
   const [serviceList, setServiceList] = useState([]);
-  const storage = getStorage();
+
   const metadata = {
     contentType: "image/jpeg",
   };
 
-  if (currentUserData) {
-    getDoc(currentUserData?.service).then((d) => {
-      setService(d.data().name);
-    });
-  }
+  const Input = styled("input")({
+    display: "none",
+  });
 
-  async function getData(db) {
+  const getData = useCallback(async (db) => {
     const servicesCol = collection(db, "services");
     const serviceSnapshot = await getDocs(servicesCol);
-    setServiceList(serviceSnapshot.docs.map((doc) => doc.data()));
-  }
+    const serviceList = serviceSnapshot.docs.map((doc) => doc.data());
+    setServiceList(serviceList);
+  }, []);
+
+  const getService = useCallback(async () => {
+    const service = await getDoc(currentUserData.service);
+    setService(service.data().name);
+  }, [currentUserData]);
+
+  useEffect(() => {
+    if (currentUserData) {
+      getService();
+    }
+  }, [currentUserData, getService]);
+
   useEffect(() => {
     getData(db);
-  }, []);
+  }, [getData]);
 
   const handleChange = async (event) => {
     const servicesRef = collection(db, "services");
@@ -92,10 +102,6 @@ function MasterProfilePage() {
       } catch {}
     }
   };
-
-  const Input = styled("input")({
-    display: "none",
-  });
 
   return (
     <div style={{ display: "flex", paddingTop: "100px" }}>
@@ -198,7 +204,7 @@ function MasterProfilePage() {
             label="email"
             variant="standard"
             className="email-input"
-            value={email}
+            value={currentUserData?.email}
             style={{ marginLeft: 5, width: 300 }}
           />
         </div>
