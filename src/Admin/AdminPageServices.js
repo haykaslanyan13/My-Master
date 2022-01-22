@@ -15,7 +15,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore/lite";
-import { db } from "../Firebase/FirebaseUser";
+import { db, storage } from "../Firebase/FirebaseUser";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
@@ -29,6 +29,8 @@ import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
 import { uptadeServiceList } from "../Redux/UserSlice";
 import { useCallback } from "react";
+import ImageNotSupportedIcon from "@mui/icons-material/ImageNotSupported";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -70,6 +72,7 @@ BootstrapDialogTitle.propTypes = {
 function AddService() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const [imgSrc, setImgSrc] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -82,6 +85,7 @@ function AddService() {
       await addDoc(collection(db, "services"), {
         name: serviceName,
         description: description,
+        image: imgSrc,
       });
     } catch {}
     const servicesCol = collection(db, "services");
@@ -101,6 +105,29 @@ function AddService() {
   };
   const handleClose = () => {
     setOpen(false);
+    setImgSrc("");
+  };
+
+  const Input = styled("input")({
+    display: "none",
+  });
+
+  const metadata = {
+    contentType: "image/jpeg",
+  };
+
+  const uploadImage = async (e) => {
+    const imgData = e.target.files[0];
+    if (imgData) {
+      const storageRef = ref(storage, `services-images/${imgData.name}`);
+      try {
+        await uploadBytes(storageRef, imgData, metadata);
+        const url = await getDownloadURL(
+          ref(storage, `services-images/${imgData.name}`)
+        );
+        setImgSrc(url);
+      } catch {}
+    }
   };
 
   return (
@@ -139,6 +166,31 @@ function AddService() {
               name="description"
               margin="normal"
             />
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {imgSrc ? (
+                <img alt="" src={imgSrc} style={{ height: 100, width: 100 }} />
+              ) : (
+                <ImageNotSupportedIcon style={{ height: 100, width: 100 }} />
+              )}
+
+              <label htmlFor="contained-button-file"></label>
+              <label htmlFor="icon-button-file">
+                <Input
+                  accept="image/*"
+                  id="icon-button-file"
+                  type="file"
+                  onChange={async (e) => {
+                    uploadImage(e);
+                  }}
+                />
+                <Button
+                  style={{ marginLeft: 10 }}
+                  variant="contained"
+                  component="span">
+                  Upload
+                </Button>
+              </label>
+            </div>
             <DialogActions>
               <Button
                 onClick={handleClose}
@@ -172,6 +224,7 @@ function UpdateService({ service }) {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [defaultName, setDefaultName] = useState(service.name);
+  const [imgSrc, setImgSrc] = useState(service.image);
   const [defaultDescription, setDefaultDescription] = useState(
     service.description
   );
@@ -195,6 +248,7 @@ function UpdateService({ service }) {
       await updateDoc(doc(db, "services", service.id), {
         description: description ? description : service.description,
         name: serviceName ? serviceName : service.name,
+        image: imgSrc,
       });
     } catch {}
     const servicesCol = collection(db, "services");
@@ -216,6 +270,29 @@ function UpdateService({ service }) {
     setDefaultName(service.name);
     setDefaultDescription(service.description);
     setOpen(false);
+    setImgSrc(service.image);
+  };
+
+  const Input = styled("input")({
+    display: "none",
+  });
+
+  const metadata = {
+    contentType: "image/jpeg",
+  };
+
+  const uploadImage = async (e) => {
+    const imgData = e.target.files[0];
+    if (imgData) {
+      const storageRef = ref(storage, `services-images/${imgData.name}`);
+      try {
+        await uploadBytes(storageRef, imgData, metadata);
+        const url = await getDownloadURL(
+          ref(storage, `services-images/${imgData.name}`)
+        );
+        setImgSrc(url);
+      } catch {}
+    }
   };
 
   return (
@@ -258,8 +335,43 @@ function UpdateService({ service }) {
               name="description"
               margin="normal"
             />
-            <div>
-              <img alt="adminServicePic" src="" style={{ width: 100, height: 100 }} />
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {imgSrc ? (
+                <img alt="" src={imgSrc} style={{ height: 100, width: 100 }} />
+              ) : (
+                <ImageNotSupportedIcon style={{ height: 100, width: 100 }} />
+              )}
+              <div style={{ display: "block" }}>
+                <label htmlFor="contained-button-file"></label>
+                <label htmlFor="icon-button-file">
+                  <Input
+                    accept="image/*"
+                    id="icon-button-file"
+                    type="file"
+                    onChange={async (e) => {
+                      uploadImage(e);
+                    }}
+                  />
+                  <Button
+                    style={{ marginLeft: 10 }}
+                    variant="contained"
+                    component="span">
+                    Upload
+                  </Button>
+                </label>
+                <br />
+                {imgSrc ? (
+                  <Button
+                    size="small"
+                    style={{ marginLeft: 10, marginTop: 5 }}
+                    variant="contained"
+                    color="error"
+                    component="span"
+                    onClick={() => setImgSrc("")}>
+                    Delete
+                  </Button>
+                ) : null}
+              </div>
             </div>
             <DialogActions>
               <Button
@@ -409,6 +521,7 @@ function AdminPageServices() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
+            <TableCell align="left"></TableCell>
             <TableCell
               style={{ fontWeight: "bolder", fontSize: 18 }}
               align="left">
@@ -431,6 +544,17 @@ function AdminPageServices() {
               <TableRow
                 key={service?.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableCell component="th" scope="row">
+                  {service.image ? (
+                    <img
+                      style={{ width: 50, height: 50 }}
+                      alt=""
+                      src={service.image}
+                    />
+                  ) : (
+                    <ImageNotSupportedIcon style={{ width: 50, height: 50 }} />
+                  )}
+                </TableCell>
                 <TableCell component="th" scope="row">
                   {service?.name}
                 </TableCell>

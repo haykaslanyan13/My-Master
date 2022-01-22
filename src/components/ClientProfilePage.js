@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { setUser } from "../Redux/UserSlice";
 import { styled } from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
 import PersonIcon from "@mui/icons-material/Person";
 import ClientOrderHistory from "./ClientOrderHistory";
@@ -21,7 +19,6 @@ function ClientProfilePage() {
   const currentUserData = useSelector((state) => state.user.user);
   const [phoneNumber, setPhoneNumber] = useState(currentUserData?.phoneNumber);
   const [img, setImg] = useState(currentUserData?.img);
-  const [imgData, setImgData] = useState("");
   const storage = getStorage();
   const metadata = {
     contentType: "image/jpeg",
@@ -34,7 +31,8 @@ function ClientProfilePage() {
     });
   };
 
-  const uploadImage = async () => {
+  const uploadImage = async (e) => {
+    const imgData = e.target.files[0];
     if (imgData) {
       const storageRef = ref(storage, `userImages/${imgData.name}`);
       try {
@@ -85,26 +83,19 @@ function ClientProfilePage() {
           alignItems="center"
           spacing={2}
           style={{ marginLeft: "140px" }}>
-          <label htmlFor="contained-button-file">
-            <Button variant="contained" component="span" onClick={uploadImage}>
-              Upload
-            </Button>
-          </label>
+          <label htmlFor="contained-button-file"></label>
           <label htmlFor="icon-button-file">
             <Input
               accept="image/*"
               id="icon-button-file"
               type="file"
               onChange={async (e) => {
-                setImgData(e.target.files[0]);
+                uploadImage(e);
               }}
             />
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span">
-              <PhotoCamera />
-            </IconButton>
+            <Button variant="contained" component="span">
+              Upload
+            </Button>
           </label>
         </Stack>
       </div>

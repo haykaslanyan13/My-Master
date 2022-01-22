@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import Button from "@mui/material/Button";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import {
   collection,
@@ -38,6 +38,7 @@ import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { v4 as uuidv4 } from "uuid";
+import { getAuth, signOut } from "firebase/auth";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -147,14 +148,27 @@ const BootstrapDialogTitle = (props) => {
 };
 
 function AlertDialog() {
+  const currentUser = useSelector((state) => state.user.user);
+  const auth = getAuth();
   const [open, setOpen] = React.useState(false);
-
+  const navigate = useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const logOutAndNavigateToLogin = async () => {
+    if (currentUser) {
+      try {
+        await signOut(auth);
+        navigate("/login");
+      } catch {}
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -176,10 +190,13 @@ function AlertDialog() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">
-          {"You need to log in for doing orders."}
+          {"You need to log in as CLIENT for doing orders."}
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
+          <Button variant="contained" onClick={logOutAndNavigateToLogin}>
+            {currentUser ? "Log Out & Log In" : "Log In"}
+          </Button>
         </DialogActions>
       </Dialog>
     </div>
@@ -234,7 +251,9 @@ function Order({ master, serviceName }) {
     setOpen(false);
   };
 
-  return user ? (
+  return !user || user.userType === "master" ? ( // )
+    <AlertDialog />
+  ) : (
     <div>
       <Button
         style={{
@@ -306,8 +325,6 @@ function Order({ master, serviceName }) {
         </DialogContent>
       </BootstrapDialog>
     </div>
-  ) : (
-    <AlertDialog />
   );
 }
 
@@ -462,6 +479,7 @@ function Masters() {
                             size="large"
                             onChange={(event, newValue) => {
                               if (
+                                currentUserData &&
                                 !ratings[i].id.includes(currentUserData.id) &&
                                 currentUserData.userType === "client"
                               ) {
