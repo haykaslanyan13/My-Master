@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/My-Master/static/css/main.07da45e3.chunk.css",
+    "main.js": "/My-Master/static/js/main.374ed97f.chunk.js",
+    "main.js.map": "/My-Master/static/js/main.374ed97f.chunk.js.map",
+    "runtime-main.js": "/My-Master/static/js/runtime-main.0f99cf91.js",
+    "runtime-main.js.map": "/My-Master/static/js/runtime-main.0f99cf91.js.map",
+    "static/css/2.f4c56af9.chunk.css": "/My-Master/static/css/2.f4c56af9.chunk.css",
+    "static/js/2.eccd120c.chunk.js": "/My-Master/static/js/2.eccd120c.chunk.js",
+    "static/js/2.eccd120c.chunk.js.map": "/My-Master/static/js/2.eccd120c.chunk.js.map",
+    "static/js/3.61747c67.chunk.js": "/My-Master/static/js/3.61747c67.chunk.js",
+    "static/js/3.61747c67.chunk.js.map": "/My-Master/static/js/3.61747c67.chunk.js.map",
+    "index.html": "/My-Master/index.html",
+    "static/css/2.f4c56af9.chunk.css.map": "/My-Master/static/css/2.f4c56af9.chunk.css.map",
+    "static/css/main.07da45e3.chunk.css.map": "/My-Master/static/css/main.07da45e3.chunk.css.map",
+    "static/js/2.eccd120c.chunk.js.LICENSE.txt": "/My-Master/static/js/2.eccd120c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0f99cf91.js",
+    "static/css/2.f4c56af9.chunk.css",
+    "static/js/2.eccd120c.chunk.js",
+    "static/css/main.07da45e3.chunk.css",
+    "static/js/main.374ed97f.chunk.js"
+  ]
+}
