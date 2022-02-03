@@ -37,8 +37,8 @@ function NextSection() {
       <div>
       <img
         alt=""
-        style={{ width: "534px", height: "500px",position: "absolute", right: 80, top: 50 }}
-        src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/56952724ee5683ad74754d8da5a3e794.jpg?alt=media&token=073c5461-2661-4eb3-8657-b6ea93148156"
+        style={{ width: "420px", height: "450px",position: "absolute", right: 80, top: 50 }}
+        src="https://firebasestorage.googleapis.com/v0/b/test-53482.appspot.com/o/01aa76c8746b0194feeb9e6dca0600cf.jpg?alt=media&token=2ec650da-695d-4a35-87ab-e18cd38748b3"
         width={500}
       />
       </div>
