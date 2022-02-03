@@ -24,8 +24,6 @@ function HeroSection() {
             top: "30%",
             left: "30%",
             transform: "translate(-30%, -30%)",
-            color: "#007f8b",
-            // color: "#000000",
             paddingTop: 100,
             alignItems: "center",
           }}>
