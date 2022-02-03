@@ -6,7 +6,7 @@ function NextSection() {
   return (
     <div className="next-container">
       <div style={{textAlign: "left", top: "50%",}}>
-        <div style={{matgin: "auto",  padding: 60}}>
+        <div style={{margin: "auto",  padding: 60}}>
         <h1
           style={{
             marginTop: "60px",
