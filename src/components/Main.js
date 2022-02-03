@@ -12,6 +12,7 @@ import ContactUs from "../pages/ContactUs";
 import Privacy from "../pages/Privacy";
 import UserProfilePage from "./ClientProfilePage";
 import AboutUs from "./AboutUs";
+import Blog from "../pages/Blog";
 
 function Main() {
   return (
@@ -28,6 +29,7 @@ function Main() {
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="master" element={<MasterProfilePage />} />
         <Route path="client" element={<UserProfilePage />} />
       </Routes>
