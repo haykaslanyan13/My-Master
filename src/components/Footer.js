@@ -45,7 +45,7 @@ function Footer() {
                 </Link>
               </Box>
               <Box pt={3}>
-                <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+                <Link to="/blog" style={{ color: "white", textDecoration: "none" }}>
                   Blog
                 </Link>
               </Box>
