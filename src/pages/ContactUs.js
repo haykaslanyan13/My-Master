@@ -154,7 +154,6 @@ function ContactUs() {
                 style={{ backgroundColor: "#007f8b" }}>
                 Send Message
               </Button>
-              {/* <div>{result ? <Result /> : null}</div> */}
             </Grid>
           </form>
         </CardContent>
